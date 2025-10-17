@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-enum AppThemeEnum {
+enum AppTheme {
   SYSTEM,
   LIGHT,
   DARK;
 
-  AppThemeEnum getNextTheme() {
+  AppTheme getNextTheme() {
     return switch (this) {
       SYSTEM => LIGHT,
       LIGHT => DARK,
@@ -15,30 +15,26 @@ enum AppThemeEnum {
 
   @override
   String toString() {
-    return switch (this) {
-      SYSTEM => "SYSTEM",
-      DARK => "DARK",
-      LIGHT => "LIGHT",
-    };
+    return name.toUpperCase();
   }
 
   ThemeMode getThemeMode() {
     return switch (this) {
-      AppThemeEnum.DARK => ThemeMode.dark,
-      AppThemeEnum.LIGHT => ThemeMode.light,
-      _ => ThemeMode.dark,
+      DARK => ThemeMode.dark,
+      LIGHT => ThemeMode.light,
+      _ => ThemeMode.system,
     };
   }
 
   IconData getIcon() {
     return switch (this) {
-      AppThemeEnum.LIGHT => Icons.dark_mode_rounded,
-      AppThemeEnum.DARK => Icons.brightness_auto_rounded,
+      LIGHT => Icons.dark_mode_rounded,
+      DARK => Icons.brightness_auto_rounded,
       _ => Icons.light_mode_rounded,
     };
   }
 
-  static AppThemeEnum fromString(String? theme) {
+  static AppTheme fromString(String? theme) {
     return switch (theme) {
       "LIGHT" => LIGHT,
       "DARK" => DARK,

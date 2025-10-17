@@ -4,9 +4,10 @@ import 'package:lexivo_flutter/constants/page_data.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 
 class MainPageNavbarWidget extends StatelessWidget {
-  const MainPageNavbarWidget({super.key, required this.pages});
+  const MainPageNavbarWidget({super.key, required this.pages, required this.appLang});
 
   final List<PageData> pages;
+  final AppLang appLang;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,7 @@ class MainPageNavbarWidget extends StatelessWidget {
           var page = pages[index];
           return NavigationDestination(
             icon: page.icon,
-            // TODO: Make lang dynamic
-            label: page.getLabel(AppLang.EN),
+            label: page.getLabel(appLang),
           );
         }),
       ),
