@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/shared_pref_keys.dart';
+import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/enums/app_theme_enum.dart';
 import 'package:lexivo_flutter/views/theme/themes.dart';
 import 'package:lexivo_flutter/views/widgets/main_page_widget_tree.dart';
@@ -21,13 +22,20 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     initTheme();
+    initAppLang();
     super.initState();
   }
 
   void initTheme() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    AppThemeEnum theme = AppThemeEnum.fromString(prefs.getString(keyAppTheme));
+    AppTheme theme = AppTheme.fromString(prefs.getString(keyAppTheme));
     appThemeNotifier.value = theme;
+  }
+
+  void initAppLang() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    AppLang lang = AppLang.fromString(prefs.getString(keyAppLang));
+    appLangNotifier.value = lang;
   }
 
   @override
@@ -35,11 +43,16 @@ class _MainAppState extends State<MainApp> {
     return ValueListenableBuilder(
       valueListenable: appThemeNotifier,
       builder: (context, theme, child) {
-        return MaterialApp(
-          themeMode: theme.getThemeMode(),
-          theme: Themes.getTheme(false),
-          darkTheme: Themes.getTheme(true),
-          home: MainPageWidgetTree(),
+        return ValueListenableBuilder(
+          valueListenable: appLangNotifier,
+          builder: (context, appLang, child) {
+            return MaterialApp(
+              themeMode: theme.getThemeMode(),
+              theme: Themes.getTheme(false),
+              darkTheme: Themes.getTheme(true),
+              home: MainPageWidgetTree(appLang: appLang),
+            );
+          }
         );
       },
     );

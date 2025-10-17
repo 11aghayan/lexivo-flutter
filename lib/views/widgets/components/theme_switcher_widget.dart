@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/shared_pref_keys.dart';
-import 'package:lexivo_flutter/enums/app_theme_enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeSwitcherWidget extends StatelessWidget {

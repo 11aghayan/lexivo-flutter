@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ThemeColorsLight extends ThemeColors {
   @override
@@ -19,7 +20,16 @@ class ThemeColorsDark extends ThemeColors {
 }
 
 abstract class ThemeColors {
+  static final ThemeColors _themeColorsLight = ThemeColorsLight();
+  static final ThemeColors _themeColorsDark = ThemeColorsDark();
+
   abstract final Color primary;
   abstract final Color secondary;
   abstract final Color contrastPrimary;
+
+  static ThemeColors getThemeColors(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark
+        ? _themeColorsDark
+        : _themeColorsLight;
+  }
 }

@@ -6,7 +6,7 @@ abstract class KStrings {
   static KStrings? _contentEn;
   static KStrings? _contentDe;
 
-  final String appName = "Lexivo";
+  static final String appName = "Lexivo";
   abstract final String loginSignUp;
   abstract final String settingsPageLabel;
   abstract final String profilePageLabel;

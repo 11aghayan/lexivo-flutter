@@ -6,6 +6,7 @@ import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/views/pages/dictionaries_page.dart';
 import 'package:lexivo_flutter/views/pages/profile_page.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bar_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/app_lang_switcher_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/main_page_navbar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/theme_switcher_widget.dart';
 
@@ -19,7 +20,9 @@ final List<PageData> pages = [
 ];
 
 class MainPageWidgetTree extends StatefulWidget {
-  const MainPageWidgetTree({super.key});
+  const MainPageWidgetTree({super.key, required this.appLang});
+
+  final AppLang appLang;
 
   @override
   State<MainPageWidgetTree> createState() => _MainPageWidgetTreeState();
@@ -33,13 +36,14 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
       builder: (context, pageIndex, child) {
         return Scaffold(
           appBar: AppBarWidget(
-            title: KStrings.getStringsForLang(AppLang.EN).appName,
+            title: KStrings.appName,
             actions: [
+              AppLangSwitcherWidget(),
               ThemeSwitcherWidget()
             ],
           ),
           body: pages[pageIndex].pageWidget,
-          bottomNavigationBar: MainPageNavbarWidget(pages: pages),
+          bottomNavigationBar: MainPageNavbarWidget(pages: pages, appLang: widget.appLang,),
         );
       },
     );
