@@ -1,0 +1,77 @@
+name: lexivo_flutter
+description: "A new Flutter project."
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - assets/img/
+
+
+  fonts:
+    - family: NotoSans
+      fonts:
+      - asset: fonts/noto_sans.ttf
+    - family: NotoSansArabic
+      fonts:
+      - asset: fonts/noto_sans_arabic.ttf
+    - family: NotoSansArmenian
+      fonts:
+      - asset: fonts/noto_sans_armenian.ttf
+    - family: NotoSansEthiopic
+      fonts:
+      - asset: fonts/noto_sans_ethiopic.ttf
+    - family: NotoSansBengali
+      fonts:
+      - asset: fonts/noto_sans_bengali.ttf
+    - family: NotoSansHebrew
+      fonts:
+      - asset: fonts/noto_sans_hebrew.ttf
+    - family: NotoSansGeorgian
+      fonts:
+      - asset: fonts/noto_sans_georgian.ttf
+    - family: NotoSansJp
+      fonts:
+      - asset: fonts/noto_sans_jp.ttf
+    - family: NotoSansKr
+      fonts:
+      - asset: fonts/noto_sans_kr.ttf
+    - family: NotoSansMalayalam
+      fonts:
+      - asset: fonts/noto_sans_malayalam.ttf
+    - family: NotoSansNk
+      fonts:
+      - asset: fonts/noto_sans_nk.ttf
+    - family: NotoSansNewa
+      fonts:
+      - asset: fonts/noto_sans_newa.ttf
+    - family: NotoSansTamil
+      fonts:
+      - asset: fonts/noto_sans_tamil.ttf
+    - family: NotoSansSc
+      fonts:
+      - asset: fonts/noto_sans_sc.ttf
+    - family: NotoSansTelugu
+      fonts:
+      - asset: fonts/noto_sans_telugu.ttf
+    - family: NotoSansTc
+      fonts:
+      - asset: fonts/noto_sans_tc.ttf
+    - family: NotoSansThai
+      fonts:
+      - asset: fonts/noto_sans_thai.ttf
+
+  uses-material-design: true

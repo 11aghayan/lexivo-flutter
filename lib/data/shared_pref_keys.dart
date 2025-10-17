@@ -1,0 +1,1 @@
+const String keyAppTheme = "APP_THEME";
