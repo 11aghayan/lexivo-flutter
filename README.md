@@ -1,3 +1,3 @@
-# lexivo_flutter
+# Lexivo
 
-A new Flutter project.
+Custom Language Dictionary
