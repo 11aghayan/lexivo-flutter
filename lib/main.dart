@@ -36,11 +36,7 @@ class _MainAppState extends State<MainApp> {
       valueListenable: appThemeNotifier,
       builder: (context, theme, child) {
         return MaterialApp(
-          themeMode: theme == AppThemeEnum.SYSTEM
-              ? ThemeMode.system
-              : theme == AppThemeEnum.LIGHT
-              ? ThemeMode.light
-              : ThemeMode.dark,
+          themeMode: theme.getThemeMode(),
           theme: Themes.getTheme(false),
           darkTheme: Themes.getTheme(true),
           home: MainPageWidgetTree(),

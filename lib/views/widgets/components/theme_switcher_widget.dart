@@ -18,13 +18,7 @@ class ThemeSwitcherWidget extends StatelessWidget {
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString(keyAppTheme, appThemeNotifier.value.toString());
           },
-          icon: Icon(
-            theme == AppThemeEnum.LIGHT
-                ? Icons.dark_mode_rounded
-                : theme == AppThemeEnum.DARK
-                ? Icons.brightness_auto_rounded
-                : Icons.light_mode_rounded,
-          ),
+          icon: Icon(theme.getIcon()),
         );
       },
     );
