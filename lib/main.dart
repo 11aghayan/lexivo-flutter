@@ -3,6 +3,8 @@ import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/shared_pref_keys.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/enums/app_theme_enum.dart';
+import 'package:lexivo_flutter/schema/dictionary.dart';
+import 'package:lexivo_flutter/schema/language.dart';
 import 'package:lexivo_flutter/views/theme/themes.dart';
 import 'package:lexivo_flutter/views/widgets/main_page_widget_tree.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +25,7 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     initTheme();
     initAppLang();
+    initDictionaries();
     super.initState();
   }
 
@@ -36,6 +39,18 @@ class _MainAppState extends State<MainApp> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     AppLang lang = AppLang.fromString(prefs.getString(keyAppLang));
     appLangNotifier.value = lang;
+  }
+
+  void initDictionaries() {
+    var dicts = [
+      Dictionary(Language.english),
+      Dictionary(Language.german),
+      Dictionary(Language.russian),
+      Dictionary(Language.french),
+      Dictionary(Language.spanish),
+      Dictionary(Language.italian),
+    ];
+    Dictionary.setAllDictionaries(dicts);
   }
 
   @override
@@ -52,7 +67,7 @@ class _MainAppState extends State<MainApp> {
               darkTheme: Themes.getTheme(true),
               home: MainPageWidgetTree(appLang: appLang),
             );
-          }
+          },
         );
       },
     );

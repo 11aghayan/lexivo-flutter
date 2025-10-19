@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 
 class AccountBox extends StatelessWidget {
   const AccountBox({super.key});

@@ -1,4 +1,7 @@
 abstract class Sizes {
-  static final double mainPaddingMobile = 20.0;
+  static const double mainPaddingMobile = 12.0;
+  static const double borderRadius_1 = 12.0;
+  static const double dictionaryCardHeight = 200.0;
+  static const double gridViewItemsSpacing = 10.0;
   
 }
