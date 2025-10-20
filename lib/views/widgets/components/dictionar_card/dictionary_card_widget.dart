@@ -27,12 +27,18 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () {
-        // TODO: Add scale change
+      onLongPress: () async {
+        setState(() => scale = 0.8);
+        await Future.delayed(Duration(milliseconds: 50));
+
+        setState(() => scale = 1.0);
+        await Future.delayed(Duration(milliseconds: 40));
+
         setState(() {
           rotationInRadians =
-              (rotationInRadians * -1) - getRadiansFromDegree((180));
+              (rotationInRadians * -1) - getRadiansFromDegree(180);
         });
+
         Timer(Duration(milliseconds: (animationDuration / 2).toInt()), () {
           setState(() {
             isRotated = !isRotated;
@@ -42,7 +48,7 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
       child: AnimatedContainer(
         duration: Duration(milliseconds: animationDuration),
         transformAlignment: Alignment.center,
-        transform: Matrix4.rotationX(rotationInRadians),
+        transform: Matrix4.identity()..scaleAdjoint(scale)..rotateX(rotationInRadians),
         width: double.maxFinite,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
