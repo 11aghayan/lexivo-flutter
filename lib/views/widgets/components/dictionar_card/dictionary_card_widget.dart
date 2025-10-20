@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
+import 'package:lexivo_flutter/util/math_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/dictionar_card/dictionary_card_back_face_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/dictionar_card/dictionary_card_front_face_widget.dart';
@@ -31,7 +31,7 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
         // TODO: Add scale change
         setState(() {
           rotationInRadians =
-              (rotationInRadians * -1) - getRotationRadiansFromDegree(180);
+              (rotationInRadians * -1) - getRadiansFromDegree((180));
         });
         Timer(Duration(milliseconds: (animationDuration / 2).toInt()), () {
           setState(() {
@@ -46,7 +46,13 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
         width: double.maxFinite,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
-          boxShadow: [BoxShadow(blurRadius: Sizes.cardShadowBlurRadius, color: ThemeColors.getThemeColors(context).cardBorderColor, spreadRadius: Sizes.cardShadowSpreadRadius)],
+          boxShadow: [
+            BoxShadow(
+              blurRadius: Sizes.cardShadowBlurRadius,
+              color: ThemeColors.getThemeColors(context).cardBorderColor,
+              spreadRadius: Sizes.cardShadowSpreadRadius,
+            ),
+          ],
           // border: Border.all(width: 1.5, color: ThemeColors.getThemeColors(context).cardBorderColor),
           image: DecorationImage(
             image: AssetImage(widget.dictionary.language.photoPath),
@@ -58,9 +64,5 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
             : DictionaryCardFrontFaceWidget(dictionary: widget.dictionary),
       ),
     );
-  }
-
-  double getRotationRadiansFromDegree(double degree) {
-    return degree * math.pi / 180;
   }
 }

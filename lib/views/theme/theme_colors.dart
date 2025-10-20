@@ -10,6 +10,10 @@ class ThemeColorsLight extends ThemeColors {
   @override
   final Color mainText = Color(0xFF2E2E2E);
   @override
+  final Color dictionaryIconBtnColor = Color(0xFF4A4A4A);
+  @override
+  final Color dictionaryIconBtnBorderColor = Color(0xFFD7D7D7);
+  @override
   final Color cardBorderColor = Color(0xFF999999);
 }
 
@@ -23,6 +27,10 @@ class ThemeColorsDark extends ThemeColors {
   @override
   final Color mainText = Color(0xFFCECECE);
   @override
+  final Color dictionaryIconBtnColor = Color(0xFF939393);
+  @override
+  final Color dictionaryIconBtnBorderColor = Color(0xFF282828);
+  @override
   final Color cardBorderColor = Color(0xFF666666);
 }
 
@@ -35,6 +43,8 @@ abstract class ThemeColors {
   abstract final Color contrastPrimary;
   abstract final Color mainText;
   abstract final Color cardBorderColor;
+  abstract final Color dictionaryIconBtnColor;
+  abstract final Color dictionaryIconBtnBorderColor;
 
   static ThemeColors getThemeColors(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark
