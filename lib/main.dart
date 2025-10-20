@@ -5,6 +5,7 @@ import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/enums/app_theme_enum.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
 import 'package:lexivo_flutter/schema/language.dart';
+import 'package:lexivo_flutter/schema/word.dart';
 import 'package:lexivo_flutter/views/theme/themes.dart';
 import 'package:lexivo_flutter/views/widgets/main_page_widget_tree.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,8 +44,8 @@ class _MainAppState extends State<MainApp> {
 
   void initDictionaries() {
     var dicts = [
-      Dictionary(Language.english),
-      Dictionary(Language.german),
+      Dictionary.existing(Language.english, List.filled(4022, Word())),
+      Dictionary.existing(Language.german, List.filled(1973, Word())),
       Dictionary(Language.russian),
       Dictionary(Language.french),
       Dictionary(Language.spanish),

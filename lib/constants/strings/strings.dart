@@ -11,6 +11,7 @@ abstract class KStrings {
   abstract final String settingsPageLabel;
   abstract final String profilePageLabel;
   abstract final String dictionariesPageLabel;
+  abstract final String words;
 
   static KStrings getStringsForLang(AppLang lang) {
      return switch(lang) {

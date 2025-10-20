@@ -9,5 +9,6 @@ class KStrings_DE extends KStrings {
   final String profilePageLabel = "Profil";
   @override
   final String dictionariesPageLabel = "Wörterbücher";
-  
+  @override
+  final String words = "Wörter";
 }

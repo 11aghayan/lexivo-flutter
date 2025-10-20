@@ -9,6 +9,8 @@ class ThemeColorsLight extends ThemeColors {
   final Color contrastPrimary = Color(0xFFF9F9F9);
   @override
   final Color mainText = Color(0xFF2E2E2E);
+  @override
+  final Color cardBorderColor = Color(0xFF999999);
 }
 
 class ThemeColorsDark extends ThemeColors {
@@ -20,6 +22,8 @@ class ThemeColorsDark extends ThemeColors {
   final Color contrastPrimary = Color(0xFFC9C9C9);
   @override
   final Color mainText = Color(0xFFCECECE);
+  @override
+  final Color cardBorderColor = Color(0xFF666666);
 }
 
 abstract class ThemeColors {
@@ -30,6 +34,7 @@ abstract class ThemeColors {
   abstract final Color secondary;
   abstract final Color contrastPrimary;
   abstract final Color mainText;
+  abstract final Color cardBorderColor;
 
   static ThemeColors getThemeColors(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark
