@@ -12,6 +12,18 @@ abstract class KStrings {
   abstract final String profilePageLabel;
   abstract final String dictionariesPageLabel;
   abstract final String words;
+  abstract final String deleteDialogTitle;
+  abstract final String addDictDialogTitle;
+  abstract final String cancel;
+  abstract final String delete;
+  abstract final String save;
+  abstract final String editDictDialogTitle;
+  abstract final String addDictionaryDropdownHint;
+  abstract final String noDictSelectedError;
+  abstract final String dictionaryAddedSuccessfully;
+  abstract final String dictionaryLanguageUpdatedSuccessfully;
+  abstract final String duplicateDictionary;
+  abstract final String dictionaryDeleted;
 
   static KStrings getStringsForLang(AppLang lang) {
      return switch(lang) {
@@ -41,4 +53,6 @@ abstract class KStrings {
     };
     return value;
   }
+
+  String twoStepDelete(String text); 
 }

@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
+import 'package:lexivo_flutter/constants/strings/strings.dart';
+import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/schema/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
+import 'package:lexivo_flutter/schema/language.dart';
 import 'package:lexivo_flutter/util/math_util.dart';
 import 'package:lexivo_flutter/util/string_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
-import 'package:lexivo_flutter/views/widgets/components/outlined_icon_button.dart';
+import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/btns/custom_outlined_button_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/dialogs/add_dict_dialog_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/dialogs/delete_dialog_widget.dart';
 
 class DictionaryCardBackFaceWidget extends StatelessWidget {
-  const DictionaryCardBackFaceWidget({super.key, required this.dictionary});
+  const DictionaryCardBackFaceWidget({
+    super.key,
+    required this.dictionary,
+    required this.updateDictionary,
+    required this.deleteDictionary,
+  });
 
   final Dictionary dictionary;
   final double iconSize = 32;
+  final Function(Dictionary, Language) updateDictionary;
+  final Function(Deletable) deleteDictionary;
 
   @override
   Widget build(BuildContext context) {
-    Color iconColorDark = ThemeColors.getThemeColors(context).dictionaryIconBtnColor;
-
-    Matrix4 matrix = Matrix4.identity();
-    matrix.rotateY(getRadiansFromDegree(180));
-    matrix.rotateZ(getRadiansFromDegree(180));
+    Color iconColorDark = ThemeColors.getThemeColors(context).dictionaryIconBtn;
 
     return Container(
       transformAlignment: Alignment.center,
-      transform: matrix,
+      transform: Matrix4.identity()
+        ..rotateY(getRadiansFromDegree(180))
+        ..rotateZ(getRadiansFromDegree(180)),
       padding: EdgeInsets.all(Sizes.cardInnerPadding),
       width: double.infinity,
       height: double.infinity,
@@ -33,13 +45,13 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-              Strings.toCapitalized(dictionary.language.nameOriginal),
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: ThemeColors.getThemeColors(context).mainText,
-              ),
+            Strings.toCapitalized(dictionary.language.nameOriginal),
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: ThemeColors.getThemeColors(context).mainText,
             ),
+          ),
           Divider(),
           Expanded(
             child: Row(
@@ -47,19 +59,26 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
               spacing: 4,
               children: [
                 // Icon EDIT
-                OutlinedIconButton(
+                CustomOutlinedButtonWidget(
                   onPressed: () {
-                    // TODO: Add edit dictionary func
+                    Navigator.push(
+                      context,
+                      DialogRoute(
+                        context: context,
+                        builder: (context) {
+                          return AddDictDialogWidget(
+                            dictionary: dictionary,
+                            updateDictionary: updateDictionary,
+                          );
+                        },
+                      ),
+                    );
                   },
-                  child: Icon(
-                    Icons.edit,
-                    size: iconSize,
-                    color: iconColorDark,
-                  ),
+                  child: Icon(Icons.edit, size: iconSize, color: iconColorDark),
                 ),
 
                 // Icon UPLOAD
-                OutlinedIconButton(
+                CustomOutlinedButtonWidget(
                   onPressed: () {
                     // TODO: Add upload dict func
                   },
@@ -71,7 +90,7 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
                 ),
 
                 // Icon DOWNLOAD
-                OutlinedIconButton(
+                CustomOutlinedButtonWidget(
                   onPressed: () {
                     // TODO: Add download dict func
                   },
@@ -83,14 +102,29 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
                 ),
 
                 // Icon DELETE
-                OutlinedIconButton(
+                CustomFilledButtonWidget(
                   onPressed: () {
-                    // TODO: Add download dict func
+                    Navigator.push(
+                      context,
+                      DialogRoute(
+                        context: context,
+                        builder: (context) {
+                          return DeleteDialogWidget(
+                            onDelete: () => deleteDictionary(dictionary),
+                            twoStepDeleteText:
+                                "${KStrings.getStringsForLang(appLangNotifier.value).delete.toLowerCase()} ${dictionary.language.nameOriginal}",
+                          );
+                        },
+                      ),
+                    );
                   },
+                  backgroundColor: ThemeColors.getThemeColors(
+                    context,
+                  ).deleteBtn,
                   child: Icon(
                     Icons.delete_forever_rounded,
                     size: iconSize,
-                    color: Colors.red,
+                    color: ThemeColors.getThemeColors(context).contrastPrimary,
                   ),
                 ),
               ],

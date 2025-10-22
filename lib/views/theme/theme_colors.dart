@@ -2,36 +2,60 @@ import 'package:flutter/material.dart';
 
 class ThemeColorsLight extends ThemeColors {
   @override
-  final Color primary = Color(0xFF3DA9FC);
+  final Color primary = Color.fromRGBO(61, 169, 252, 1);
   @override
-  final Color secondary = Color(0xFF6B7280);
+  final Color accent = Color.fromRGBO(249, 87, 56, 1);
   @override
-  final Color contrastPrimary = Color(0xFFF9F9F9);
+  final Color secondary = Color.fromRGBO(107, 114, 128, 1);
   @override
-  final Color mainText = Color(0xFF2E2E2E);
+  final Color contrastPrimary = Color.fromRGBO(249, 249, 249, 1);
   @override
-  final Color dictionaryIconBtnColor = Color(0xFF4A4A4A);
+  final Color mainText = Color.fromRGBO(46, 46, 46, 1);
   @override
-  final Color dictionaryIconBtnBorderColor = Color(0xFFD7D7D7);
+  final Color dictionaryIconBtn = Color.fromRGBO(74, 74, 74, 1);
   @override
-  final Color cardBorderColor = Color(0xFF999999);
+  final Color outlinedBtnBorder = Color.fromRGBO(215, 215, 215, 1);
+  @override
+  final Color cardBorder = Color.fromRGBO(153, 153, 153, 1);
+  @override
+  final Color success = Color.fromRGBO(46, 158, 109, 1);
+  @override
+  final Color failure = Color.fromRGBO(167, 1, 29, 1);
+  @override
+  final Color deleteBtn = Color.fromRGBO(167, 1, 29, 1);
+  @override
+  final Color disabledBtn = Color.fromRGBO(171, 171, 171, 1);
+  @override
+  final Color emptyPageText = Color.fromRGBO(107, 114, 128, 0.7);
 }
 
 class ThemeColorsDark extends ThemeColors {
   @override
-  final Color primary = Color(0xFF002A61);
+  final Color primary = Color.fromRGBO(0, 42, 97, 1);
   @override
-  final Color secondary = Color(0xFFA7ABB5);
+  final Color accent = Color.fromRGBO(158, 56, 35, 1);
   @override
-  final Color contrastPrimary = Color(0xFFC9C9C9);
+  final Color secondary = Color.fromRGBO(167, 171, 181, 1);
   @override
-  final Color mainText = Color(0xFFCECECE);
+  final Color contrastPrimary = Color.fromRGBO(201, 201, 201, 1);
   @override
-  final Color dictionaryIconBtnColor = Color(0xFF939393);
+  final Color mainText = Color.fromRGBO(206, 206, 206, 1);
   @override
-  final Color dictionaryIconBtnBorderColor = Color(0xFF282828);
+  final Color dictionaryIconBtn = Color.fromRGBO(147, 147, 147, 1);
   @override
-  final Color cardBorderColor = Color(0xFF666666);
+  final Color outlinedBtnBorder = Color.fromRGBO(40, 40, 40, 1);
+  @override
+  final Color cardBorder = Color.fromRGBO(102, 102, 102, 1);
+  @override
+  final Color success = Color.fromRGBO(32, 109, 76, 1);
+  @override
+  final Color failure = Color.fromRGBO(131, 1, 23, 1);
+  @override
+  final Color deleteBtn = Color.fromRGBO(131, 1, 23, 1);
+  @override
+  final Color disabledBtn = Color.fromRGBO(138, 138, 138, 1);
+  @override
+  final Color emptyPageText = Color.fromRGBO(167, 171, 181, 0.7);
 }
 
 abstract class ThemeColors {
@@ -39,12 +63,18 @@ abstract class ThemeColors {
   static final ThemeColors _themeColorsDark = ThemeColorsDark();
 
   abstract final Color primary;
+  abstract final Color accent;
   abstract final Color secondary;
   abstract final Color contrastPrimary;
   abstract final Color mainText;
-  abstract final Color cardBorderColor;
-  abstract final Color dictionaryIconBtnColor;
-  abstract final Color dictionaryIconBtnBorderColor;
+  abstract final Color cardBorder;
+  abstract final Color dictionaryIconBtn;
+  abstract final Color outlinedBtnBorder;
+  abstract final Color success;
+  abstract final Color failure;
+  abstract final Color deleteBtn;
+  abstract final Color disabledBtn;
+  abstract final Color emptyPageText;
 
   static ThemeColors getThemeColors(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark

@@ -26,6 +26,7 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     initTheme();
     initAppLang();
+    initLanguages();
     initDictionaries();
     super.initState();
   }
@@ -42,16 +43,20 @@ class _MainAppState extends State<MainApp> {
     appLangNotifier.value = lang;
   }
 
+  void initLanguages() {
+    Language.init();
+  }
+
   void initDictionaries() {
-    var dicts = [
-      Dictionary.existing(Language.english, List.filled(4022, Word())),
-      Dictionary.existing(Language.german, List.filled(1973, Word())),
-      Dictionary(Language.russian),
-      Dictionary(Language.french),
-      Dictionary(Language.spanish),
-      Dictionary(Language.italian),
-    ];
-    Dictionary.setAllDictionaries(dicts);
+    // var dicts = [
+    //   Dictionary.existing(Language.english, List.filled(4022, Word())),
+    //   Dictionary.existing(Language.german, List.filled(1973, Word())),
+    //   Dictionary(Language.russian),
+    //   Dictionary(Language.french),
+    //   Dictionary(Language.spanish),
+    //   Dictionary(Language.italian),
+    // ];
+    // Dictionary.setAllDictionaries(dicts);
   }
 
   @override

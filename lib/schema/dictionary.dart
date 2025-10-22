@@ -1,13 +1,15 @@
+import 'package:lexivo_flutter/schema/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/language.dart';
 import 'package:lexivo_flutter/schema/word.dart';
 import 'package:uuid/uuid.dart';
 
-class Dictionary {
+class Dictionary implements Deletable {
   final String id;
   final List<Word> _allWords;
   Language _language;
 
   static List<Dictionary> _allDictionaries = [];
+  static get dictionariesCount => _allDictionaries.length;
 
   Dictionary.existing(this._language, this._allWords) : id = Uuid().v4();
   Dictionary(this._language) : id = Uuid().v4(), _allWords = [];
@@ -16,21 +18,25 @@ class Dictionary {
   List<Word> get allWords => _allWords;
   int get allWordsCount => _allWords.length;
 
-  void setLanguage(Language lang) {
+  bool setLanguage(Language lang) {
+    if (Dictionary._dictionaryExists(lang)) {
+      return false;
+    }
     _language = lang;
+    return true;
   }
 
-  static void addDictionary(Dictionary dict) {
+  @override
+  void delete() {
+    _allDictionaries.remove(this);
+  }
 
+  static bool addDictionary(Dictionary dict) {
+    if (_dictionaryExists(dict.language)) {
+      return false;
+    }
     _allDictionaries.add(dict);
-  }
-
-  static void deleteDictionary(Dictionary dict) {
-    _allDictionaries.remove(dict);
-  }
-
-  static void deleteDictionaryAt(int index) {
-    _allDictionaries.removeAt(index);
+    return true;
   }
 
   static Dictionary getDictionaryAt(int index) {
@@ -43,5 +49,11 @@ class Dictionary {
 
   static void setAllDictionaries(List<Dictionary> dicts) {
     _allDictionaries = dicts;
+  }
+
+  static bool _dictionaryExists(Language lang) {
+    return _allDictionaries.any(
+      (elm) => elm.language.name == lang.name,
+    );
   }
 }

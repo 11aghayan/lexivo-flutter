@@ -5,11 +5,15 @@ abstract class Themes {
   static final double navbarIndicatorBorderRadius = 8.0;
 
   static ThemeData getTheme(bool isDark) {
-    ThemeColors colors = _getColors(isDark);
+    ThemeColors colors = isDark ? ThemeColorsDark() : ThemeColorsLight();
     return ThemeData(
       useMaterial3: true,
       brightness: isDark ? Brightness.dark : Brightness.light,
       primaryColor: colors.primary,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colors.accent,
+        foregroundColor: colors.contrastPrimary
+      ),
       appBarTheme: AppBarThemeData(
         backgroundColor: colors.primary,
         titleTextStyle: TextStyle(
@@ -56,12 +60,4 @@ abstract class Themes {
       ],
     );
   }
-
-  static final ThemeData themeDark = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.dark,
-  );
-
-  static ThemeColors _getColors(bool isDark) =>
-      isDark ? ThemeColorsDark() : ThemeColorsLight();
 }
