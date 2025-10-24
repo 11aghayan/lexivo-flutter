@@ -27,6 +27,8 @@ class ThemeColorsLight extends ThemeColors {
   final Color disabledBtn = Color.fromRGBO(171, 171, 171, 1);
   @override
   final Color emptyPageText = Color.fromRGBO(107, 114, 128, 0.7);
+  @override
+  final Color dividerColor = Color.fromRGBO(196, 198, 203, 1);
 }
 
 class ThemeColorsDark extends ThemeColors {
@@ -56,6 +58,8 @@ class ThemeColorsDark extends ThemeColors {
   final Color disabledBtn = Color.fromRGBO(138, 138, 138, 1);
   @override
   final Color emptyPageText = Color.fromRGBO(167, 171, 181, 0.7);
+  @override
+  final Color dividerColor = Color.fromRGBO(123, 125, 131, 1);
 }
 
 abstract class ThemeColors {
@@ -75,6 +79,7 @@ abstract class ThemeColors {
   abstract final Color deleteBtn;
   abstract final Color disabledBtn;
   abstract final Color emptyPageText;
+  abstract final Color dividerColor;
 
   static ThemeColors getThemeColors(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark

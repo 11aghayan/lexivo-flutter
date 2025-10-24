@@ -7,12 +7,12 @@ import 'package:lexivo_flutter/schema/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
 import 'package:lexivo_flutter/schema/language.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
-import 'package:lexivo_flutter/views/pages/dictionaries_page.dart';
-import 'package:lexivo_flutter/views/pages/profile_page.dart';
+import 'package:lexivo_flutter/pages/dictionaries_page.dart';
+import 'package:lexivo_flutter/pages/profile_page.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_lang_switcher_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/main_page_floating_action_btn_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/main_page_navbar_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/navbar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/theme_switcher_widget.dart';
 
 class MainPageWidgetTree extends StatefulWidget {
@@ -25,6 +25,8 @@ class MainPageWidgetTree extends StatefulWidget {
 }
 
 class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
+  int pageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     List<PageData> pages = [
@@ -39,26 +41,30 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
       PageData("profilePageLabel", Icon(Icons.account_circle), ProfilePage()),
     ];
 
-    return ValueListenableBuilder(
-      valueListenable: mainPageIndexNotifier,
-      builder: (context, pageIndex, child) {
-        return Scaffold(
-          appBar: AppBarWidget(
-            title: KStrings.appName,
-            actions: [AppLangSwitcherWidget(), ThemeSwitcherWidget()],
-          ),
-          body: pages[pageIndex].pageWidget,
-          bottomNavigationBar: MainPageNavbarWidget(
-            pages: pages,
-            appLang: widget.appLang,
-          ),
-          floatingActionButton: MainPageFloatingActionBtnWidget(
-            pageIndex: pageIndex,
-            addDictionary: addDictionary,
-          ),
-        );
-      },
+    return Scaffold(
+      appBar: AppBarWidget(
+        title: Text(KStrings.appName),
+        actions: [AppLangSwitcherWidget(), ThemeSwitcherWidget()],
+        leading: false,
+      ),
+      body: pages[pageIndex].pageWidget,
+      bottomNavigationBar: NavbarWidget(
+        pages: pages,
+        appLang: widget.appLang,
+        selectedPageIndex: pageIndex,
+        setPageIndex: setPageIndex,
+      ),
+      floatingActionButton: MainPageFloatingActionBtnWidget(
+        pageIndex: pageIndex,
+        addDictionary: addDictionary,
+      ),
     );
+  }
+
+  void setPageIndex(int newPageIndex) {
+    setState(() {
+      pageIndex = newPageIndex;
+    });
   }
 
   void addDictionary(Dictionary dict) {

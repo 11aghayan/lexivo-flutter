@@ -9,6 +9,7 @@ import 'package:lexivo_flutter/util/math_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/dictionar_card/dictionary_card_back_face_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/dictionar_card/dictionary_card_front_face_widget.dart';
+import 'package:lexivo_flutter/views/widgets/dict_page_widget_tree.dart';
 
 class DictionaryCardWidget extends StatefulWidget {
   const DictionaryCardWidget({
@@ -53,6 +54,16 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
             isRotated = !isRotated;
           });
         });
+      },
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return DictPageWidgetTree(dictionary: widget.dictionary);
+            },
+          ),
+        );
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: animationDuration),

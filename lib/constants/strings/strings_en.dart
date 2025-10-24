@@ -35,6 +35,16 @@ class KStrings_EN extends KStrings {
   final String duplicateDictionary = "Duplicate dictionary";
   @override
   final String dictionaryDeleted = "Dictionary deleted";
+  @override
+  final String noDictionaries = "No dictionaries";
+  @override
+  final String wordsPageLabel = "Words";
+  @override
+  final String grammarsPageLabel = "Grammar";
+  @override
+  final String activitiesPageLabel = "Activities";
+  @override
+  final String noWords = "No Words";
 
   @override
   String twoStepDelete(String text) {

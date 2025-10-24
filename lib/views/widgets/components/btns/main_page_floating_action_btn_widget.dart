@@ -22,6 +22,7 @@ class MainPageFloatingActionBtnWidget extends StatelessWidget {
       children: pageIndex == 0
           ? [
               FloatingActionButton.small(
+                heroTag: "main_page_import_dict_fab",
                 onPressed: () {
                   // TODO: Add Import JSON func
                 },
@@ -34,6 +35,7 @@ class MainPageFloatingActionBtnWidget extends StatelessWidget {
 
               // Button Add
               FloatingActionButton(
+                heroTag: "main_page_add_dict_fab",
                 onPressed: () {
                   showDialog(
                     context: context,

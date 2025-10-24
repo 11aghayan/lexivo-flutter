@@ -11,7 +11,7 @@ class Dictionary implements Deletable {
   static List<Dictionary> _allDictionaries = [];
   static get dictionariesCount => _allDictionaries.length;
 
-  Dictionary.existing(this._language, this._allWords) : id = Uuid().v4();
+  Dictionary.existing(this.id, this._language, this._allWords);
   Dictionary(this._language) : id = Uuid().v4(), _allWords = [];
 
   Language get language => _language;

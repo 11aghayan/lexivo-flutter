@@ -3,9 +3,7 @@ import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/shared_pref_keys.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/enums/app_theme_enum.dart';
-import 'package:lexivo_flutter/schema/dictionary.dart';
 import 'package:lexivo_flutter/schema/language.dart';
-import 'package:lexivo_flutter/schema/word.dart';
 import 'package:lexivo_flutter/views/theme/themes.dart';
 import 'package:lexivo_flutter/views/widgets/main_page_widget_tree.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,15 +46,7 @@ class _MainAppState extends State<MainApp> {
   }
 
   void initDictionaries() {
-    // var dicts = [
-    //   Dictionary.existing(Language.english, List.filled(4022, Word())),
-    //   Dictionary.existing(Language.german, List.filled(1973, Word())),
-    //   Dictionary(Language.russian),
-    //   Dictionary(Language.french),
-    //   Dictionary(Language.spanish),
-    //   Dictionary(Language.italian),
-    // ];
-    // Dictionary.setAllDictionaries(dicts);
+    // TODO: 
   }
 
   @override

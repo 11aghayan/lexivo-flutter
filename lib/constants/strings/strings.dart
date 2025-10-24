@@ -24,20 +24,24 @@ abstract class KStrings {
   abstract final String dictionaryLanguageUpdatedSuccessfully;
   abstract final String duplicateDictionary;
   abstract final String dictionaryDeleted;
+  abstract final String noDictionaries;
+  abstract final String wordsPageLabel;
+  abstract final String grammarsPageLabel;
+  abstract final String activitiesPageLabel;
+  abstract final String noWords;
 
-  static KStrings getStringsForLang(AppLang lang) {
-     return switch(lang) {
-      AppLang.DE => _contentDe == null ? _initContent(lang) : _contentDe!,
-      _ => _contentEn == null ? _initContent(AppLang.EN) : _contentEn!
-     };
+  static KStrings getStringsForLang(AppLang appLang) {
+    return switch (appLang) {
+      AppLang.DE => _contentDe == null ? _initContent(appLang) : _contentDe!,
+      _ => _contentEn == null ? _initContent(AppLang.EN) : _contentEn!,
+    };
   }
 
   static KStrings _initContent(AppLang lang) {
     if (lang == AppLang.DE) {
       _contentDe = KStrings_DE();
       return _contentDe!;
-    }
-    else {
+    } else {
       _contentEn = KStrings_EN();
       return _contentEn!;
     }
@@ -45,14 +49,17 @@ abstract class KStrings {
 
   String operator [](String key) {
     final value = switch (key) {
-      'loginSignUp' => loginSignUp,
-      'settingsPageLabel' => settingsPageLabel,
-      'profilePageLabel' => profilePageLabel,
-      'dictionariesPageLabel' => dictionariesPageLabel,
+      "loginSignUp" => loginSignUp,
+      "settingsPageLabel" => settingsPageLabel,
+      "profilePageLabel" => profilePageLabel,
+      "dictionariesPageLabel" => dictionariesPageLabel,
+      "wordsPageLabel" => wordsPageLabel,
+      "grammarsPageLabel" => grammarsPageLabel,
+      "activitiesPageLabel" => activitiesPageLabel,
       _ => "null",
     };
     return value;
   }
 
-  String twoStepDelete(String text); 
+  String twoStepDelete(String text);
 }
