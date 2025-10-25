@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 
 class ThemeColorsLight extends ThemeColors {
   @override
@@ -28,7 +29,9 @@ class ThemeColorsLight extends ThemeColors {
   @override
   final Color emptyPageText = Color.fromRGBO(107, 114, 128, 0.7);
   @override
-  final Color dividerColor = Color.fromRGBO(196, 198, 203, 1);
+  final Color divider = Color.fromRGBO(196, 198, 203, 1);
+  @override
+  final Color wordCardBg = Color.fromRGBO(221, 224, 227, 1);
 }
 
 class ThemeColorsDark extends ThemeColors {
@@ -59,7 +62,9 @@ class ThemeColorsDark extends ThemeColors {
   @override
   final Color emptyPageText = Color.fromRGBO(167, 171, 181, 0.7);
   @override
-  final Color dividerColor = Color.fromRGBO(123, 125, 131, 1);
+  final Color divider = Color.fromRGBO(123, 125, 131, 1);
+  @override
+  final Color wordCardBg = Color.fromRGBO(50, 50, 50, 1);
 }
 
 abstract class ThemeColors {
@@ -79,11 +84,22 @@ abstract class ThemeColors {
   abstract final Color deleteBtn;
   abstract final Color disabledBtn;
   abstract final Color emptyPageText;
-  abstract final Color dividerColor;
+  abstract final Color divider;
+  abstract final Color wordCardBg;
 
   static ThemeColors getThemeColors(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark
         ? _themeColorsDark
         : _themeColorsLight;
+  }
+
+  static Color getWordGenderColor(WordGender gender) {
+    return switch (gender) {
+      WordGender.MASCULINE => Color(0xFF3DA9FC),
+      WordGender.FEMININE => Color(0xFFFC3DA9),
+      WordGender.PERSONAL => Color(0xFF7103C5),
+      WordGender.PLURAL => Color(0xFFAA9600),
+      _ => Color(0xFF33AA77),
+    };
   }
 }

@@ -26,10 +26,25 @@ class Dictionary implements Deletable {
     return true;
   }
 
+  // Dictionary methods
   @override
   void delete() {
     _allDictionaries.remove(this);
   }
+
+  // Word methods
+  void addWords(List<Word> words) {
+    // TODO: Check type throw error
+    for (Word w in words) {
+      _allWords.add(w);
+    }
+  }
+
+  void deleteWord(Word word) {
+    _allWords.remove(word);
+  }
+
+  // Static methods
 
   static bool addDictionary(Dictionary dict) {
     if (_dictionaryExists(dict.language)) {
@@ -52,8 +67,6 @@ class Dictionary implements Deletable {
   }
 
   static bool _dictionaryExists(Language lang) {
-    return _allDictionaries.any(
-      (elm) => elm.language.name == lang.name,
-    );
+    return _allDictionaries.any((elm) => elm.language.name == lang.name);
   }
 }

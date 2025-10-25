@@ -6,6 +6,9 @@ import 'package:lexivo_flutter/schema/dictionary.dart';
 import 'package:lexivo_flutter/pages/activities_page.dart';
 import 'package:lexivo_flutter/pages/grammars_page.dart';
 import 'package:lexivo_flutter/pages/words_page.dart';
+import 'package:lexivo_flutter/schema/enums/word_gender.dart';
+import 'package:lexivo_flutter/schema/enums/word_level.dart';
+import 'package:lexivo_flutter/schema/enums/word_type.dart';
 import 'package:lexivo_flutter/schema/word.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/navbar_widget.dart';
@@ -25,7 +28,11 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   @override
   Widget build(BuildContext context) {
     List<PageData> pages = [
-      PageData("wordsPageLabel", Icon(Icons.abc), WordsPage(words: [Word(), Word()],)),
+      PageData(
+        "wordsPageLabel",
+        Icon(Icons.abc),
+        WordsPage(dictionary: widget.dictionary),
+      ),
       PageData(
         "grammarsPageLabel",
         Icon(Icons.fork_left_rounded),
@@ -41,6 +48,58 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     PageData currentPageData = pages[pageIndex];
     AppLang appLang = appLangNotifier.value;
 
+    // Remove the line
+    widget.dictionary.addWords([
+      Word(
+        WordType.NOUN,
+        WordLevel.A1,
+        WordGender.MASCULINE,
+        "der Zug",
+        null,
+        "die Züge",
+        null,
+        null,
+        "train",
+        null,
+      ),
+      Word(
+        WordType.NOUN,
+        WordLevel.A2,
+        WordGender.PLURAL,
+        null,
+        null,
+        "die Ämter",
+        null,
+        null,
+        "authorities",
+        null,
+      ),
+      Word(
+        WordType.VERB,
+        WordLevel.A2,
+        null,
+        "erinnern",
+        "etw Akk",
+        null,
+        "erinnerte",
+        "haben erinnert",
+        "to remember",
+        "sth.",
+      ),
+      Word(
+        WordType.ADJ_ADV,
+        WordLevel.A1,
+        null,
+        "schön",
+        null,
+        null,
+        null,
+        null,
+        "nice, beautiful",
+        null,
+      ),
+    ]);
+
     return Scaffold(
       appBar: AppBarWidget(
         title: Row(
@@ -53,9 +112,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
               height: 40,
               width: 40,
             ),
-            Text(
-              currentPageData.getLabel(appLang),
-            ),
+            Text(currentPageData.getLabel(appLang)),
           ],
         ),
         leading: true,

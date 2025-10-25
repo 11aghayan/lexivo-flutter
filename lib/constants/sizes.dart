@@ -19,4 +19,9 @@ abstract class Sizes {
   static const double snackbarTextSize = 16.0;
   static const double emptyPageFontSize = 18.0;
   static const FontWeight emptyPageFontWeight = FontWeight.w600;
+  static const double wordsPageVerticalSpacing = 12.0;
+  static const double wordsCardVerticalSpacingTight = 4.0;
+  static const double wordsCardVerticalSpacingLoose = 12.0;
+  static const double wordsCardInfoFontSize = 18.0;
+  static const FontWeight wordsCardInfoFontWeight = FontWeight.w600;
 }
