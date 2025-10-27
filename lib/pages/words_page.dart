@@ -10,9 +10,10 @@ import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
 import 'package:lexivo_flutter/schema/word.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
+import 'package:lexivo_flutter/views/widgets/components/btns/custom_outlined_button_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/search_words_text_field_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/word_card/word_card_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/horizontal_scrolling_filters_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/word_filters/filters_container_widget.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class WordsPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class WordsPage extends StatefulWidget {
     required this.dictionary,
     required this.isScrollUpBtnVisible,
     required this.setScrollUpBtnVisibility,
-    required this.scrollController
+    required this.scrollController,
   });
 
   final Dictionary dictionary;
@@ -41,6 +42,7 @@ class _WordsPageState extends State<WordsPage> {
   late List<FilterData> levelFilters;
   late List<FilterData> typeFilters;
   late List<FilterData> genderFilters;
+  bool isFiltersContainerExpanded = false;
 
   @override
   void initState() {
@@ -52,14 +54,16 @@ class _WordsPageState extends State<WordsPage> {
     super.initState();
   }
 
+// TODO: Add grid layout
   @override
   Widget build(BuildContext context) {
     return widget.dictionary.allWordsCount == 0
         ? noWordsWidget()
         : SingleChildScrollView(
-          controller: widget.scrollController,
+            controller: widget.scrollController,
             padding: EdgeInsets.all(Sizes.mainPaddingMobile),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               spacing: Sizes.wordsPageVerticalSpacing,
               children: [
                 // Search input
@@ -71,25 +75,9 @@ class _WordsPageState extends State<WordsPage> {
                   onSearchTextChange: onSearchTextChange,
                 ),
 
-                // Level filter
-                HorizontalScrollingFiltersWidget(
-                  header: KStrings.getStringsForLang(
-                    appLangNotifier.value,
-                  ).levelFiltersHeader,
-                  items: levelFilters,
-                ),
-
-                // Type filter
-                HorizontalScrollingFiltersWidget(
-                  header: KStrings.getStringsForLang(
-                    appLangNotifier.value,
-                  ).levelFiltersHeader,
-                  items: typeFilters,
-                ),
-
-                // Gender filter
+                // Open/hide filters btn
                 VisibilityDetector(
-                  key: Key("gender_filters_visibility_detector"),
+                  key: Key("vd_scroll_up_btn_dict_page"),
                   onVisibilityChanged: (info) {
                     if (widget.isScrollUpBtnVisible &&
                         info.visibleFraction > 0) {
@@ -99,12 +87,31 @@ class _WordsPageState extends State<WordsPage> {
                       widget.setScrollUpBtnVisibility(true);
                     }
                   },
-                  child: HorizontalScrollingFiltersWidget(
-                    header: KStrings.getStringsForLang(
-                      appLangNotifier.value,
-                    ).genderFiltersHeader,
-                    items: genderFilters,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: CustomOutlinedButtonWidget(
+                      padding: 4,
+                      onPressed: () {
+                        setState(() {
+                          isFiltersContainerExpanded =
+                              !isFiltersContainerExpanded;
+                        });
+                      },
+                      child: Icon(
+                        isFiltersContainerExpanded
+                            ? Icons.arrow_drop_up_rounded
+                            : Icons.arrow_drop_down_rounded,
+                      ),
+                    ),
                   ),
+                ),
+
+                // Filters container
+                FiltersContainerWidget(
+                  levelFilters: levelFilters,
+                  typeFilters: typeFilters,
+                  genderFilters: genderFilters,
+                  isExpanded: isFiltersContainerExpanded,
                 ),
 
                 // If no results are there
