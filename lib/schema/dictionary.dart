@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 
 class Dictionary implements Deletable {
   final String id;
-  final List<Word> _allWords;
+  List<Word> _allWords;
   Language _language;
 
   static List<Dictionary> _allDictionaries = [];
@@ -34,10 +34,15 @@ class Dictionary implements Deletable {
 
   // Word methods
   void addWords(List<Word> words) {
-    // TODO: Check type throw error
-    for (Word w in words) {
-      _allWords.add(w);
-    }
+    _allWords = [..._allWords, ...words];
+  }
+
+  void addWord(Word word) {
+    _allWords.add(word);
+  }
+
+  void editWord(Word word) {
+    _allWords = _allWords.map((w) => w.id == word.id ? word : w).toList();
   }
 
   void deleteWord(Word word) {

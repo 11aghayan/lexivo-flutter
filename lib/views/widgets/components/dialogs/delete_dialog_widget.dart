@@ -5,7 +5,7 @@ import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_outlined_button_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/custom_text_field.dart';
+import 'package:lexivo_flutter/views/widgets/components/text_field/custom_text_field_widget.dart';
 
 class DeleteDialogWidget extends StatefulWidget {
   const DeleteDialogWidget({
@@ -66,7 +66,7 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
 
                         // Two factor check input
                         if (widget.twoStepDeleteText != null)
-                          CustomTextField(
+                          CustomTextFieldWidget(
                             onChanged: (value) {
                               if (value.trim() == widget.twoStepDeleteText) {
                                 setState(() {

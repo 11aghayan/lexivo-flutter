@@ -10,6 +10,8 @@ abstract class Themes {
       useMaterial3: true,
       brightness: isDark ? Brightness.dark : Brightness.light,
       primaryColor: colors.primary,
+      canvasColor: colors.canvas,
+      scaffoldBackgroundColor: colors.scaffoldBg,
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: colors.accent,
         foregroundColor: colors.contrastPrimary

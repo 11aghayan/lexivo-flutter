@@ -2,13 +2,13 @@ import 'package:flutter/widgets.dart';
 
 abstract class Sizes {
   static const double mainPaddingMobile = 16.0;
-  static const double borderRadius_1 = 18.0;
-  static const double borderRadius_2 = 14.0;
+  static const double borderRadius_1 = 32.0;
+  static const double borderRadius_2 = 20.0;
   static const double dictionaryCardHeight = 200.0;
   static const double gridViewItemsSpacing = 10.0;
   static const double cardInnerPadding = 8.0;
-  static const double cardShadowBlurRadius = 4.0;
-  static const double cardShadowSpreadRadius = 0.3;
+  static const double shadowBlurRadius = 4.0;
+  static const double shadowSpreadRadius = 0.3;
   static const double outlinedIconPadding = 16;
   static const double dialogInnerPadding = 20.0;
   static const double dialogMaxWidth = 600.0;
@@ -24,4 +24,5 @@ abstract class Sizes {
   static const double wordsCardVerticalSpacingLoose = 12.0;
   static const double wordsCardInfoFontSize = 18.0;
   static const FontWeight wordsCardInfoFontWeight = FontWeight.w600;
+  static double fabVerticalSpacing = 16.0;
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
-import 'package:lexivo_flutter/constants/page_data.dart';
+import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/schema/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
@@ -11,7 +11,7 @@ import 'package:lexivo_flutter/pages/dictionaries_page.dart';
 import 'package:lexivo_flutter/pages/profile_page.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_lang_switcher_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/btns/main_page_floating_action_btn_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/btns/main_page_fab_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/navbar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/theme_switcher_widget.dart';
 
@@ -54,7 +54,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
         selectedPageIndex: pageIndex,
         setPageIndex: setPageIndex,
       ),
-      floatingActionButton: MainPageFloatingActionBtnWidget(
+      floatingActionButton: MainPageFabWidget(
         pageIndex: pageIndex,
         addDictionary: addDictionary,
       ),

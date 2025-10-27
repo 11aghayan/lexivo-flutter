@@ -79,4 +79,43 @@ class Word {
 
   String? get descDetails => _descDetails;
   set descDetails(String? value) => _descDetails = value;
+
+  bool containsString(String string, bool strict) {
+    string = string.trim();
+    String native = _native ?? "";
+    String plural = _plural ?? "";
+    String past1 = _past1 ?? "";
+    String past2 = _past2 ?? "";
+    String desc = _desc ?? "";
+    if (strict) {
+      RegExp regex = RegExp(r'[ ,()]+');
+
+      List<String> nativeSplit = native.split(regex);
+      List<String> pluralSplit = plural.split(regex);
+      List<String> past1Split = past1.split(regex);
+      List<String> past2Split = past2.split(regex);
+      List<String> descSplit = desc.split(regex);
+
+      for (List<String> data in [
+        nativeSplit,
+        pluralSplit,
+        past1Split,
+        past2Split,
+        descSplit,
+      ]) {
+        if (data.any((elm) => elm.trim() == string)) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      string = string.toLowerCase();
+      for (String data in [native, plural, past1, past2, desc]) {
+        if (data.toLowerCase().contains(string)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
 }

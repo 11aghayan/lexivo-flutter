@@ -1,4 +1,6 @@
 import 'package:lexivo_flutter/constants/strings/strings.dart';
+import 'package:lexivo_flutter/schema/enums/word_gender.dart';
+import 'package:lexivo_flutter/schema/enums/word_type.dart';
 
 class KStrings_DE extends KStrings {
   @override
@@ -28,9 +30,11 @@ class KStrings_DE extends KStrings {
   @override
   final String noDictSelectedError = "Kein ausgewähltes Wörterbuch";
   @override
-  final String dictionaryAddedSuccessfully = "Wörterbuch erfolgreich hinzugefügt";
+  final String dictionaryAddedSuccessfully =
+      "Wörterbuch erfolgreich hinzugefügt";
   @override
-  final String dictionaryLanguageUpdatedSuccessfully = "Wörterbuchsprache erfolgreich aktualisiert";
+  final String dictionaryLanguageUpdatedSuccessfully =
+      "Wörterbuchsprache erfolgreich aktualisiert";
   @override
   final String duplicateDictionary = "Doppeltes Wörterbuch";
   @override
@@ -45,9 +49,42 @@ class KStrings_DE extends KStrings {
   final String activitiesPageLabel = "Aktivitäten";
   @override
   final String noWords = "Keine Wörter";
+  @override
+  final String search = "Suchen";
+  @override
+  final String levelFiltersHeader = "Niveau";
+  @override
+  final String genderFiltersHeader = "Geschlecht";
+  @override
+  final String typeFiltersHeader = "Wortart";
 
   @override
   String twoStepDelete(String text) {
     return "Geben Sie zum Löschen '${text.toLowerCase()}' ein";
+  }
+
+  @override
+  String wordTypeToString(WordType wordType) {
+    return switch (wordType) {
+      WordType.NOUN => "Nomen",
+      WordType.ADJ_ADV => "Adjektiv/Adverb",
+      WordType.VERB => "Verb",
+      WordType.PRON_PREP => "Pronomen/Präposition",
+      WordType.QUESTION_WORD => "Fragewort",
+      WordType.NUMERAL => "Zahlwort",
+      _ => "Ausdruck",
+    };
+  }
+
+  @override
+  String wordGenderToString(WordGender wordGender) {
+    return switch (wordGender) {
+      WordGender.MASCULINE => "männlich",
+      WordGender.FEMININE => "weiblich",
+      WordGender.NEUTER => "neuter",
+      WordGender.PERSONAL => "persönlich",
+      WordGender.PLURAL => "plural",
+      _ => "kein Geschlecht",
+    };
   }
 }

@@ -11,12 +11,17 @@ import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_butto
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_outlined_button_widget.dart';
 
 class AddDictDialogWidget extends StatefulWidget {
-  const AddDictDialogWidget({super.key, this.dictionary, this.addDictionary, this.updateDictionary});
+  const AddDictDialogWidget({
+    super.key,
+    this.dictionary,
+    this.addDictionary,
+    this.updateDictionary,
+  });
 
   final Dictionary? dictionary;
   final Function(Dictionary)? addDictionary;
   final Function(Dictionary, Language)? updateDictionary;
-  
+
   @override
   State<AddDictDialogWidget> createState() => _AddDictDialogWidgetState();
 }
@@ -48,6 +53,13 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
                 padding: EdgeInsets.all(Sizes.dialogInnerPadding),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: Sizes.shadowBlurRadius,
+                      color: ThemeColors.getThemeColors(context).cardBorder,
+                      spreadRadius: Sizes.shadowSpreadRadius,
+                    ),
+                  ],
                   color: Theme.of(context).canvasColor,
                 ),
                 child: Column(
@@ -56,15 +68,19 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
                     // Title
                     Text(
                       widget.dictionary == null
-                          ? KStrings.getStringsForLang(appLang).addDictDialogTitle
-                          : KStrings.getStringsForLang(appLang).editDictDialogTitle,
+                          ? KStrings.getStringsForLang(
+                              appLang,
+                            ).addDictDialogTitle
+                          : KStrings.getStringsForLang(
+                              appLang,
+                            ).editDictDialogTitle,
                       style: TextStyle(
                         color: ThemeColors.getThemeColors(context).mainText,
                         fontSize: Sizes.fontSizeDialogTitle,
                         fontWeight: Sizes.fontWeightDialogTitle,
                       ),
                     ),
-          
+
                     // Dropdown
                     Material(
                       child: DropdownButton<Language>(
@@ -75,7 +91,9 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
                           ).addDictionaryDropdownHint,
                         ),
                         menuMaxHeight: 300,
-                        borderRadius: BorderRadius.circular(Sizes.borderRadius_2),
+                        borderRadius: BorderRadius.circular(
+                          Sizes.borderRadius_2,
+                        ),
                         items: List.generate(Language.allLanguagesList.length, (
                           index,
                         ) {
@@ -85,7 +103,11 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
                             child: Row(
                               spacing: 12,
                               children: [
-                                Image.asset(lang.photoPath, height: 25, width: 40),
+                                Image.asset(
+                                  lang.photoPath,
+                                  height: 25,
+                                  width: 40,
+                                ),
                                 Text(Strings.toCapitalized(lang.nameOriginal)),
                               ],
                             ),
@@ -99,14 +121,14 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
                         },
                       ),
                     ),
-          
+
                     // Error Message
                     if (showErrorMsg)
                       Text(
                         KStrings.getStringsForLang(appLang).noDictSelectedError,
                         style: TextStyle(color: Colors.red),
                       ),
-          
+
                     // Buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -118,11 +140,13 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
                           child: Text(
                             KStrings.getStringsForLang(appLang).cancel,
                             style: TextStyle(
-                              color: ThemeColors.getThemeColors(context).mainText,
+                              color: ThemeColors.getThemeColors(
+                                context,
+                              ).mainText,
                             ),
                           ),
                         ),
-          
+
                         // Button Delete
                         CustomFilledButtonWidget(
                           onPressed: handleSave,

@@ -1,4 +1,7 @@
-enum WordLevel {
+import 'package:lexivo_flutter/enums/app_lang_enum.dart';
+import 'package:lexivo_flutter/schema/enums/localized_to_string.dart';
+
+enum WordLevel implements LocalizedToString {
   A1,
   A2,
   B1,
@@ -7,18 +10,7 @@ enum WordLevel {
   C2;
 
   @override
-  String toString() {
+  String toLocalizedString(AppLang _) {
     return name.toUpperCase();
-  }
-
-  static WordLevel fromString(String s) {
-    return switch (s.toLowerCase()) {
-      "a1" => A1,
-      "a2" => A2,
-      "b1" => B1,
-      "b2" => B2,
-      "c1" => C1,
-      _ => C2,
-    };
   }
 }

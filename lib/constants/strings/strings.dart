@@ -1,6 +1,8 @@
 import 'package:lexivo_flutter/constants/strings/string_de.dart';
 import 'package:lexivo_flutter/constants/strings/strings_en.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
+import 'package:lexivo_flutter/schema/enums/word_gender.dart';
+import 'package:lexivo_flutter/schema/enums/word_type.dart';
 
 abstract class KStrings {
   static KStrings? _contentEn;
@@ -29,6 +31,10 @@ abstract class KStrings {
   abstract final String grammarsPageLabel;
   abstract final String activitiesPageLabel;
   abstract final String noWords;
+  abstract final String search;
+  abstract final String levelFiltersHeader;
+  abstract final String genderFiltersHeader;
+  abstract final String typeFiltersHeader;
 
   static KStrings getStringsForLang(AppLang appLang) {
     return switch (appLang) {
@@ -60,6 +66,9 @@ abstract class KStrings {
     };
     return value;
   }
+
+  String wordTypeToString(WordType wordType);
+  String wordGenderToString(WordGender wordGender);
 
   String twoStepDelete(String text);
 }

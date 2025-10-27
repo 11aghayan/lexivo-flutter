@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
+import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/word.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 
@@ -15,7 +16,7 @@ class WordCardInfoContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          word.type.toString(),
+          word.type.toLocalizedString(appLangNotifier.value),
           style: TextStyle(
             color: ThemeColors.getThemeColors(context).secondary,
             fontSize: Sizes.wordsCardInfoFontSize,
@@ -25,7 +26,7 @@ class WordCardInfoContent extends StatelessWidget {
 
         if (word.gender != null)
           Text(
-            word.gender.toString().toLowerCase(),
+            word.gender?.toLocalizedString(appLangNotifier.value) ?? "",
             style: TextStyle(
               color: ThemeColors.getWordGenderColor(word.gender!),
               fontSize: Sizes.wordsCardInfoFontSize,
@@ -34,7 +35,7 @@ class WordCardInfoContent extends StatelessWidget {
           ),
 
         Text(
-          word.level.toString(),
+          word.level.toLocalizedString(appLangNotifier.value),
           style: TextStyle(
             color: ThemeColors.getThemeColors(context).mainText,
             fontSize: Sizes.wordsCardInfoFontSize,

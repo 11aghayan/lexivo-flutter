@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lexivo_flutter/constants/page_data.dart';
+import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 
 class NavbarWidget extends StatelessWidget {

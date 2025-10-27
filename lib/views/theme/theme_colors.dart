@@ -5,6 +5,10 @@ class ThemeColorsLight extends ThemeColors {
   @override
   final Color primary = Color.fromRGBO(61, 169, 252, 1);
   @override
+  final Color canvas = Color.fromRGBO(247, 251, 255, 1);
+  @override
+  final Color scaffoldBg = Color.fromRGBO(252, 253, 255, 1);
+  @override
   final Color accent = Color.fromRGBO(249, 87, 56, 1);
   @override
   final Color secondary = Color.fromRGBO(107, 114, 128, 1);
@@ -32,11 +36,19 @@ class ThemeColorsLight extends ThemeColors {
   final Color divider = Color.fromRGBO(196, 198, 203, 1);
   @override
   final Color wordCardBg = Color.fromRGBO(221, 224, 227, 1);
+  @override
+  final Color searchModeBg = Color.fromRGBO(195, 225, 255, 1);
+  @override
+  final Color filterNotSelected = Color.fromRGBO(226, 230, 233, 1);
 }
 
 class ThemeColorsDark extends ThemeColors {
   @override
   final Color primary = Color.fromRGBO(0, 42, 97, 1);
+  @override
+  final Color canvas = Color.fromRGBO(0, 6, 17, 1);
+  @override
+  final Color scaffoldBg = Color.fromRGBO(0, 5, 12, 1);
   @override
   final Color accent = Color.fromRGBO(158, 56, 35, 1);
   @override
@@ -65,6 +77,10 @@ class ThemeColorsDark extends ThemeColors {
   final Color divider = Color.fromRGBO(123, 125, 131, 1);
   @override
   final Color wordCardBg = Color.fromRGBO(50, 50, 50, 1);
+  @override
+  final Color searchModeBg = Color.fromRGBO(0, 25, 72, 1);
+  @override
+  final Color filterNotSelected = Color.fromRGBO(0, 31, 88, 1);
 }
 
 abstract class ThemeColors {
@@ -72,6 +88,8 @@ abstract class ThemeColors {
   static final ThemeColors _themeColorsDark = ThemeColorsDark();
 
   abstract final Color primary;
+  abstract final Color canvas;
+  abstract final Color scaffoldBg;
   abstract final Color accent;
   abstract final Color secondary;
   abstract final Color contrastPrimary;
@@ -86,6 +104,8 @@ abstract class ThemeColors {
   abstract final Color emptyPageText;
   abstract final Color divider;
   abstract final Color wordCardBg;
+  abstract final Color searchModeBg;
+  abstract final Color filterNotSelected;
 
   static ThemeColors getThemeColors(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark

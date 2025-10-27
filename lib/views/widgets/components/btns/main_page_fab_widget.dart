@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/add_dict_dialog_widget.dart';
 
-class MainPageFloatingActionBtnWidget extends StatelessWidget {
-  const MainPageFloatingActionBtnWidget({
+class MainPageFabWidget extends StatelessWidget {
+  const MainPageFabWidget({
     super.key,
     required this.pageIndex,
     required this.addDictionary,
@@ -18,7 +19,7 @@ class MainPageFloatingActionBtnWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      spacing: 16,
+      spacing: Sizes.fabVerticalSpacing,
       children: pageIndex == 0
           ? [
               FloatingActionButton.small(

@@ -1,4 +1,6 @@
 import 'package:lexivo_flutter/constants/strings/strings.dart';
+import 'package:lexivo_flutter/schema/enums/word_gender.dart';
+import 'package:lexivo_flutter/schema/enums/word_type.dart';
 
 class KStrings_EN extends KStrings {
   @override
@@ -30,7 +32,8 @@ class KStrings_EN extends KStrings {
   @override
   final String dictionaryAddedSuccessfully = "Dictionary added successfully";
   @override
-  final String dictionaryLanguageUpdatedSuccessfully = "Dictionary language updated successfully";
+  final String dictionaryLanguageUpdatedSuccessfully =
+      "Dictionary language updated successfully";
   @override
   final String duplicateDictionary = "Duplicate dictionary";
   @override
@@ -45,9 +48,35 @@ class KStrings_EN extends KStrings {
   final String activitiesPageLabel = "Activities";
   @override
   final String noWords = "No Words";
+  @override
+  final String search = "Search";
+  @override
+  final String levelFiltersHeader = "Level";
+  @override
+  final String genderFiltersHeader = "Gender";
+  @override
+  final String typeFiltersHeader = "Type";
 
   @override
   String twoStepDelete(String text) {
     return "Type '${text.toLowerCase()}' to delete";
+  }
+
+  @override
+  String wordTypeToString(WordType wordType) {
+    return switch (wordType) {
+      WordType.NOUN => "noun",
+      WordType.ADJ_ADV => "adjective/adverb",
+      WordType.VERB => "verb",
+      WordType.PRON_PREP => "pronoun/preposition",
+      WordType.QUESTION_WORD => "question word",
+      WordType.NUMERAL => "numeral",
+      _ => "phrase",
+    };
+  }
+
+  @override
+  String wordGenderToString(WordGender wordGender) {
+    return wordGender.name.toString().split("_").join(" ").toLowerCase();
   }
 }

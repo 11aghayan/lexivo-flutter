@@ -36,9 +36,9 @@ class WordCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
           boxShadow: [
             BoxShadow(
-              blurRadius: Sizes.cardShadowBlurRadius,
+              blurRadius: Sizes.shadowBlurRadius,
               color: ThemeColors.getThemeColors(context).wordCardBg,
-              spreadRadius: Sizes.cardShadowSpreadRadius,
+              spreadRadius: Sizes.shadowSpreadRadius,
             ),
           ],
         ),

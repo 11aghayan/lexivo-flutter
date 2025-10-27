@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lexivo_flutter/constants/page_data.dart';
+import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
@@ -11,6 +11,7 @@ import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
 import 'package:lexivo_flutter/schema/word.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bar_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/btns/dict_page_fab_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/navbar_widget.dart';
 
 class DictPageWidgetTree extends StatefulWidget {
@@ -24,14 +25,75 @@ class DictPageWidgetTree extends StatefulWidget {
 
 class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   int pageIndex = 0;
+  bool isScrollUpBtnVisible = false;
+  ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    // TODO: remove
+    if (widget.dictionary.allWordsCount == 0) {
+      widget.dictionary.addWords([
+        Word(
+          WordType.NOUN,
+          WordLevel.A1,
+          WordGender.MASCULINE,
+          "der Zug",
+          null,
+          "die Züge",
+          null,
+          null,
+          "train",
+          null,
+        ),
+        Word(
+          WordType.NOUN,
+          WordLevel.A2,
+          WordGender.PLURAL,
+          null,
+          null,
+          "die Ämter",
+          null,
+          null,
+          "authorities",
+          null,
+        ),
+        Word(
+          WordType.VERB,
+          WordLevel.A2,
+          null,
+          "erinnern",
+          "etw Akk",
+          null,
+          "erinnerte",
+          "haben erinnert",
+          "to remember",
+          "sth.",
+        ),
+        Word(
+          WordType.ADJ_ADV,
+          WordLevel.A1,
+          null,
+          "schön",
+          null,
+          null,
+          null,
+          null,
+          "nice, beautiful",
+          null,
+        ),
+      ]);
+    }
+
     List<PageData> pages = [
       PageData(
         "wordsPageLabel",
         Icon(Icons.abc),
-        WordsPage(dictionary: widget.dictionary),
+        WordsPage(
+          dictionary: widget.dictionary,
+          isScrollUpBtnVisible: isScrollUpBtnVisible,
+          setScrollUpBtnVisibility: setScrollUpBtnVisibility,
+          scrollController: scrollController,
+        ),
       ),
       PageData(
         "grammarsPageLabel",
@@ -48,58 +110,6 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     PageData currentPageData = pages[pageIndex];
     AppLang appLang = appLangNotifier.value;
 
-    // Remove the line
-    widget.dictionary.addWords([
-      Word(
-        WordType.NOUN,
-        WordLevel.A1,
-        WordGender.MASCULINE,
-        "der Zug",
-        null,
-        "die Züge",
-        null,
-        null,
-        "train",
-        null,
-      ),
-      Word(
-        WordType.NOUN,
-        WordLevel.A2,
-        WordGender.PLURAL,
-        null,
-        null,
-        "die Ämter",
-        null,
-        null,
-        "authorities",
-        null,
-      ),
-      Word(
-        WordType.VERB,
-        WordLevel.A2,
-        null,
-        "erinnern",
-        "etw Akk",
-        null,
-        "erinnerte",
-        "haben erinnert",
-        "to remember",
-        "sth.",
-      ),
-      Word(
-        WordType.ADJ_ADV,
-        WordLevel.A1,
-        null,
-        "schön",
-        null,
-        null,
-        null,
-        null,
-        "nice, beautiful",
-        null,
-      ),
-    ]);
-
     return Scaffold(
       appBar: AppBarWidget(
         title: Row(
@@ -115,7 +125,17 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
             Text(currentPageData.getLabel(appLang)),
           ],
         ),
-        leading: true,
+      ),
+      floatingActionButton: DictPageFabWidget(
+        scrollUp: () {
+          scrollController.animateTo(
+            scrollController.position.minScrollExtent,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.decelerate,
+          );
+        },
+        pageIndex: pageIndex,
+        scrollUpBtnVisible: isScrollUpBtnVisible,
       ),
       body: currentPageData.pageWidget,
       bottomNavigationBar: NavbarWidget(
@@ -130,6 +150,13 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   void setPageIndex(int newPageIndex) {
     setState(() {
       pageIndex = newPageIndex;
+    });
+  }
+
+  void setScrollUpBtnVisibility(bool isVisible) {
+    if (!mounted) return;
+    setState(() {
+      isScrollUpBtnVisible = isVisible;
     });
   }
 }

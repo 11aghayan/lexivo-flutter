@@ -76,9 +76,9 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
           borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
           boxShadow: [
             BoxShadow(
-              blurRadius: Sizes.cardShadowBlurRadius,
+              blurRadius: Sizes.shadowBlurRadius,
               color: ThemeColors.getThemeColors(context).cardBorder,
-              spreadRadius: Sizes.cardShadowSpreadRadius,
+              spreadRadius: Sizes.shadowSpreadRadius,
             ),
           ],
           // border: Border.all(width: 1.5, color: ThemeColors.getThemeColors(context).cardBorderColor),
