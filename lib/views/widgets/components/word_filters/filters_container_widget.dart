@@ -22,7 +22,7 @@ class FiltersContainerWidget extends StatelessWidget {
   final List<FilterData> genderFilters;
   final bool isExpanded;
   final void Function() toggleExpanded;
-  final double btnHeight = 45;
+  final double btnHeight = 47;
   final double padding = 12;
 
   @override
