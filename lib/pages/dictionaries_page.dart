@@ -22,7 +22,7 @@ class DictionariesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dictionary.dictionariesCount > 0
         ? GridView(
-            padding: const EdgeInsets.all(Sizes.mainPaddingMobile),
+            padding: const EdgeInsets.all(Sizes.mainPadding),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: getCrossAxisItemCount(context),
               childAspectRatio: 1.8,

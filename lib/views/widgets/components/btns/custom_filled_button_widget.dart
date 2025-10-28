@@ -10,7 +10,8 @@ class CustomFilledButtonWidget extends StatelessWidget {
     this.borderRadius = Sizes.borderRadius_2,
     this.backgroundColor,
     this.padding = 12,
-    this.disabled = false
+    this.disabled = false,
+    this.height,
   });
 
   final VoidCallback? onPressed;
@@ -19,6 +20,7 @@ class CustomFilledButtonWidget extends StatelessWidget {
   final Color? backgroundColor;
   final double? padding;
   final bool disabled;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class CustomFilledButtonWidget extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Container(
+          height: height,
           padding: EdgeInsets.all(padding!),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius!),

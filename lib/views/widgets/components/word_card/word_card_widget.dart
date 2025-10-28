@@ -29,7 +29,7 @@ class WordCardWidget extends StatelessWidget {
         ).showSnackBar(SnackBar(content: Text("Clicked")));
       },
       child: Container(
-        padding: EdgeInsets.all(Sizes.mainPaddingMobile),
+        padding: EdgeInsets.all(Sizes.mainPadding),
         width: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).canvasColor,

@@ -27,12 +27,75 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   int pageIndex = 0;
   bool isScrollUpBtnVisible = false;
   ScrollController scrollController = ScrollController();
+  bool areNavbarAndAppBarVisible = true;
+  double lastScrollOffset = 0;
+  final int animationDuration = 300;
+
+  @override
+  void initState() {
+    controlNavbarVisibilityOnScroll();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: remove
     if (widget.dictionary.allWordsCount == 0) {
       widget.dictionary.addWords([
+        Word(
+          WordType.NOUN,
+          WordLevel.A1,
+          WordGender.MASCULINE,
+          "der Zug",
+          null,
+          "die Züge",
+          null,
+          null,
+          "train",
+          null,
+        ),
+        Word(
+          WordType.NOUN,
+          WordLevel.A2,
+          WordGender.PLURAL,
+          null,
+          null,
+          "die Ämter",
+          null,
+          null,
+          "authorities",
+          null,
+        ),
+        Word(
+          WordType.VERB,
+          WordLevel.A2,
+          null,
+          "erinnern",
+          "etw Akk",
+          null,
+          "erinnerte",
+          "haben erinnert",
+          "to remember",
+          "sth.",
+        ),
+        Word(
+          WordType.ADJ_ADV,
+          WordLevel.A1,
+          null,
+          "schön",
+          null,
+          null,
+          null,
+          null,
+          "nice, beautiful",
+          null,
+        ),
         Word(
           WordType.NOUN,
           WordLevel.A1,
@@ -91,7 +154,6 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         WordsPage(
           dictionary: widget.dictionary,
           isScrollUpBtnVisible: isScrollUpBtnVisible,
-          setScrollUpBtnVisibility: setScrollUpBtnVisibility,
           scrollController: scrollController,
         ),
       ),
@@ -125,6 +187,8 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
             Text(currentPageData.getLabel(appLang)),
           ],
         ),
+        isVisible: areNavbarAndAppBarVisible,
+        animationDuration: animationDuration,
       ),
       floatingActionButton: DictPageFabWidget(
         scrollUp: () {
@@ -137,12 +201,16 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         pageIndex: pageIndex,
         scrollUpBtnVisible: isScrollUpBtnVisible,
       ),
-      body: currentPageData.pageWidget,
-      bottomNavigationBar: NavbarWidget(
-        pages: pages,
-        appLang: appLang,
-        setPageIndex: setPageIndex,
-        selectedPageIndex: pageIndex,
+      body: SafeArea(child: currentPageData.pageWidget),
+      bottomNavigationBar: AnimatedContainer(
+        duration: Duration(milliseconds: animationDuration),
+        height: areNavbarAndAppBarVisible ? 104 : 0,
+        child: NavbarWidget(
+          pages: pages,
+          appLang: appLang,
+          setPageIndex: setPageIndex,
+          selectedPageIndex: pageIndex,
+        ),
       ),
     );
   }
@@ -157,6 +225,31 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     if (!mounted) return;
     setState(() {
       isScrollUpBtnVisible = isVisible;
+    });
+  }
+
+  void controlNavbarVisibilityOnScroll() {
+    scrollController.addListener(() {
+      if (pageIndex != 0) return;
+      
+      double offset = scrollController.offset;
+
+      // scroll down → hide navbar
+      if (offset > 30 && lastScrollOffset < offset) {
+        setState(() {
+          setScrollUpBtnVisibility(true);
+          areNavbarAndAppBarVisible = false;
+        });
+      }
+      // scroll up → show navbar
+      else if ((offset < lastScrollOffset - 20) || (offset < 10)) {
+        setState(() {
+          setScrollUpBtnVisibility(false);
+          areNavbarAndAppBarVisible = true;
+        });
+      }
+
+      lastScrollOffset = offset;
     });
   }
 }

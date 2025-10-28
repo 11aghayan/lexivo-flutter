@@ -35,7 +35,7 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
     return Material(
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.all(Sizes.mainPaddingMobile),
+        padding: const EdgeInsets.all(Sizes.mainPadding),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,

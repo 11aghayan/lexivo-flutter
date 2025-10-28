@@ -40,6 +40,8 @@ class ThemeColorsLight extends ThemeColors {
   final Color searchModeBg = Color.fromRGBO(195, 225, 255, 1);
   @override
   final Color filterNotSelected = Color.fromRGBO(226, 230, 233, 1);
+  @override
+  final Color searchTextFieldBorder = Color.fromRGBO(215, 215, 215, 1);
 }
 
 class ThemeColorsDark extends ThemeColors {
@@ -81,6 +83,8 @@ class ThemeColorsDark extends ThemeColors {
   final Color searchModeBg = Color.fromRGBO(0, 25, 72, 1);
   @override
   final Color filterNotSelected = Color.fromRGBO(0, 31, 88, 1);
+  @override
+  final Color searchTextFieldBorder = Color.fromRGBO(40, 40, 40, 1);
 }
 
 abstract class ThemeColors {
@@ -106,6 +110,7 @@ abstract class ThemeColors {
   abstract final Color wordCardBg;
   abstract final Color searchModeBg;
   abstract final Color filterNotSelected;
+  abstract final Color searchTextFieldBorder;
 
   static ThemeColors getThemeColors(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark

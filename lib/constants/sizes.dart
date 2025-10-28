@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 abstract class Sizes {
-  static const double mainPaddingMobile = 16.0;
+  static const double mainPadding = 16.0;
   static const double borderRadius_1 = 32.0;
   static const double borderRadius_2 = 20.0;
   static const double dictionaryCardHeight = 200.0;
@@ -19,10 +19,10 @@ abstract class Sizes {
   static const double snackbarTextSize = 16.0;
   static const double emptyPageFontSize = 18.0;
   static const FontWeight emptyPageFontWeight = FontWeight.w600;
-  static const double wordsPageVerticalSpacing = 12.0;
+  static const double wordsPageGridSpacing = 12.0;
   static const double wordsCardVerticalSpacingTight = 4.0;
   static const double wordsCardVerticalSpacingLoose = 12.0;
-  static const double wordsCardInfoFontSize = 18.0;
+  static const double wordsCardInfoFontSize = 16.0;
   static const FontWeight wordsCardInfoFontWeight = FontWeight.w600;
   static double fabVerticalSpacing = 16.0;
 }

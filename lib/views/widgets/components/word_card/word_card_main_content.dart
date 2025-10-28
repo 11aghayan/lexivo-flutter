@@ -50,7 +50,7 @@ class WordCardMainContent extends StatelessWidget {
           softWrap: true,
           style: TextStyle(
             color: secondItem ? colors.secondary : colors.mainText,
-            fontSize: secondItem ? 16 : 20,
+            fontSize: secondItem ? 14 : 18,
             fontWeight: FontWeight.w600,
           ),
         ),

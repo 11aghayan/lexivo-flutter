@@ -14,6 +14,7 @@ class SearchWordsTextFieldWidget extends StatelessWidget {
     required this.textEditingController,
     required this.clearSearch,
     required this.onSearchTextChange,
+    this.borderColor
   });
 
   final Function() toggleSearchMode;
@@ -21,6 +22,7 @@ class SearchWordsTextFieldWidget extends StatelessWidget {
   final Function(String value) onSearchTextChange;
   final bool isSearchStrict;
   final TextEditingController textEditingController;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class SearchWordsTextFieldWidget extends StatelessWidget {
       label: KStrings.getStringsForLang(appLangNotifier.value).search,
       textEditingController: textEditingController,
       borderRadius: Sizes.borderRadius_1,
+      borderColor: borderColor,
       icon: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

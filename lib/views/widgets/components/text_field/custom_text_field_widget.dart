@@ -10,6 +10,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.borderRadius = Sizes.borderRadius_2,
     this.icon,
     this.textEditingController,
+    this.borderColor
   });
 
   final double borderRadius;
@@ -17,9 +18,12 @@ class CustomTextFieldWidget extends StatelessWidget {
   final Function(String value) onChanged;
   final Widget? icon;
   final TextEditingController? textEditingController;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
+    var borderColor = this.borderColor ?? ThemeColors.getThemeColors(context).searchTextFieldBorder;
+    
     return TextField(
       onChanged: onChanged,
       controller: textEditingController,
@@ -29,8 +33,12 @@ class CustomTextFieldWidget extends StatelessWidget {
         labelStyle: TextStyle(
           color: ThemeColors.getThemeColors(context).secondary,
         ),
-        border: OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
+          borderSide: BorderSide(
+            color: borderColor,
+            width: 1,
+          )
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
