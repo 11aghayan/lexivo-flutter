@@ -52,9 +52,15 @@ class FiltersContainerWidget extends StatelessWidget {
           spacing: 8,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              width: double.infinity,
-              child: Stack(
+            // open/close btn
+            CustomFilledButtonWidget(
+              backgroundColor: Colors.transparent,
+              alignment: Alignment.topRight,
+              padding: 0,
+              onPressed: toggleExpanded,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Row(
                     spacing: 4,
@@ -75,19 +81,11 @@ class FiltersContainerWidget extends StatelessWidget {
                     ],
                   ),
 
-                  Expanded(
-                    child: CustomFilledButtonWidget(
-                      backgroundColor: Colors.transparent,
-                      alignment: Alignment.topRight,
-                      padding: 0,
-                      onPressed: toggleExpanded,
-                      child: Icon(
-                        isExpanded
-                            ? Icons.arrow_drop_up_rounded
-                            : Icons.arrow_drop_down_rounded,
-                        color: btnForegroundColor,
-                      ),
-                    ),
+                  Icon(
+                    isExpanded
+                        ? Icons.arrow_drop_up_rounded
+                        : Icons.arrow_drop_down_rounded,
+                    color: btnForegroundColor,
                   ),
                 ],
               ),
