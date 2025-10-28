@@ -14,7 +14,7 @@ class FiltersContainerWidget extends StatelessWidget {
     required this.typeFilters,
     required this.genderFilters,
     required this.isExpanded,
-    required this.toggleExpanded
+    required this.toggleExpanded,
   });
 
   final List<FilterData> levelFilters;
@@ -22,62 +22,102 @@ class FiltersContainerWidget extends StatelessWidget {
   final List<FilterData> genderFilters;
   final bool isExpanded;
   final void Function() toggleExpanded;
-  final double btnHeight = 30;
-  final double padding = 8;
+  final double btnHeight = 45;
+  final double padding = 12;
 
   @override
   Widget build(BuildContext context) {
+    Color btnForegroundColor = ThemeColors.getThemeColors(context).mainText;
+
     return AnimatedContainer(
       height: isExpanded ? 308 : btnHeight,
       duration: Duration(milliseconds: 300),
-      padding: EdgeInsets.fromLTRB(padding, padding, padding, isExpanded ? padding : 0),
+      padding: EdgeInsets.fromLTRB(
+        padding,
+        padding,
+        padding,
+        isExpanded ? padding : 0,
+      ),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        border: Border.all(width: 1, color: ThemeColors.getThemeColors(context).outlinedBtnBorder),
+        border: Border.all(
+          width: 1,
+          color: ThemeColors.getThemeColors(context).outlinedBtnBorder,
+        ),
         borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
       ),
-      child: Column(
-        spacing: 8,
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: CustomFilledButtonWidget(
-              backgroundColor: Colors.transparent,
-              padding: 0,
-              height: btnHeight,
-              onPressed: toggleExpanded,
-              child: Icon(
-                isExpanded
-                    ? Icons.arrow_drop_up_rounded
-                    : Icons.arrow_drop_down_rounded,
+      child: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Column(
+          spacing: 8,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  Row(
+                    spacing: 4,
+                    children: [
+                      Icon(
+                        Icons.filter_list_rounded,
+                        color: btnForegroundColor,
+                      ),
+                      Text(
+                        KStrings.getStringsForLang(
+                          appLangNotifier.value,
+                        ).filters,
+                        style: TextStyle(
+                          color: btnForegroundColor,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Expanded(
+                    child: CustomFilledButtonWidget(
+                      backgroundColor: Colors.transparent,
+                      alignment: Alignment.topRight,
+                      padding: 0,
+                      onPressed: toggleExpanded,
+                      child: Icon(
+                        isExpanded
+                            ? Icons.arrow_drop_up_rounded
+                            : Icons.arrow_drop_down_rounded,
+                        color: btnForegroundColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
 
-          // Level filter
-          HorizontalScrollingFiltersWidget(
-            header: KStrings.getStringsForLang(
-              appLangNotifier.value,
-            ).levelFiltersHeader,
-            items: levelFilters,
-          ),
+            // Level filter
+            HorizontalScrollingFiltersWidget(
+              header: KStrings.getStringsForLang(
+                appLangNotifier.value,
+              ).levelFiltersHeader,
+              items: levelFilters,
+            ),
 
-          // Type filter
-          HorizontalScrollingFiltersWidget(
-            header: KStrings.getStringsForLang(
-              appLangNotifier.value,
-            ).typeFiltersHeader,
-            items: typeFilters,
-          ),
+            // Type filter
+            HorizontalScrollingFiltersWidget(
+              header: KStrings.getStringsForLang(
+                appLangNotifier.value,
+              ).typeFiltersHeader,
+              items: typeFilters,
+            ),
 
-          // Gender filter
-          HorizontalScrollingFiltersWidget(
-            header: KStrings.getStringsForLang(
-              appLangNotifier.value,
-            ).genderFiltersHeader,
-            items: genderFilters,
-          ),
-        ],
+            // Gender filter
+            HorizontalScrollingFiltersWidget(
+              header: KStrings.getStringsForLang(
+                appLangNotifier.value,
+              ).genderFiltersHeader,
+              items: genderFilters,
+            ),
+          ],
+        ),
       ),
     );
   }

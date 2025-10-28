@@ -57,6 +57,8 @@ class KStrings_DE extends KStrings {
   final String genderFiltersHeader = "Geschlecht";
   @override
   final String typeFiltersHeader = "Wortart";
+  @override
+  final String filters = "Filter";
 
   @override
   String twoStepDelete(String text) {

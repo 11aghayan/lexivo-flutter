@@ -35,6 +35,7 @@ abstract class KStrings {
   abstract final String levelFiltersHeader;
   abstract final String genderFiltersHeader;
   abstract final String typeFiltersHeader;
+  abstract final String filters;
 
   static KStrings getStringsForLang(AppLang appLang) {
     return switch (appLang) {

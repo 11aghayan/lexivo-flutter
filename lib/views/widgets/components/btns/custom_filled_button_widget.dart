@@ -12,6 +12,7 @@ class CustomFilledButtonWidget extends StatelessWidget {
     this.padding = 12,
     this.disabled = false,
     this.height,
+    this.alignment = Alignment.center
   });
 
   final VoidCallback? onPressed;
@@ -21,6 +22,7 @@ class CustomFilledButtonWidget extends StatelessWidget {
   final double? padding;
   final bool disabled;
   final double? height;
+  final Alignment? alignment;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,15 @@ class CustomFilledButtonWidget extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Container(
+          alignment: alignment,
           height: height,
           padding: EdgeInsets.all(padding!),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius!),
-            color: disabled ? ThemeColors.getThemeColors(context).disabledBtn : (backgroundColor ?? ThemeColors.getThemeColors(context).primary),
+            color: disabled
+                ? ThemeColors.getThemeColors(context).disabledBtn
+                : (backgroundColor ??
+                      ThemeColors.getThemeColors(context).primary),
           ),
           child: child,
         ),
