@@ -37,24 +37,7 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () async {
-        setState(() => scale = 0.8);
-        await Future.delayed(Duration(milliseconds: 50));
-
-        setState(() => scale = 1.0);
-        await Future.delayed(Duration(milliseconds: 40));
-
-        setState(() {
-          rotationInRadians =
-              (rotationInRadians * -1) - getRadiansFromDegree(180);
-        });
-
-        Timer(Duration(milliseconds: (animationDuration / 2).toInt()), () {
-          setState(() {
-            isRotated = !isRotated;
-          });
-        });
-      },
+      onLongPress: rotate,
       onTap: () {
         Navigator.push(
           context,
@@ -96,5 +79,23 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
             : DictionaryCardFrontFaceWidget(dictionary: widget.dictionary),
       ),
     );
+  }
+
+  void rotate() async {
+    setState(() => scale = 0.8);
+    await Future.delayed(Duration(milliseconds: 50));
+
+    setState(() => scale = 1.0);
+    await Future.delayed(Duration(milliseconds: 40));
+
+    setState(() {
+      rotationInRadians = (rotationInRadians * -1) - getRadiansFromDegree(180);
+    });
+
+    Timer(Duration(milliseconds: (animationDuration / 2).toInt()), () {
+      setState(() {
+        isRotated = !isRotated;
+      });
+    });
   }
 }
