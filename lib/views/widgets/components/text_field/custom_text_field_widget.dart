@@ -10,7 +10,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.borderRadius = Sizes.borderRadius_2,
     this.icon,
     this.textEditingController,
-    this.borderColor
+    this.borderColor,
   });
 
   final double borderRadius;
@@ -22,23 +22,24 @@ class CustomTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderColor = this.borderColor ?? ThemeColors.getThemeColors(context).searchTextFieldBorder;
-    
+    var borderColor =
+        this.borderColor ??
+        ThemeColors.getThemeColors(context).searchTextFieldBorder;
+
     return TextField(
       onChanged: onChanged,
       controller: textEditingController,
       decoration: InputDecoration(
         suffixIcon: icon,
-        labelText: label,
-        labelStyle: TextStyle(
-          color: ThemeColors.getThemeColors(context).secondary,
+        hint: Text(
+          "$label . . .",
+          style: TextStyle(
+            color: ThemeColors.getThemeColors(context).secondary,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(
-            color: borderColor,
-            width: 1,
-          )
+          borderSide: BorderSide(color: borderColor, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
