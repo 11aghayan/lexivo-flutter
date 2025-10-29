@@ -95,7 +95,6 @@ class Word {
       List<String> past1Split = past1.split(regex);
       List<String> past2Split = past2.split(regex);
       List<String> descSplit = desc.split(regex);
-
       for (List<String> data in [
         nativeSplit,
         pluralSplit,
@@ -103,7 +102,9 @@ class Word {
         past2Split,
         descSplit,
       ]) {
-        if (data.any((elm) => elm.trim() == string)) {
+        if (data.any((elm) {
+          return elm.trim().toLowerCase() == string;
+        })) {
           return true;
         }
       }
