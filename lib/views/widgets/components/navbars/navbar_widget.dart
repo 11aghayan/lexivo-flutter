@@ -24,7 +24,7 @@ class NavbarWidget extends StatelessWidget {
       destinations: List.generate(pages.length, (index) {
         var page = pages[index];
         return NavigationDestination(
-          icon: page.icon,
+          icon: Icon(page.icon),
           label: page.getLabel(appLang),
         );
       }),

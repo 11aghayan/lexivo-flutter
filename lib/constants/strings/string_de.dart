@@ -46,7 +46,7 @@ class KStrings_DE extends KStrings {
   @override
   final String grammarsPageLabel = "Grammatik";
   @override
-  final String activitiesPageLabel = "Aktivitäten";
+  final String practicePageLabel = "Üben";
   @override
   final String noWords = "Keine Wörter";
   @override
@@ -59,6 +59,12 @@ class KStrings_DE extends KStrings {
   final String typeFiltersHeader = "Wortart";
   @override
   final String filters = "Filter";
+  @override
+  final String wordsExportedSuccessfully = "Wörter erfolgreich exportiert";
+  @override
+  final String wordsImportedSuccessfully = "Wörter erfolgreich importiert";
+  @override
+  final String wordsCouldNotBeImported = "Wörter konnten nicht importiert werden";
 
   @override
   String twoStepDelete(String text) {

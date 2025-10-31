@@ -29,13 +29,16 @@ abstract class KStrings {
   abstract final String noDictionaries;
   abstract final String wordsPageLabel;
   abstract final String grammarsPageLabel;
-  abstract final String activitiesPageLabel;
+  abstract final String practicePageLabel;
   abstract final String noWords;
   abstract final String search;
   abstract final String levelFiltersHeader;
   abstract final String genderFiltersHeader;
   abstract final String typeFiltersHeader;
   abstract final String filters;
+  abstract final String wordsExportedSuccessfully;
+  abstract final String wordsImportedSuccessfully;
+  abstract final String wordsCouldNotBeImported;
 
   static KStrings getStringsForLang(AppLang appLang) {
     return switch (appLang) {
@@ -62,7 +65,7 @@ abstract class KStrings {
       "dictionariesPageLabel" => dictionariesPageLabel,
       "wordsPageLabel" => wordsPageLabel,
       "grammarsPageLabel" => grammarsPageLabel,
-      "activitiesPageLabel" => activitiesPageLabel,
+      "activitiesPageLabel" => practicePageLabel,
       _ => "null",
     };
     return value;

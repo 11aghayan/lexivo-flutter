@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
-import 'package:lexivo_flutter/schema/deletable_interface.dart';
+import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
 import 'package:lexivo_flutter/schema/language.dart';
 import 'package:lexivo_flutter/util/math_util.dart';

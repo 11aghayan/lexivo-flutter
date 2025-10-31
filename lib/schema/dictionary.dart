@@ -1,4 +1,4 @@
-import 'package:lexivo_flutter/schema/deletable_interface.dart';
+import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/language.dart';
 import 'package:lexivo_flutter/schema/word.dart';
 import 'package:uuid/uuid.dart';
@@ -34,7 +34,7 @@ class Dictionary implements Deletable {
 
   // Word methods
   void addWords(List<Word> words) {
-    _allWords = [..._allWords, ...words];
+    _allWords.addAll(words);
   }
 
   void addWord(Word word) {

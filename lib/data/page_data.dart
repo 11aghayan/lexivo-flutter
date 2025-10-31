@@ -4,7 +4,7 @@ import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 
 class PageData {
   final String _label;
-  final Widget icon;
+  final IconData icon;
   final Widget pageWidget;
 
   PageData(this._label, this.icon, this.pageWidget);

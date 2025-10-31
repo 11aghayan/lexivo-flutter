@@ -7,76 +7,78 @@ environment:
   sdk: ^3.9.2
 
 dependencies:
+  file_picker: ^10.3.3
   flutter:
     sdk: flutter
+  json_annotation: ^4.9.0
   flutter_staggered_grid_view: ^0.7.0
   shared_preferences: ^2.5.3
   uuid: ^4.5.1
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:
+  build_runner: ^2.6.0
+  json_serializable: ^6.11.1
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
 
 flutter:
-
   assets:
     - assets/img/
     - assets/flags/
 
-
   fonts:
     - family: NotoSans
       fonts:
-      - asset: fonts/noto_sans.ttf
+        - asset: fonts/noto_sans.ttf
     - family: NotoSansArabic
       fonts:
-      - asset: fonts/noto_sans_arabic.ttf
+        - asset: fonts/noto_sans_arabic.ttf
     - family: NotoSansArmenian
       fonts:
-      - asset: fonts/noto_sans_armenian.ttf
+        - asset: fonts/noto_sans_armenian.ttf
     - family: NotoSansEthiopic
       fonts:
-      - asset: fonts/noto_sans_ethiopic.ttf
+        - asset: fonts/noto_sans_ethiopic.ttf
     - family: NotoSansBengali
       fonts:
-      - asset: fonts/noto_sans_bengali.ttf
+        - asset: fonts/noto_sans_bengali.ttf
     - family: NotoSansHebrew
       fonts:
-      - asset: fonts/noto_sans_hebrew.ttf
+        - asset: fonts/noto_sans_hebrew.ttf
     - family: NotoSansGeorgian
       fonts:
-      - asset: fonts/noto_sans_georgian.ttf
+        - asset: fonts/noto_sans_georgian.ttf
     - family: NotoSansJp
       fonts:
-      - asset: fonts/noto_sans_jp.ttf
+        - asset: fonts/noto_sans_jp.ttf
     - family: NotoSansKr
       fonts:
-      - asset: fonts/noto_sans_kr.ttf
+        - asset: fonts/noto_sans_kr.ttf
     - family: NotoSansMalayalam
       fonts:
-      - asset: fonts/noto_sans_malayalam.ttf
+        - asset: fonts/noto_sans_malayalam.ttf
     - family: NotoSansNk
       fonts:
-      - asset: fonts/noto_sans_nk.ttf
+        - asset: fonts/noto_sans_nk.ttf
     - family: NotoSansNewa
       fonts:
-      - asset: fonts/noto_sans_newa.ttf
+        - asset: fonts/noto_sans_newa.ttf
     - family: NotoSansTamil
       fonts:
-      - asset: fonts/noto_sans_tamil.ttf
+        - asset: fonts/noto_sans_tamil.ttf
     - family: NotoSansSc
       fonts:
-      - asset: fonts/noto_sans_sc.ttf
+        - asset: fonts/noto_sans_sc.ttf
     - family: NotoSansTelugu
       fonts:
-      - asset: fonts/noto_sans_telugu.ttf
+        - asset: fonts/noto_sans_telugu.ttf
     - family: NotoSansTc
       fonts:
-      - asset: fonts/noto_sans_tc.ttf
+        - asset: fonts/noto_sans_tc.ttf
     - family: NotoSansThai
       fonts:
-      - asset: fonts/noto_sans_thai.ttf
+        - asset: fonts/noto_sans_thai.ttf
 
   uses-material-design: true

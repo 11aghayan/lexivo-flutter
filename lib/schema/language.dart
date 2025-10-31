@@ -33,4 +33,9 @@ class Language {
     _spanish = Language._("spanish", "español");
     _italian = Language._("italian", "italiano");
   }
+
+  // @override
+  // Map<String, dynamic> toJson() {
+  //   return {"name": name, "nameOriginal": nameOriginal, "photoPath": photoPath};
+  // }
 }

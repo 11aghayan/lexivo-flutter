@@ -5,7 +5,7 @@ import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/filter_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
-import 'package:lexivo_flutter/schema/enums/localized_to_string.dart';
+import 'package:lexivo_flutter/schema/interface/localized_to_string_interface.dart';
 import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
@@ -53,69 +53,84 @@ class _WordsPageState extends State<WordsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.dictionary.allWordsCount == 0
-        ? noWordsWidget()
-        : CustomScrollView(
-            controller: widget.scrollController,
-            semanticChildCount: 2,
-            slivers: [
-              // Search and filter elements
-              SliverPadding(
-                padding: EdgeInsets.all(Sizes.mainPadding),
-                sliver: SliverToBoxAdapter(
-                  child: Column(
-                    spacing: 8,
-                    children: [
-                      // Search input
-                      SearchWordsTextFieldWidget(
-                        toggleSearchMode: toggleSearchMode,
-                        isSearchStrict: isSearchStrict,
-                        textEditingController: textEditingController,
-                        clearSearch: clearSearch,
-                        onSearchTextChange: onSearchTextChange,
-                      ),
+    return CustomScrollView(
+      controller: widget.scrollController,
+      semanticChildCount: 2,
+      slivers: [
+        // Search and filter elements
+        SliverPadding(
+          padding: EdgeInsets.all(Sizes.mainPadding),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              spacing: 8,
+              children: [
+                // Search input
+                SearchWordsTextFieldWidget(
+                  toggleSearchMode: toggleSearchMode,
+                  isSearchStrict: isSearchStrict,
+                  textEditingController: textEditingController,
+                  clearSearch: clearSearch,
+                  onSearchTextChange: onSearchTextChange,
+                ),
 
-                      // Filters container
-                      FiltersContainerWidget(
-                        toggleExpanded: toggleFiltersContainer,
-                        levelFilters: levelFilters,
-                        typeFilters: typeFilters,
-                        genderFilters: genderFilters,
-                        isExpanded: isFiltersContainerExpanded,
-                      ),
+                // Filters container
+                FiltersContainerWidget(
+                  toggleExpanded: toggleFiltersContainer,
+                  levelFilters: levelFilters,
+                  typeFilters: typeFilters,
+                  genderFilters: genderFilters,
+                  isExpanded: isFiltersContainerExpanded,
+                ),
 
-                      // If no results are there
-                      if (searchedWords.isEmpty) noWordsWidget(),
-                    ],
+                // If no results are there
+                if (searchedWords.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(Sizes.mainPadding),
+                    child: Center(
+                      child: Text(
+                        KStrings.getStringsForLang(
+                          appLangNotifier.value,
+                        ).noWords,
+                        style: TextStyle(
+                          color: ThemeColors.getThemeColors(
+                            context,
+                          ).emptyPageText,
+                          fontSize: Sizes.emptyPageFontSize,
+                          fontWeight: Sizes.emptyPageFontWeight,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+              ],
+            ),
+          ),
+        ),
 
-              // Words grid view
-              SliverPadding(
-                padding: EdgeInsetsGeometry.all(Sizes.mainPadding),
-                sliver: SliverMasonryGrid.extent(
-                  maxCrossAxisExtent: 600,
-                  crossAxisSpacing: Sizes.wordsPageGridSpacing,
-                  mainAxisSpacing: Sizes.wordsPageGridSpacing,
-                  childCount: searchedWords.length,
-                  itemBuilder: (context, index) {
-                    Word word = searchedWords[index];
-                    return WordCardWidget(
-                      word: word,
-                      onDelete: () {
-                        setState(() {
-                          widget.dictionary.deleteWord(word);
-                          filteredWords.remove(word);
-                          searchedWords.remove(word);
-                        });
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
+        // Words grid view
+        SliverPadding(
+          padding: EdgeInsets.all(Sizes.mainPadding),
+          sliver: SliverMasonryGrid.extent(
+            maxCrossAxisExtent: 500,
+            crossAxisSpacing: Sizes.wordsPageGridSpacing,
+            mainAxisSpacing: Sizes.wordsPageGridSpacing,
+            childCount: searchedWords.length,
+            itemBuilder: (context, index) {
+              Word word = searchedWords[index];
+              return WordCardWidget(
+                word: word,
+                onDelete: () {
+                  setState(() {
+                    widget.dictionary.deleteWord(word);
+                    filteredWords.remove(word);
+                    searchedWords.remove(word);
+                  });
+                },
+              );
+            },
+          ),
+        ),
+      ],
+    );
   }
 
   // Filter methods
@@ -178,9 +193,7 @@ class _WordsPageState extends State<WordsPage> {
 
   void clearSearch() {
     if (textEditingController.text.trim().isNotEmpty) {
-      setState(() {
         onSearchTextChange("");
-      });
     }
   }
 
@@ -202,32 +215,24 @@ class _WordsPageState extends State<WordsPage> {
 
   //
 
-  List<FilterData> getFilterDataFromEnumValues(List<LocalizedToString> values) {
+  List<FilterData> getFilterDataFromEnumValues(
+    List<LocalizedToStringInterface> values,
+  ) {
     return List.generate(values.length, (index) {
       var value = values[index];
       return FilterData(
         value.toLocalizedString(appLangNotifier.value),
         value,
         false,
-        () => setState(() => filterWords()),
+        _onFilterChanged,
       );
     });
   }
 
-  Widget noWordsWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(Sizes.mainPadding),
-      child: Center(
-        child: Text(
-          KStrings.getStringsForLang(appLangNotifier.value).noWords,
-          style: TextStyle(
-            color: ThemeColors.getThemeColors(context).emptyPageText,
-            fontSize: Sizes.emptyPageFontSize,
-            fontWeight: Sizes.emptyPageFontWeight,
-          ),
-        ),
-      ),
-    );
+  void _onFilterChanged() {
+    setState(() {
+      filterWords();
+    });
   }
 
   void toggleFiltersContainer() {

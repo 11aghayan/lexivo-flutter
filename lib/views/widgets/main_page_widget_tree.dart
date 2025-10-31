@@ -3,16 +3,16 @@ import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
-import 'package:lexivo_flutter/schema/deletable_interface.dart';
+import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary.dart';
 import 'package:lexivo_flutter/schema/language.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/pages/dictionaries_page.dart';
 import 'package:lexivo_flutter/pages/profile_page.dart';
-import 'package:lexivo_flutter/views/widgets/components/app_bar_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_lang_switcher_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/main_page_fab_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/navbar_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/navbars/navbar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/theme_switcher_widget.dart';
 
 class MainPageWidgetTree extends StatefulWidget {
@@ -32,13 +32,13 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     List<PageData> pages = [
       PageData(
         "dictionariesPageLabel",
-        Icon(Icons.menu_book_rounded),
+        Icons.menu_book_rounded,
         DictionariesPage(
           updateDictionary: updateDictionary,
           deleteDictionary: deleteDictionary,
         ),
       ),
-      PageData("profilePageLabel", Icon(Icons.account_circle), ProfilePage()),
+      PageData("profilePageLabel", Icons.account_circle, ProfilePage()),
     ];
 
     return Scaffold(
@@ -71,11 +71,11 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     bool success = Dictionary.addDictionary(dict);
     KStrings strings = KStrings.getStringsForLang(appLangNotifier.value);
     showOperationResultSnackbar(
-      context,
-      success
+      context: context,
+      text: success
           ? strings.dictionaryAddedSuccessfully
           : strings.duplicateDictionary,
-      success,
+      isSuccess: success,
     );
 
     if (success) {
@@ -88,11 +88,11 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     bool success = dict.setLanguage(newLang);
     KStrings strings = KStrings.getStringsForLang(appLangNotifier.value);
     showOperationResultSnackbar(
-      context,
-      success
+      context: context,
+      text: success
           ? strings.dictionaryLanguageUpdatedSuccessfully
           : strings.duplicateDictionary,
-      success,
+      isSuccess: success,
     );
 
     if (success) {
@@ -104,9 +104,9 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
   void deleteDictionary(Deletable dict) {
     dict.delete();
     showOperationResultSnackbar(
-      context,
-      KStrings.getStringsForLang(appLangNotifier.value).dictionaryDeleted,
-      true,
+      context: context,
+      text: KStrings.getStringsForLang(appLangNotifier.value).dictionaryDeleted,
+      isSuccess: true,
     );
     setState(() {});
     // TODO: Delete from DB

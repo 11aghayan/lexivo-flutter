@@ -1,7 +1,7 @@
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
-import 'package:lexivo_flutter/schema/enums/localized_to_string.dart';
+import 'package:lexivo_flutter/schema/interface/localized_to_string_interface.dart';
 
-enum WordLevel implements LocalizedToString {
+enum WordLevel implements LocalizedToStringInterface {
   A1,
   A2,
   B1,
@@ -12,5 +12,10 @@ enum WordLevel implements LocalizedToString {
   @override
   String toLocalizedString(AppLang _) {
     return name.toUpperCase();
+  }
+
+  @override
+  String toString() {
+    return name;
   }
 }

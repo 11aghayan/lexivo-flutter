@@ -1,3 +1,5 @@
+import 'package:flutter/scheduler.dart';
+
 class FilterData {
   final String label;
   final dynamic value;
@@ -8,6 +10,8 @@ class FilterData {
 
   void toggleSelected() {
     selected = !selected;
-    _updateState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _updateState();
+    });
   }
 }
