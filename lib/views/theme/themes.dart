@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 
 abstract class Themes {
-  static final double navbarIndicatorBorderRadius = 8.0;
-
   static ThemeData getTheme(bool isDark) {
     ThemeColors colors = isDark ? ThemeColorsDark() : ThemeColorsLight();
     return ThemeData(
@@ -33,7 +32,7 @@ abstract class Themes {
         indicatorColor: colors.contrastPrimary,
         indicatorShape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(
-            navbarIndicatorBorderRadius,
+            Sizes.navbarIndicatorBorderRadius,
           ),
         ),
         iconTheme: WidgetStateMapper({

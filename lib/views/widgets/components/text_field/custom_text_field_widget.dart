@@ -32,7 +32,7 @@ class CustomTextFieldWidget extends StatelessWidget {
       decoration: InputDecoration(
         suffixIcon: icon,
         hint: Text(
-          "$label . . .",
+          label,
           style: TextStyle(
             color: ThemeColors.getThemeColors(context).secondary,
           ),

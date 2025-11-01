@@ -23,8 +23,8 @@ class DictionariesPage extends StatelessWidget {
     return Dictionary.dictionariesCount > 0
         ? GridView(
             padding: const EdgeInsets.all(Sizes.mainPadding),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: getCrossAxisItemCount(context),
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 500,
               childAspectRatio: 1.8,
               mainAxisSpacing: Sizes.gridViewItemsSpacing,
               crossAxisSpacing: Sizes.gridViewItemsSpacing,
@@ -54,14 +54,5 @@ class DictionariesPage extends StatelessWidget {
               },
             ),
           );
-  }
-
-  int getCrossAxisItemCount(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    return screenWidth > 900
-        ? 3
-        : screenWidth > 600
-        ? 2
-        : 1;
   }
 }

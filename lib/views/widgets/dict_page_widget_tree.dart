@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
@@ -11,6 +12,7 @@ import 'package:lexivo_flutter/pages/words_page.dart';
 import 'package:lexivo_flutter/schema/word.dart';
 import 'package:lexivo_flutter/util/export_import_json.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
+import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/side_app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/dict_page_fab_widget.dart';
@@ -72,20 +74,15 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       appBar: isOrientationLandscape
           ? null
           : AppBarWidget(
-              title: Row(
-                mainAxisSize: MainAxisSize.min,
-                spacing: 8,
-                children: [
-                  Image.asset(
-                    widget.dictionary.language.photoPath,
-                    fit: BoxFit.contain,
-                    height: 40,
-                    width: 40,
-                  ),
-                  Text(currentPageData.getLabel(appLang)),
-                ],
-              ),
-              animationDuration: animationDuration,
+              titleWidgets: [
+                Image.asset(
+                  widget.dictionary.language.photoPath,
+                  fit: BoxFit.contain,
+                  height: 40,
+                  width: 40,
+                ),
+                Text(currentPageData.getLabel(appLang)),
+              ],
               actions: appBarActions(pageIndex),
             ),
       floatingActionButton: DictPageFabWidget(
@@ -102,14 +99,35 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       body: Row(
         children: [
           if (isOrientationLandscape)
-            SideAppBarWidget(),
-          Expanded(child: SafeArea(child: currentPageData.pageWidget)),
-          if (isOrientationLandscape) SideNavbarWidget(
-            appLang: appLang,
+            SideAppBarWidget(
+              titleWidgets: [
+                Image.asset(
+                  widget.dictionary.language.photoPath,
+                  fit: BoxFit.contain,
+                  height: 50,
+                  width: 50,
+                ),
+                AutoSizeText(
+                  maxLines: 1,
+                  minFontSize: 12,
+                  wrapWords: true,
+                  currentPageData.getLabel(appLang),
+                  style: TextStyle(
+                    color: ThemeColors.getThemeColors(context).contrastPrimary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+              actions: appBarActions(pageIndex, size: 32),
+            ),
+          Expanded(child: currentPageData.pageWidget),
+          if (isOrientationLandscape)
+            SideNavbarWidget(
+              appLang: appLang,
               pages: pages,
               selectedPageIndex: pageIndex,
               setPageIndex: setPageIndex,
-          ),
+            ),
         ],
       ),
 
@@ -126,7 +144,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
 
   // appBar actions' methods
 
-  List<Widget> appBarActions(int pageIndex) {
+  List<Widget> appBarActions(int pageIndex, {double? size}) {
     Map<String, Map<int, Function()>> methods = {
       "import": {0: importWords, 1: importGrammar},
       "export": {0: exportWords, 1: exportGrammar},
@@ -137,11 +155,13 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         : [
             IconButton(
               onPressed: methods["import"]![pageIndex],
-              icon: Icon(Icons.download_rounded),
+              icon: Icon(Icons.download_rounded, size: size),
+              color: ThemeColors.getThemeColors(context).contrastPrimary,
             ),
             IconButton(
               onPressed: methods["export"]![pageIndex],
-              icon: Icon(Icons.upload_rounded),
+              icon: Icon(Icons.upload_rounded, size: size),
+              color: ThemeColors.getThemeColors(context).contrastPrimary,
             ),
           ];
   }

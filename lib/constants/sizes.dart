@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 abstract class Sizes {
+  static const double navbarIndicatorBorderRadius = 8.0;
   static const double mainPadding = 16.0;
   static const double borderRadius_1 = 32.0;
   static const double borderRadius_2 = 20.0;
@@ -11,7 +12,7 @@ abstract class Sizes {
   static const double shadowSpreadRadius = 0.3;
   static const double outlinedIconPadding = 16;
   static const double dialogInnerPadding = 20.0;
-  static const double dialogMaxWidth = 600.0;
+  static const double dialogMaxWidth = 500.0;
   static const double dialogVerticalSpacing = 20.0;
   static const double dialogHorizontalSpacing = 8.0;
   static const double fontSizeDialogTitle = 18.0;
@@ -26,4 +27,5 @@ abstract class Sizes {
   static const FontWeight wordsCardInfoFontWeight = FontWeight.w600;
   static const double fabVerticalSpacing = 16.0;
   static const double sideBarWidth = 100.0;
+  static const double sideBarBasePadding = 16.0;
 }

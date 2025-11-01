@@ -4,23 +4,22 @@ import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({
     super.key,
-    required this.title,
+    required this.titleWidgets,
     this.leading = true,
-    this.actions = const [],
-    this.animationDuration = 300,
+    this.actions = const []
   });
 
-  final Widget title;
+  final List<Widget> titleWidgets;
   final List<Widget> actions;
   final bool leading;
-  final int animationDuration;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: animationDuration),
-      child: AppBar(
-        title: title,
+    return AppBar(
+        title: Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 8,
+                children: titleWidgets),
         centerTitle: true,
         actions: actions,
         leading: leading ? IconButton(
@@ -30,8 +29,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             color: ThemeColors.getThemeColors(context).contrastPrimary,
           ),
         ) : null,
-      ),
-    );
+      );
   }
 
   @override

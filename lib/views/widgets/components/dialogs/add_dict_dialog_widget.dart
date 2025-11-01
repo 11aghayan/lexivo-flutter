@@ -48,7 +48,6 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: double.maxFinite,
                 constraints: BoxConstraints(maxWidth: Sizes.dialogMaxWidth),
                 padding: EdgeInsets.all(Sizes.dialogInnerPadding),
                 decoration: BoxDecoration(

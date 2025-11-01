@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/shared_pref_keys.dart';
+import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeSwitcherWidget extends StatelessWidget {
@@ -17,7 +18,7 @@ class ThemeSwitcherWidget extends StatelessWidget {
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString(keyAppTheme, appThemeNotifier.value.toString());
           },
-          icon: Icon(theme.getIcon()),
+          icon: Icon(theme.getIcon(), color: ThemeColors.getThemeColors(context).contrastPrimary,),
         );
       },
     );

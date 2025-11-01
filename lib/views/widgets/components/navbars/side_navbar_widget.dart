@@ -22,18 +22,18 @@ class SideNavbarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final safeArea = MediaQuery.of(context).padding.right;
+    final safeArea = MediaQuery.of(context).padding;
     final colors = ThemeColors.getThemeColors(context);
-    const basePadding = 16.0;
+    const basePadding = Sizes.sideBarBasePadding;
 
     return Container(
       color: colors.primary,
-      width: Sizes.sideBarWidth + safeArea,
+      width: Sizes.sideBarWidth + safeArea.right,
       padding: EdgeInsets.fromLTRB(
         basePadding,
-        basePadding,
-        basePadding + safeArea,
-        basePadding,
+        basePadding + safeArea.top,
+        basePadding + safeArea.right,
+        basePadding + safeArea.bottom,
       ),
       child: Column(
         spacing: basePadding,
@@ -61,7 +61,7 @@ class SideNavbarWidget extends StatelessWidget {
                     onPressed: () => setPageIndex(index),
                     backgroundColor: backgroundColor,
                     padding: 4,
-                    borderRadius: 12,
+                    borderRadius: Sizes.navbarIndicatorBorderRadius,
                     child: Icon(page.icon, color: foregroundColor, size: 28),
                   ),
                 ),

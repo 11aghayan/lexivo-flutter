@@ -106,18 +106,19 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
                 IntrinsicHeight(
                   child: CustomFilledButtonWidget(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        DialogRoute(
-                          context: context,
-                          builder: (context) {
-                            return DeleteDialogWidget(
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          final viewInsets = MediaQuery.of(context).viewInsets;
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: viewInsets.bottom),
+                            child: DeleteDialogWidget(
                               onDelete: () => deleteDictionary(dictionary),
                               twoStepDeleteText:
                                   "${KStrings.getStringsForLang(appLangNotifier.value).delete.toLowerCase()} ${dictionary.language.nameOriginal}",
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       );
                     },
                     backgroundColor: ThemeColors.getThemeColors(
@@ -126,7 +127,9 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
                     child: Icon(
                       Icons.delete_forever_rounded,
                       size: iconSize,
-                      color: ThemeColors.getThemeColors(context).contrastPrimary,
+                      color: ThemeColors.getThemeColors(
+                        context,
+                      ).contrastPrimary,
                     ),
                   ),
                 ),
