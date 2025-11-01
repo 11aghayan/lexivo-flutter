@@ -15,11 +15,7 @@ class SideAppBarWidget extends StatelessWidget {
       width: Sizes.sideBarWidth + safeArea,
       height: double.infinity,
       child: SafeArea(
-        child: Column(
-          children: [
-            Icon(Icons.arrow_back_ios_new_rounded),
-          ],
-        ),
+        child: Column(children: [Icon(Icons.arrow_back_ios_new_rounded)]),
       ),
     );
   }

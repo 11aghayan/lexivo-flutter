@@ -25,5 +25,5 @@ abstract class Sizes {
   static const double wordsCardInfoFontSize = 16.0;
   static const FontWeight wordsCardInfoFontWeight = FontWeight.w600;
   static const double fabVerticalSpacing = 16.0;
-  static const double sideBarWidth = 104.0;
+  static const double sideBarWidth = 100.0;
 }

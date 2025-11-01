@@ -49,9 +49,6 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
 
   @override
   Widget build(BuildContext context) {
-    bool isOrientationLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
     final List<PageData> pages = [
       PageData(
         "wordsPageLabel",
@@ -66,6 +63,8 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       PageData("activitiesPageLabel", Icons.task_rounded, ActivitiesPage()),
     ];
 
+    bool isOrientationLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     PageData currentPageData = pages[pageIndex];
     AppLang appLang = appLangNotifier.value;
 
@@ -102,9 +101,15 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       ),
       body: Row(
         children: [
-          if (isOrientationLandscape) SideAppBarWidget(),
+          if (isOrientationLandscape)
+            SideAppBarWidget(),
           Expanded(child: SafeArea(child: currentPageData.pageWidget)),
-          if (isOrientationLandscape) SideNavbarWidget(),
+          if (isOrientationLandscape) SideNavbarWidget(
+            appLang: appLang,
+              pages: pages,
+              selectedPageIndex: pageIndex,
+              setPageIndex: setPageIndex,
+          ),
         ],
       ),
 
