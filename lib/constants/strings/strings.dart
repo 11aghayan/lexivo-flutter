@@ -32,13 +32,14 @@ abstract class KStrings {
   abstract final String practicePageLabel;
   abstract final String noWords;
   abstract final String search;
-  abstract final String levelFiltersHeader;
-  abstract final String genderFiltersHeader;
-  abstract final String typeFiltersHeader;
+  abstract final String level;
+  abstract final String gender;
+  abstract final String type;
   abstract final String filters;
   abstract final String wordsExportedSuccessfully;
   abstract final String wordsImportedSuccessfully;
   abstract final String wordsCouldNotBeImported;
+  abstract final String addWordPageLabel;
 
   static KStrings getStringsForLang(AppLang appLang) {
     return switch (appLang) {

@@ -3,8 +3,8 @@ import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
-import 'package:lexivo_flutter/schema/dictionary.dart';
-import 'package:lexivo_flutter/schema/language.dart';
+import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
+import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/util/string_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
@@ -182,7 +182,7 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
         widget.updateDictionary!(widget.dictionary!, selectedLanguage!);
       }
     } else {
-      widget.addDictionary!(Dictionary(selectedLanguage!));
+      widget.addDictionary!(Dictionary.create(selectedLanguage!));
     }
     Navigator.pop(context);
   }

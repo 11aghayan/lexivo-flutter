@@ -5,17 +5,18 @@ import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
-import 'package:lexivo_flutter/schema/dictionary.dart';
+import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/pages/activities_page.dart';
 import 'package:lexivo_flutter/pages/grammars_page.dart';
 import 'package:lexivo_flutter/pages/words_page.dart';
-import 'package:lexivo_flutter/schema/word.dart';
+import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/util/export_import_json.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/side_app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/dict_page_fab_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/lang_flag_title.dart';
 import 'package:lexivo_flutter/views/widgets/components/navbars/navbar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/navbars/side_navbar_widget.dart';
 
@@ -75,17 +76,13 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
           ? null
           : AppBarWidget(
               titleWidgets: [
-                Image.asset(
-                  widget.dictionary.language.photoPath,
-                  fit: BoxFit.contain,
-                  height: 40,
-                  width: 40,
-                ),
+                LangFlagTitle(photoPath: widget.dictionary.language.photoPath),
                 Text(currentPageData.getLabel(appLang)),
               ],
               actions: appBarActions(pageIndex),
             ),
       floatingActionButton: DictPageFabWidget(
+        dictionary: widget.dictionary,
         scrollUp: () {
           scrollController.animateTo(
             scrollController.position.minScrollExtent,
@@ -101,9 +98,8 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
           if (isOrientationLandscape)
             SideAppBarWidget(
               titleWidgets: [
-                Image.asset(
-                  widget.dictionary.language.photoPath,
-                  fit: BoxFit.contain,
+                LangFlagTitle(
+                  photoPath: widget.dictionary.language.photoPath,
                   height: 50,
                   width: 50,
                 ),

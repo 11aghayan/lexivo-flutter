@@ -95,7 +95,7 @@ class FiltersContainerWidget extends StatelessWidget {
             HorizontalScrollingFiltersWidget(
               header: KStrings.getStringsForLang(
                 appLangNotifier.value,
-              ).levelFiltersHeader,
+              ).level,
               items: levelFilters,
             ),
 
@@ -103,7 +103,7 @@ class FiltersContainerWidget extends StatelessWidget {
             HorizontalScrollingFiltersWidget(
               header: KStrings.getStringsForLang(
                 appLangNotifier.value,
-              ).typeFiltersHeader,
+              ).type,
               items: typeFilters,
             ),
 
@@ -111,7 +111,7 @@ class FiltersContainerWidget extends StatelessWidget {
             HorizontalScrollingFiltersWidget(
               header: KStrings.getStringsForLang(
                 appLangNotifier.value,
-              ).genderFiltersHeader,
+              ).gender,
               items: genderFilters,
             ),
           ],

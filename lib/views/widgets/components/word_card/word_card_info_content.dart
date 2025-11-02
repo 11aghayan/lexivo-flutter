@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
-import 'package:lexivo_flutter/schema/word.dart';
+import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 
 class WordCardInfoContent extends StatelessWidget {

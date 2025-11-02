@@ -3,8 +3,8 @@ import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
-import 'package:lexivo_flutter/schema/dictionary.dart';
-import 'package:lexivo_flutter/schema/language.dart';
+import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
+import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/dictionar_card/dictionary_card_widget.dart';
 
@@ -24,7 +24,7 @@ class DictionariesPage extends StatelessWidget {
         ? GridView(
             padding: const EdgeInsets.all(Sizes.mainPadding),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 500,
+              maxCrossAxisExtent: 600,
               childAspectRatio: 1.8,
               mainAxisSpacing: Sizes.gridViewItemsSpacing,
               crossAxisSpacing: Sizes.gridViewItemsSpacing,

@@ -7,8 +7,10 @@ part of 'word.dart';
 // **************************************************************************
 
 Word _$WordFromJson(Map<String, dynamic> json) => Word(
+  id: json['id'] as String,
   type: $enumDecode(_$WordTypeEnumMap, json['type']),
   level: $enumDecode(_$WordLevelEnumMap, json['level']),
+  practiceCountdown: (json['practiceCountdown'] as num).toInt(),
   gender: $enumDecodeNullable(_$WordGenderEnumMap, json['gender']),
   native: json['native'] as String?,
   nativeDetails: json['nativeDetails'] as String?,
@@ -17,9 +19,10 @@ Word _$WordFromJson(Map<String, dynamic> json) => Word(
   past2: json['past2'] as String?,
   desc: json['desc'] as String?,
   descDetails: json['descDetails'] as String?,
-)..practiceCountdown = (json['practiceCountdown'] as num).toInt();
+);
 
 Map<String, dynamic> _$WordToJson(Word instance) => <String, dynamic>{
+  'id': instance.id,
   'type': _$WordTypeEnumMap[instance.type]!,
   'level': _$WordLevelEnumMap[instance.level]!,
   'practiceCountdown': instance.practiceCountdown,

@@ -19,4 +19,11 @@ enum WordGender implements LocalizedToStringInterface {
   String toString() {
     return name;
   }
+
+  static WordGender fromString(String stringValue) {
+    return values.firstWhere(
+      (wt) => wt.toString() == stringValue.toUpperCase(),
+      orElse: () => NO_GENDER,
+    );
+  }
 }

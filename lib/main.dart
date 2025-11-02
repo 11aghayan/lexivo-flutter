@@ -3,7 +3,7 @@ import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/shared_pref_keys.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/enums/app_theme_enum.dart';
-import 'package:lexivo_flutter/schema/language.dart';
+import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/views/theme/themes.dart';
 import 'package:lexivo_flutter/views/widgets/main_page_widget_tree.dart';
 import 'package:shared_preferences/shared_preferences.dart';

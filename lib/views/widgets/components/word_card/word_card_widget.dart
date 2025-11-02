@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
-import 'package:lexivo_flutter/schema/word.dart';
+import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/delete_dialog_widget.dart';

@@ -20,4 +20,11 @@ enum WordType implements LocalizedToStringInterface {
   String toString() {
     return name;
   }
+
+  static WordType fromString(String stringValue) {
+    return values.firstWhere(
+      (wt) => wt.toString() == stringValue.toUpperCase(),
+      orElse: () => NOUN,
+    );
+  }
 }

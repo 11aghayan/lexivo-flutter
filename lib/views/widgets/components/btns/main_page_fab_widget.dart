@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
-import 'package:lexivo_flutter/schema/dictionary.dart';
+import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/add_dict_dialog_widget.dart';
 
@@ -32,9 +32,7 @@ class MainPageFabWidget extends StatelessWidget {
             ? [
                 FloatingActionButton.small(
                   heroTag: "main_page_import_dict_fab",
-                  onPressed: () {
-                    // TODO: Add Import JSON func
-                  },
+                  onPressed: importDict,
                   backgroundColor: ThemeColors.getThemeColors(
                     context,
                   ).contrastPrimary,
@@ -45,21 +43,25 @@ class MainPageFabWidget extends StatelessWidget {
                 // Button Add
                 FloatingActionButton(
                   heroTag: "main_page_add_dict_fab",
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (buildContext) {
-                        return AddDictDialogWidget(
-                          addDictionary: addDictionary,
-                        );
-                      },
-                    );
-                  },
+                  onPressed: () => showAddDictDialog(context),
                   child: Icon(Icons.add_rounded),
                 ),
               ]
             : [],
       ),
+    );
+  }
+
+  void importDict() {
+    // TODO: Implement
+  }
+
+  void showAddDictDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (buildContext) {
+        return AddDictDialogWidget(addDictionary: addDictionary);
+      },
     );
   }
 }

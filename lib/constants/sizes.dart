@@ -21,6 +21,7 @@ abstract class Sizes {
   static const double emptyPageFontSize = 18.0;
   static const FontWeight emptyPageFontWeight = FontWeight.w600;
   static const double wordsPageGridSpacing = 12.0;
+  static const double addWordPageGridSpacing = 16.0;
   static const double wordsCardVerticalSpacingTight = 4.0;
   static const double wordsCardVerticalSpacingLoose = 12.0;
   static const double wordsCardInfoFontSize = 16.0;

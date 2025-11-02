@@ -52,11 +52,11 @@ class KStrings_DE extends KStrings {
   @override
   final String search = "Suchen";
   @override
-  final String levelFiltersHeader = "Niveau";
+  final String level = "Niveau";
   @override
-  final String genderFiltersHeader = "Geschlecht";
+  final String gender = "Geschlecht";
   @override
-  final String typeFiltersHeader = "Wortart";
+  final String type = "Wortart";
   @override
   final String filters = "Filter";
   @override
@@ -65,6 +65,8 @@ class KStrings_DE extends KStrings {
   final String wordsImportedSuccessfully = "Wörter erfolgreich importiert";
   @override
   final String wordsCouldNotBeImported = "Wörter konnten nicht importiert werden";
+  @override
+  final String addWordPageLabel = "Wort hinzufügen";
 
   @override
   String twoStepDelete(String text) {

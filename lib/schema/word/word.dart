@@ -22,7 +22,7 @@ class Word {
   String? desc;
   String? descDetails;
 
-  Word.existing({
+  Word({
     required this.id,
     required this.type,
     required this.level,
@@ -37,35 +37,45 @@ class Word {
     required this.descDetails,
   });
 
-  Word({
-    required this.type,
-    required this.level,
-    required this.gender,
-    required this.native,
-    required this.nativeDetails,
-    required this.plural,
-    required this.past1,
-    required this.past2,
-    required this.desc,
-    required this.descDetails,
-  }) : id = Uuid().v4(),
-       practiceCountdown = 0;
+  Word.create()
+    : id = Uuid().v4(),
+      type = WordType.NOUN,
+      level = WordLevel.A1,
+      practiceCountdown = 0,
+      gender = WordGender.MASCULINE,
+      native = null,
+      nativeDetails = null,
+      plural = null,
+      past1 = null,
+      past2 = null,
+      desc = null,
+      descDetails = null;
 
-  set setType(WordType value) => type = value;
-  set setLevel(WordLevel value) => level = value;
+  Word.copy(Word w)
+    : id = w.id,
+      type = w.type,
+      level = w.level,
+      practiceCountdown = w.practiceCountdown,
+      gender = w.gender,
+      native = w.native,
+      nativeDetails = w.nativeDetails,
+      plural = w.plural,
+      past1 = w.past1,
+      past2 = w.past2,
+      desc = w.desc,
+      descDetails = w.descDetails;
+
+  void setType(WordType value) => type = value;
+  void setLevel(WordLevel value) => level = value;
+  void setGender(WordGender value) => gender = value;
   set setPracticeCountdown(int value) => practiceCountdown = value;
-  set setGender(WordGender value) => gender = value;
-  set setNative(String? value) => native = value;
-  set setNativeDetails(String? value) => nativeDetails = value;
-  set setPlural(String? value) => plural = value;
-  set setPast1(String? value) => past1 = value;
-  set setPast2(String? value) => past2 = value;
-  set setDesc(String? value) => desc = value;
-  set setDescDetails(String? value) => descDetails = value;
-
-  factory Word.fromJson(Map<String, dynamic> json) => _$WordFromJson(json);
-
-  Map<String, dynamic> toJson() => _$WordToJson(this);
+  set setNative(String? value) => native = value?.trim();
+  set setNativeDetails(String? value) => nativeDetails = value?.trim();
+  set setPlural(String? value) => plural = value?.trim();
+  set setPast1(String? value) => past1 = value?.trim();
+  set setPast2(String? value) => past2 = value?.trim();
+  set setDesc(String? value) => desc = value?.trim();
+  set setDescDetails(String? value) => descDetails = value?.trim();
 
   bool containsString(String string, bool strict) {
     string = string.trim();
@@ -112,4 +122,8 @@ class Word {
       return false;
     }
   }
+
+  // JSON
+  factory Word.fromJson(Map<String, dynamic> json) => _$WordFromJson(json);
+  Map<String, dynamic> toJson() => _$WordToJson(this);
 }

@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'language.g.dart';
+
+@JsonSerializable()
 class Language {
   static final List<Language> _allLanguagesList = [];
 
@@ -12,7 +17,7 @@ class Language {
   final String nameOriginal;
   final String photoPath;
 
-  Language._(this.name, this.nameOriginal)
+  Language(this.name, this.nameOriginal)
     : photoPath = "assets/flags/$name.png" {
     _allLanguagesList.add(this);
   }
@@ -26,16 +31,16 @@ class Language {
   static Language get italian => _italian!;
 
   static void init() {
-    _english = Language._("english", "english");
-    _german = Language._("german", "deutsch");
-    _russian = Language._("russian", "русский");
-    _french = Language._("french", "français");
-    _spanish = Language._("spanish", "español");
-    _italian = Language._("italian", "italiano");
+    _english = Language("english", "english");
+    _german = Language("german", "deutsch");
+    _russian = Language("russian", "русский");
+    _french = Language("french", "français");
+    _spanish = Language("spanish", "español");
+    _italian = Language("italian", "italiano");
   }
 
-  // @override
-  // Map<String, dynamic> toJson() {
-  //   return {"name": name, "nameOriginal": nameOriginal, "photoPath": photoPath};
-  // }
+  // JSON
+  factory Language.fromJson(Map<String, dynamic> json) =>
+      _$LanguageFromJson(json);
+  Map<String, dynamic> toJson() => _$LanguageToJson(this);
 }
