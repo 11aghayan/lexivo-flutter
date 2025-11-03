@@ -27,7 +27,7 @@ class SearchWordsTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFieldWidget(
-      label: "${KStrings.getStringsForLang(appLangNotifier.value).search} . . .",
+      hint: "${KStrings.getStringsForLang(appLangNotifier.value).search} . . .",
       textEditingController: textEditingController,
       borderRadius: Sizes.borderRadius_1,
       borderColor: borderColor,

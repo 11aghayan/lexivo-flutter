@@ -8,8 +8,8 @@ abstract class Sizes {
   static const double dictionaryCardHeight = 200.0;
   static const double gridViewItemsSpacing = 10.0;
   static const double cardInnerPadding = 8.0;
-  static const double shadowBlurRadius = 4.0;
-  static const double shadowSpreadRadius = 0.3;
+  static const double shadowBlurRadius = 3.0;
+  static const double shadowSpreadRadius = 0.2;
   static const double outlinedIconPadding = 16;
   static const double dialogInnerPadding = 20.0;
   static const double dialogMaxWidth = 500.0;

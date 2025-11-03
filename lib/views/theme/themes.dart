@@ -4,12 +4,17 @@ import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 
 abstract class Themes {
   static ThemeData getTheme(bool isDark) {
-    ThemeColors colors = isDark ? ThemeColorsDark() : ThemeColorsLight();
+    final colors = isDark ? ThemeColorsDark() : ThemeColorsLight();
     return ThemeData(
       useMaterial3: true,
       brightness: isDark ? Brightness.dark : Brightness.light,
       primaryColor: colors.primary,
       canvasColor: colors.canvas,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: colors.mainText,
+        selectionColor: colors.primary,
+        selectionHandleColor: colors.primary
+      ),
       scaffoldBackgroundColor: colors.scaffoldBg,
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: colors.accent,

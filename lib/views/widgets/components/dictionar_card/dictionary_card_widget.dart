@@ -46,7 +46,7 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
               return DictPageWidgetTree(dictionary: widget.dictionary);
             },
           ),
-        );
+        ).then((_) => setState(() {}));
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: animationDuration),
@@ -60,7 +60,7 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
           boxShadow: [
             BoxShadow(
               blurRadius: Sizes.shadowBlurRadius,
-              color: ThemeColors.getThemeColors(context).cardBorder,
+              color: ThemeColors.getThemeColors(context).shadow,
               spreadRadius: Sizes.shadowSpreadRadius,
             ),
           ],

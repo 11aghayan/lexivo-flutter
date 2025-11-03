@@ -8,16 +8,16 @@ import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 class DictPageFabWidget extends StatelessWidget {
   const DictPageFabWidget({
     super.key,
-    required this.pageIndex,
     required this.scrollUpBtnVisible,
     required this.scrollUp,
     required this.dictionary,
+    required this.updateState,
   });
 
   final Dictionary dictionary;
-  final int pageIndex;
   final bool scrollUpBtnVisible;
   final void Function() scrollUp;
+  final void Function() updateState;
 
   @override
   Widget build(BuildContext context) {
@@ -33,27 +33,25 @@ class DictPageFabWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         spacing: Sizes.fabVerticalSpacing,
-        children: pageIndex == 0
-            ? [
-                if (scrollUpBtnVisible)
-                  FloatingActionButton.small(
-                    heroTag: "dict_page_scroll_up_fab",
-                    onPressed: scrollUp,
-                    backgroundColor: ThemeColors.getThemeColors(
-                      context,
-                    ).contrastPrimary,
-                    foregroundColor: ThemeColors.getThemeColors(context).accent,
-                    child: Icon(Icons.keyboard_arrow_up_rounded),
-                  ),
+        children: [
+          if (scrollUpBtnVisible)
+            FloatingActionButton.small(
+              heroTag: "dict_page_scroll_up_fab",
+              onPressed: scrollUp,
+              backgroundColor: ThemeColors.getThemeColors(
+                context,
+              ).contrastPrimary,
+              foregroundColor: ThemeColors.getThemeColors(context).accent,
+              child: Icon(Icons.keyboard_arrow_up_rounded),
+            ),
 
-                // Button Add
-                FloatingActionButton(
-                  heroTag: "dict_page_add_word_fab",
-                  onPressed: () => addWord(context),
-                  child: Icon(Icons.add_rounded),
-                ),
-              ]
-            : [],
+          // Button Add
+          FloatingActionButton(
+            heroTag: "dict_page_add_word_fab",
+            onPressed: () => addWord(context),
+            child: Icon(Icons.add_rounded),
+          ),
+        ],
       ),
     );
   }
@@ -64,6 +62,6 @@ class DictPageFabWidget extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => AddWordPage(dictionary: dictionary),
       ),
-    );
+    ).then((_) => updateState());
   }
 }

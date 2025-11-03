@@ -12,7 +12,8 @@ class CustomFilledButtonWidget extends StatelessWidget {
     this.padding = 12,
     this.disabled = false,
     this.height,
-    this.alignment = Alignment.center
+    this.alignment = Alignment.center,
+    this.shadow
   });
 
   final VoidCallback? onPressed;
@@ -23,6 +24,7 @@ class CustomFilledButtonWidget extends StatelessWidget {
   final bool disabled;
   final double? height;
   final Alignment? alignment;
+  final List<BoxShadow>? shadow;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class CustomFilledButtonWidget extends StatelessWidget {
           height: height,
           padding: EdgeInsets.all(padding!),
           decoration: BoxDecoration(
+            boxShadow: shadow,
             borderRadius: BorderRadius.circular(borderRadius!),
             color: disabled
                 ? ThemeColors.getThemeColors(context).disabledBtn

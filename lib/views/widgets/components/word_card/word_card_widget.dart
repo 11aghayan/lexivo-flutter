@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/pages/add_word_page.dart';
+import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
@@ -14,19 +16,26 @@ class WordCardWidget extends StatelessWidget {
     super.key,
     required this.word,
     required this.onDelete,
+    required this.dictionary,
+    required this.updateState
   });
 
   final Word word;
-  final Function() onDelete;
+  final void Function() onDelete;
+  final void Function() updateState;
+  final Dictionary dictionary;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // TODO: redirect to word page
-        ScaffoldMessenger.of(
+        Navigator.push(
           context,
-        ).showSnackBar(SnackBar(content: Text("Clicked")));
+          MaterialPageRoute(
+            builder: (context) =>
+                AddWordPage(dictionary: dictionary, word: word),
+          ),
+        ).then((_) => updateState());
       },
       child: Container(
         padding: EdgeInsets.all(Sizes.mainPadding),

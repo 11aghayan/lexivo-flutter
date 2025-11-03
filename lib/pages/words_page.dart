@@ -20,7 +20,7 @@ class WordsPage extends StatefulWidget {
     super.key,
     required this.dictionary,
     required this.isScrollUpBtnVisible,
-    required this.scrollController,
+    required this.scrollController
   });
 
   final Dictionary dictionary;
@@ -40,9 +40,11 @@ class _WordsPageState extends State<WordsPage> {
   late List<FilterData> typeFilters;
   late List<FilterData> genderFilters;
   bool isFiltersContainerExpanded = false;
+  int renderNum = 0;
 
   @override
   void initState() {
+    print(1);
     filteredWords = widget.dictionary.allWords;
     searchedWords = filteredWords;
     levelFilters = getFilterDataFromEnumValues(WordLevel.values);
@@ -52,7 +54,13 @@ class _WordsPageState extends State<WordsPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didUpdateWidget(covariant WordsPage oldWidget) {
+    filterWords();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {    
     return CustomScrollView(
       controller: widget.scrollController,
       semanticChildCount: 2,
@@ -117,7 +125,13 @@ class _WordsPageState extends State<WordsPage> {
             itemBuilder: (context, index) {
               Word word = searchedWords[index];
               return WordCardWidget(
+                dictionary: widget.dictionary,
                 word: word,
+                updateState: () {
+                  setState(() {
+                    filterWords();
+                  });
+                },
                 onDelete: () {
                   setState(() {
                     widget.dictionary.deleteWord(word);

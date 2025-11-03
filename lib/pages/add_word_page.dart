@@ -8,6 +8,7 @@ import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/add_word_components/add_word_body.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/side_app_bar_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/dialogs/delete_dialog_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/lang_flag_title.dart';
 
 class AddWordPage extends StatelessWidget {
@@ -20,10 +21,14 @@ class AddWordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final strings = KStrings.getStringsForLang(appLangNotifier.value);
     final colors = ThemeColors.getThemeColors(context);
+    final header = word == null
+        ? strings.addWordPageLabel
+        : strings.updateWordPageLabel;
+
     List<Widget> titleWidgets = [
       LangFlagTitle(photoPath: dictionary.language.photoPath),
       AutoSizeText(
-        strings.addWordPageLabel,
+        header,
         maxLines: 2,
         minFontSize: 16,
         softWrap: true,
@@ -34,18 +39,59 @@ class AddWordPage extends StatelessWidget {
     bool isOrientationLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
+    Widget deleteBtn = IconButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) =>
+              DeleteDialogWidget(onDelete: () => deleteWord(word!)),
+        ).then((_) {
+          if (context.mounted) {
+            Navigator.pop(context);
+          }
+        });
+      },
+      icon: Icon(Icons.delete_forever_rounded, color: colors.deleteBtn, size: 28,),
+    );
+
     return Scaffold(
       appBar: isOrientationLandscape
           ? null
-          : AppBarWidget(titleWidgets: titleWidgets),
+          : AppBarWidget(
+              titleWidgets: titleWidgets,
+              actions: [if (word != null) deleteBtn],
+            ),
       body: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
           if (isOrientationLandscape)
-            SideAppBarWidget(titleWidgets: titleWidgets),
-          Expanded(child: AddWordBody(word: word,)),
+            SideAppBarWidget(
+              titleWidgets: titleWidgets,
+              actions: [if (word != null) deleteBtn],
+            ),
+          Expanded(
+            child: AddWordBody(
+              word: word,
+              saveInDictionary: word == null ? addWord : updateWord,
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future<void> addWord(Word word) async {
+    dictionary.addWord(word);
+    // TODO: Save to DB
+  }
+
+  Future<void> updateWord(Word word) async {
+    dictionary.updateWord(word);
+    // TODO: Update in DB
+  }
+
+  Future<void> deleteWord(Word word) async {
+    dictionary.deleteWord(word);
+    // TODO: Delete from DB
   }
 }

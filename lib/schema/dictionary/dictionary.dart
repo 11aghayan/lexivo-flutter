@@ -3,6 +3,7 @@ import 'package:lexivo_flutter/schema/grammar/grammar.dart';
 import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
+import 'package:lexivo_flutter/util/string_util.dart';
 import 'package:uuid/uuid.dart';
 
 part 'dictionary.g.dart';
@@ -40,19 +41,34 @@ class Dictionary implements Deletable {
 
   // Word methods
   void addWords(List<Word> words) {
-    allWords.addAll(words);
+    for (Word word in words) {
+      addWord(word);
+    }
   }
 
   void addWord(Word word) {
+    _trimStringFields(word);
     allWords.add(word);
   }
 
-  void editWord(Word word) {
+  void updateWord(Word word) {
+    _trimStringFields(word);
     allWords = allWords.map((w) => w.id == word.id ? word : w).toList();
   }
 
   void deleteWord(Word word) {
     allWords.remove(word);
+  }
+
+  Word _trimStringFields(Word word) {
+    word.native = Strings.toTrimmedOrNull(word.native);
+    word.nativeDetails = Strings.toTrimmedOrNull(word.nativeDetails);
+    word.plural = Strings.toTrimmedOrNull(word.plural);
+    word.past1 = Strings.toTrimmedOrNull(word.past1);
+    word.past2 = Strings.toTrimmedOrNull(word.past2);
+    word.desc = Strings.toTrimmedOrNull(word.desc);
+    word.descDetails = Strings.toTrimmedOrNull(word.descDetails);
+    return word;
   }
   //
 

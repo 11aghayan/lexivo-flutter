@@ -65,7 +65,33 @@ class KStrings_EN extends KStrings {
   @override
   final String wordsCouldNotBeImported = "Words could not be imported";
   @override
-  final String addWordPageLabel = "Add Word";
+  final String wordAddedSuccessfully = "Word added successfully";
+  @override
+  final String wordCouldNotBeAdded = "Word could not be added";
+  @override
+  final String wordUpdatedSuccessfully = "Word updated successfully";
+  @override
+  final String wordCouldNotBeUpdated = "Word could not be updated";
+  @override
+  final String addWordPageLabel = "Add word";
+  @override
+  final String updateWordPageLabel = "Update word";
+  @override
+  final String word = "Word";
+  @override
+  final String wordDetails = "Word details";
+  @override
+  final String plural = "Plural";
+  @override
+  final String past = "Past";
+  @override
+  final String desc = "Description";
+  @override
+  final String descDetails = "Description details";
+  @override
+  final String optional = "Optional";
+  @override
+  final String emptyTextFieldError = "Field cannot be empty";
 
   @override
   String twoStepDelete(String text) {

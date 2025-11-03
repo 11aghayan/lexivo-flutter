@@ -55,7 +55,7 @@ class _AddDictDialogWidgetState extends State<AddDictDialogWidget> {
                   boxShadow: [
                     BoxShadow(
                       blurRadius: Sizes.shadowBlurRadius,
-                      color: ThemeColors.getThemeColors(context).cardBorder,
+                      color: ThemeColors.getThemeColors(context).shadow,
                       spreadRadius: Sizes.shadowSpreadRadius,
                     ),
                   ],

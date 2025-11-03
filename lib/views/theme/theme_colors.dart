@@ -21,9 +21,7 @@ class ThemeColorsLight extends ThemeColors {
   @override
   final Color outlinedBtnBorder = Color.fromRGBO(215, 215, 215, 1);
   @override
-  final Color cardBorder = Color.fromRGBO(153, 153, 153, 1);
-  @override
-  final Color success = Color.fromRGBO(46, 158, 109, 1);
+  final Color shadow = Color.fromRGBO(140, 140, 140, 1);
   @override
   final Color failure = Color.fromRGBO(167, 1, 29, 1);
   @override
@@ -64,9 +62,7 @@ class ThemeColorsDark extends ThemeColors {
   @override
   final Color outlinedBtnBorder = Color.fromRGBO(40, 40, 40, 1);
   @override
-  final Color cardBorder = Color.fromRGBO(102, 102, 102, 1);
-  @override
-  final Color success = Color.fromRGBO(32, 109, 76, 1);
+  final Color shadow = Color.fromRGBO(72, 72, 72, 1);
   @override
   final Color failure = Color.fromRGBO(131, 1, 23, 1);
   @override
@@ -98,10 +94,9 @@ abstract class ThemeColors {
   abstract final Color secondary;
   abstract final Color contrastPrimary;
   abstract final Color mainText;
-  abstract final Color cardBorder;
+  abstract final Color shadow;
   abstract final Color dictionaryIconBtn;
   abstract final Color outlinedBtnBorder;
-  abstract final Color success;
   abstract final Color failure;
   abstract final Color deleteBtn;
   abstract final Color disabledBtn;

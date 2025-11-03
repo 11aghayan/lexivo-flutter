@@ -81,8 +81,12 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
               ],
               actions: appBarActions(pageIndex),
             ),
-      floatingActionButton: DictPageFabWidget(
+      floatingActionButton: pageIndex != 0 ? null : DictPageFabWidget(
         dictionary: widget.dictionary,
+        updateState: () {
+          setState(() {});
+          // TODO: Pass a function that will update state and run applyFilter function from words page
+        },
         scrollUp: () {
           scrollController.animateTo(
             scrollController.position.minScrollExtent,
@@ -90,7 +94,6 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
             curve: Curves.decelerate,
           );
         },
-        pageIndex: pageIndex,
         scrollUpBtnVisible: isScrollUpBtnVisible,
       ),
       body: Row(

@@ -26,7 +26,7 @@ void showOperationResultSnackbar({
     SnackBar(
       backgroundColor: !isSuccess
           ? ThemeColors.getThemeColors(context).failure
-          : ThemeColors.getThemeColors(context).success,
+          : ThemeColors.getThemeColors(context).primary,
       content: Text(
         text,
         textAlign: TextAlign.center,

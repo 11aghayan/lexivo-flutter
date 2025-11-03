@@ -39,7 +39,21 @@ abstract class KStrings {
   abstract final String wordsExportedSuccessfully;
   abstract final String wordsImportedSuccessfully;
   abstract final String wordsCouldNotBeImported;
+  abstract final String wordAddedSuccessfully;
+  abstract final String wordCouldNotBeAdded;
+  abstract final String wordUpdatedSuccessfully;
+  abstract final String wordCouldNotBeUpdated;
   abstract final String addWordPageLabel;
+  abstract final String updateWordPageLabel;
+  abstract final String word;
+  abstract final String wordDetails;
+  abstract final String plural;
+  abstract final String past;
+  abstract final String desc;
+  abstract final String descDetails;
+  abstract final String optional;
+  abstract final String emptyTextFieldError;
+  
 
   static KStrings getStringsForLang(AppLang appLang) {
     return switch (appLang) {

@@ -78,7 +78,7 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                                 });
                               }
                             },
-                            label: KStrings.getStringsForLang(
+                            hint: KStrings.getStringsForLang(
                               appLangNotifier.value,
                             ).twoStepDelete(widget.twoStepDeleteText!),
                           ),
