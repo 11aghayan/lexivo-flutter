@@ -10,7 +10,7 @@ import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
-import 'package:lexivo_flutter/views/theme/theme_colors.dart';
+import 'package:lexivo_flutter/views/widgets/components/no_data_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/search_words_text_field_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/word_card/word_card_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/word_filters/filters_container_widget.dart';
@@ -92,23 +92,7 @@ class _WordsPageState extends State<WordsPage> {
 
                 // If no results are there
                 if (searchedWords.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.all(Sizes.mainPadding),
-                    child: Center(
-                      child: Text(
-                        KStrings.getStringsForLang(
-                          appLangNotifier.value,
-                        ).noWords,
-                        style: TextStyle(
-                          color: ThemeColors.getThemeColors(
-                            context,
-                          ).emptyPageText,
-                          fontSize: Sizes.emptyPageFontSize,
-                          fontWeight: Sizes.emptyPageFontWeight,
-                        ),
-                      ),
-                    ),
-                  ),
+                  NoDataWidget(text: KStrings.getStringsForLang(appLangNotifier.value).noWords),
               ],
             ),
           ),

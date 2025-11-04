@@ -194,24 +194,21 @@ class _AddWordBodyState extends State<AddWordBody> {
             child: Center(
               child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: 500),
-                child: CustomFilledButtonWidget(
-                  onPressed: save,
-                  padding: 14,
-                  shadow: [
-                    BoxShadow(
-                      blurRadius: Sizes.shadowBlurRadius,
-                      spreadRadius: Sizes.shadowSpreadRadius,
-                      color: ThemeColors.getThemeColors(context).shadow,
-                    ),
-                  ],
-                  child: Text(
-                    strings.save,
-                    style: TextStyle(
-                      color: ThemeColors.getThemeColors(
-                        context,
-                      ).contrastPrimary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: CustomFilledButtonWidget(
+                    onPressed: save,
+                    padding: 14,
+                    elevation: true,
+                    child: Text(
+                      strings.save,
+                      style: TextStyle(
+                        color: ThemeColors.getThemeColors(
+                          context,
+                        ).contrastPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

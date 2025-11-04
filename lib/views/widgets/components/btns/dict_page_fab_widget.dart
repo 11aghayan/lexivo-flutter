@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
-import 'package:lexivo_flutter/pages/add_word_page.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 
@@ -11,13 +10,13 @@ class DictPageFabWidget extends StatelessWidget {
     required this.scrollUpBtnVisible,
     required this.scrollUp,
     required this.dictionary,
-    required this.updateState,
+    required this.onPressed,
   });
 
   final Dictionary dictionary;
   final bool scrollUpBtnVisible;
   final void Function() scrollUp;
-  final void Function() updateState;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -48,20 +47,11 @@ class DictPageFabWidget extends StatelessWidget {
           // Button Add
           FloatingActionButton(
             heroTag: "dict_page_add_word_fab",
-            onPressed: () => addWord(context),
+            onPressed: onPressed,
             child: Icon(Icons.add_rounded),
           ),
         ],
       ),
     );
-  }
-
-  void addWord(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AddWordPage(dictionary: dictionary),
-      ),
-    ).then((_) => updateState());
   }
 }

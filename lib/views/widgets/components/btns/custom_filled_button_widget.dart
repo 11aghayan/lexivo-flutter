@@ -11,42 +11,49 @@ class CustomFilledButtonWidget extends StatelessWidget {
     this.backgroundColor,
     this.padding = 12,
     this.disabled = false,
-    this.height,
     this.alignment = Alignment.center,
-    this.shadow
+    this.elevation = false,
+    this.noSplash = false,
+    this.borderColor,
+    this.borderWidth
   });
 
   final VoidCallback? onPressed;
   final Widget child;
-  final double? borderRadius;
+  final double borderRadius;
   final Color? backgroundColor;
-  final double? padding;
+  final double padding;
   final bool disabled;
-  final double? height;
   final Alignment? alignment;
-  final List<BoxShadow>? shadow;
+  final bool elevation;
+  final bool noSplash;
+  final Color? borderColor;
+  final double? borderWidth;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onPressed,
-        child: Container(
+    final colors = ThemeColors.getThemeColors(context);
+
+    return FilledButton(
+        onPressed: disabled ? null : onPressed,
+        style: FilledButton.styleFrom(
+          disabledBackgroundColor: colors.disabledBtn,
+          backgroundColor: backgroundColor ?? colors.primary,
+          foregroundColor: colors.mainText,
           alignment: alignment,
-          height: height,
-          padding: EdgeInsets.all(padding!),
-          decoration: BoxDecoration(
-            boxShadow: shadow,
-            borderRadius: BorderRadius.circular(borderRadius!),
-            color: disabled
-                ? ThemeColors.getThemeColors(context).disabledBtn
-                : (backgroundColor ??
-                      ThemeColors.getThemeColors(context).primary),
+          padding: EdgeInsets.all(padding),
+          elevation: elevation ? 1 : 0,
+          shadowColor: colors.shadow,
+          overlayColor: noSplash ? Colors.transparent : null,
+          side: borderWidth != null ? BorderSide(
+            color: borderColor ?? colors.outlinedBtnBorder,
+            width: borderWidth!
+          ) : null,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
-          child: child,
         ),
-      ),
-    );
+        child: child,
+      );
   }
 }

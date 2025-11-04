@@ -55,6 +55,7 @@ abstract class KStrings {
   abstract final String emptyTextFieldError;
   abstract final String noWordsToExport;
   abstract final String noGrammarToExport;
+  abstract final String noGrammar;
   
 
   static KStrings getStringsForLang(AppLang appLang) {

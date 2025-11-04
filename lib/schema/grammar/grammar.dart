@@ -15,13 +15,16 @@ class Grammar {
       throw Exception();
     }
   }
-  Grammar.create(this.header, this.submenuList) : id = Uuid().v4() {
-    if (submenuList.isEmpty) {
-      throw Exception();
-    }
-  }
+
+  Grammar.create(this.header, this.submenuList) : id = Uuid().v4();
+
+  Grammar.copy(Grammar g)
+    : id = g.id,
+      header = g.header,
+      submenuList = g.submenuList.map((gs) => GrammarSubmenu.copy(gs)).toList();
 
   // JSON
-  factory Grammar.fromJson(Map<String, dynamic> json) => _$GrammarFromJson(json);
+  factory Grammar.fromJson(Map<String, dynamic> json) =>
+      _$GrammarFromJson(json);
   Map<String, dynamic> toJson() => _$GrammarToJson(this);
 }

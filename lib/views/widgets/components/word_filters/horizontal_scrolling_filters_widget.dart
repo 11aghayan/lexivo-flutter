@@ -15,6 +15,8 @@ class HorizontalScrollingFiltersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = ThemeColors.getThemeColors(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 4,
@@ -22,7 +24,7 @@ class HorizontalScrollingFiltersWidget extends StatelessWidget {
         Text(
           header,
           style: TextStyle(
-            color: ThemeColors.getThemeColors(context).secondary,
+            color: colors.secondary,
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
@@ -32,20 +34,27 @@ class HorizontalScrollingFiltersWidget extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
+            physics: BouncingScrollPhysics(),
             separatorBuilder: (context, index) {
               return SizedBox(width: 4);
             },
             itemBuilder: (context, index) {
               FilterData item = items[index];
-              ThemeColors colors = ThemeColors.getThemeColors(context);
               return CustomFilledButtonWidget(
                 onPressed: item.toggleSelected,
-                backgroundColor: item.selected ? colors.accent : colors.filterNotSelected,
+                backgroundColor: item.selected
+                    ? colors.accent
+                    : colors.filterNotSelected,
                 padding: 16,
-                child: Text(item.label, style: TextStyle(
-                  color: !item.selected ? colors.mainText : colors.contrastPrimary,
-                  fontWeight: FontWeight.w600
-                ),),
+                child: Text(
+                  item.label,
+                  style: TextStyle(
+                    color: !item.selected
+                        ? colors.mainText
+                        : colors.contrastPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               );
             },
           ),

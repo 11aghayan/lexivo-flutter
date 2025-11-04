@@ -97,6 +97,8 @@ class KStrings_DE extends KStrings {
   final String noWordsToExport = "Keine Wöret im Wörterbuch zum exportieren";
   @override
   final String noGrammarToExport = "Keine Grammatik im Wörterbuch zum exportieren";
+    @override
+  final String noGrammar = "Keine Grammatik";
 
   @override
   String twoStepDelete(String text) {

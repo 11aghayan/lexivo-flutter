@@ -15,31 +15,31 @@ class CustomOutlinedButtonWidget extends StatelessWidget {
 
   final VoidCallback onPressed;
   final Widget child;
-  final double? borderRadius;
-  final double? borderWidth;
+  final double borderRadius;
+  final double borderWidth;
   final Color? borderColor;
-  final double? padding;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onPressed,
-        child: Container(
-          padding: EdgeInsets.all(padding!),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderRadius!),
-            border: Border.all(
-              width: borderWidth!,
-              color:
-                  borderColor ??
-                  ThemeColors.getThemeColors(context).outlinedBtnBorder,
-            ),
+    final colors = ThemeColors.getThemeColors(context);
+    
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: OutlinedButton.styleFrom(
+        padding: EdgeInsets.all(padding),
+        foregroundColor: colors.mainText,
+        side: BorderSide(
+          color: borderColor ?? colors.outlinedBtnBorder
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+          side: BorderSide(
+            width: borderWidth,
           ),
-          child: child,
         ),
       ),
+      child: child,
     );
   }
 }

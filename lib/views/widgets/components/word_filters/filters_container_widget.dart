@@ -22,27 +22,27 @@ class FiltersContainerWidget extends StatelessWidget {
   final List<FilterData> genderFilters;
   final bool isExpanded;
   final void Function() toggleExpanded;
-  final double btnHeight = 47;
+  final double btnHeight = 51;
   final double padding = 12;
 
   @override
   Widget build(BuildContext context) {
-    Color btnForegroundColor = ThemeColors.getThemeColors(context).mainText;
+    final colors = ThemeColors.getThemeColors(context);
 
     return AnimatedContainer(
-      height: isExpanded ? 308 : btnHeight,
+      height: isExpanded ? 330 : btnHeight,
       duration: Duration(milliseconds: 300),
       padding: EdgeInsets.fromLTRB(
         padding,
         padding,
         padding,
-        isExpanded ? padding : 0,
+        padding
       ),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
-          color: ThemeColors.getThemeColors(context).outlinedBtnBorder,
+          color: colors.outlinedBtnBorder,
         ),
         borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
       ),
@@ -57,6 +57,7 @@ class FiltersContainerWidget extends StatelessWidget {
               backgroundColor: Colors.transparent,
               alignment: Alignment.topRight,
               padding: 0,
+              noSplash: true,
               onPressed: toggleExpanded,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,14 +68,12 @@ class FiltersContainerWidget extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.filter_list_rounded,
-                        color: btnForegroundColor,
                       ),
                       Text(
                         KStrings.getStringsForLang(
                           appLangNotifier.value,
                         ).filters,
                         style: TextStyle(
-                          color: btnForegroundColor,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
@@ -85,7 +84,6 @@ class FiltersContainerWidget extends StatelessWidget {
                     isExpanded
                         ? Icons.arrow_drop_up_rounded
                         : Icons.arrow_drop_down_rounded,
-                    color: btnForegroundColor,
                   ),
                 ],
               ),

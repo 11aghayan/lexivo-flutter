@@ -19,11 +19,15 @@ class Dictionary implements Deletable {
   static get dictionariesCount => allDictionaries.length;
 
   Dictionary(this.id, this.language, this.allWords, this.allGrammar);
-  Dictionary.create(this.language) : id = Uuid().v4(), allWords = [], allGrammar = [];
+  Dictionary.create(this.language)
+    : id = Uuid().v4(),
+      allWords = [],
+      allGrammar = [];
 
   // Dictionary methods
 
   int get allWordsCount => allWords.length;
+  int get allGrammarCount => allGrammar.length;
 
   bool setLanguage(Language lang) {
     if (Dictionary._dictionaryExists(lang)) {
@@ -47,12 +51,12 @@ class Dictionary implements Deletable {
   }
 
   void addWord(Word word) {
-    _trimStringFields(word);
+    _trimStringFieldsInWord(word);
     allWords.add(word);
   }
 
   void updateWord(Word word) {
-    _trimStringFields(word);
+    _trimStringFieldsInWord(word);
     allWords = allWords.map((w) => w.id == word.id ? word : w).toList();
   }
 
@@ -60,7 +64,7 @@ class Dictionary implements Deletable {
     allWords.remove(word);
   }
 
-  Word _trimStringFields(Word word) {
+  Word _trimStringFieldsInWord(Word word) {
     word.native = Strings.toTrimmedOrNull(word.native);
     word.nativeDetails = Strings.toTrimmedOrNull(word.nativeDetails);
     word.plural = Strings.toTrimmedOrNull(word.plural);
@@ -69,6 +73,40 @@ class Dictionary implements Deletable {
     word.desc = Strings.toTrimmedOrNull(word.desc);
     word.descDetails = Strings.toTrimmedOrNull(word.descDetails);
     return word;
+  }
+  //
+
+  // Grammar methods
+  void addGrammarList(List<Grammar> grammarList) {
+    for (Grammar grammar in grammarList) {
+      addGrammar(grammar);
+    }
+  }
+
+  void addGrammar(Grammar grammar) {
+    _trimStringFieldsInGrammar(grammar);
+    allGrammar.add(grammar);
+  }
+
+  void updateGrammar(Grammar grammar) {
+    _trimStringFieldsInGrammar(grammar);
+    allGrammar = allGrammar.map((g) => g.id == grammar.id ? grammar : g).toList();
+  }
+
+  void deleteGrammar(Grammar grammar) {
+    allGrammar.remove(grammar);
+  }
+
+  Grammar _trimStringFieldsInGrammar(Grammar grammar) {
+    // TODO: Implement
+    // word.native = Strings.toTrimmedOrNull(word.native);
+    // word.nativeDetails = Strings.toTrimmedOrNull(word.nativeDetails);
+    // word.plural = Strings.toTrimmedOrNull(word.plural);
+    // word.past1 = Strings.toTrimmedOrNull(word.past1);
+    // word.past2 = Strings.toTrimmedOrNull(word.past2);
+    // word.desc = Strings.toTrimmedOrNull(word.desc);
+    // word.descDetails = Strings.toTrimmedOrNull(word.descDetails);
+    return grammar;
   }
   //
 

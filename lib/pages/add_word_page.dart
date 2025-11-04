@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
@@ -51,7 +52,7 @@ class AddWordPage extends StatelessWidget {
           }
         });
       },
-      icon: Icon(Icons.delete_forever_rounded, color: colors.deleteBtn, size: 28,),
+      icon: Icon(FontAwesomeIcons.trash, color: colors.deleteBtn,),
     );
 
     return Scaffold(

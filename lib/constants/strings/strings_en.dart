@@ -47,7 +47,7 @@ class KStrings_EN extends KStrings {
   @override
   final String practicePageLabel = "Practice";
   @override
-  final String noWords = "No Words";
+  final String noWords = "No words";
   @override
   final String search = "Search";
   @override
@@ -96,6 +96,8 @@ class KStrings_EN extends KStrings {
   final String noWordsToExport = "No words in dictionary to export";
   @override
   final String noGrammarToExport = "No grammar in dictionary to export";
+  @override
+  final String noGrammar = "No grammar";
 
   @override
   String twoStepDelete(String text) {

@@ -6,10 +6,14 @@ import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
+import 'package:lexivo_flutter/pages/add_word_page.dart';
+import 'package:lexivo_flutter/pages/grammar_page.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/pages/activities_page.dart';
 import 'package:lexivo_flutter/pages/grammars_page.dart';
 import 'package:lexivo_flutter/pages/words_page.dart';
+import 'package:lexivo_flutter/schema/grammar/grammar.dart';
+import 'package:lexivo_flutter/schema/grammar/grammar_submenu.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/util/export_import_json.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
@@ -40,6 +44,36 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
 
   @override
   void initState() {
+    // TODO: Delete
+    if (widget.dictionary.allGrammarCount == 0) {
+      widget.dictionary.addGrammarList([
+        Grammar.create("Grammar 1", [
+          GrammarSubmenu.create(
+            "Submenu_1_1",
+            ["Explanation_1_1_1", "Explanation_1_1_2"],
+            ["Example_1_1_1", "Example_1_1_2"],
+          ),
+          GrammarSubmenu.create(
+            "Submenu_1_2",
+            ["Explanation_1_2_1", "Explanation_1_2_2"],
+            ["Example_1_2_1", "Example_1_2_2"],
+          ),
+        ]),
+        Grammar.create("Grammar 2", [
+          GrammarSubmenu.create(
+            "Submenu_2_1",
+            ["Explanation_2_1_1", "Explanation_2_1_2"],
+            ["Example_2_1_1", "Example_2_1_2"],
+          ),
+          GrammarSubmenu.create(
+            "Submenu_2_2",
+            ["Explanation_2_2_1", "Explanation_2_2_2"],
+            ["Example_2_2_1", "Example_2_2_2"],
+          ),
+        ]),
+      ]);
+    }
+
     scrollController.addListener(_onScroll);
     super.initState();
   }
@@ -63,14 +97,27 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
           scrollController: scrollController,
         ),
       ),
-      PageData("grammarsPageLabel", FontAwesomeIcons.language, GrammarsPage()),
-      PageData("activitiesPageLabel", FontAwesomeIcons.puzzlePiece, ActivitiesPage()),
+      PageData(
+        "grammarsPageLabel",
+        FontAwesomeIcons.language,
+        GrammarsPage(dictionary: widget.dictionary),
+      ),
+      PageData(
+        "activitiesPageLabel",
+        FontAwesomeIcons.puzzlePiece,
+        ActivitiesPage(),
+      ),
     ];
 
     bool isOrientationLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     PageData currentPageData = pages[pageIndex];
     AppLang appLang = appLangNotifier.value;
+    void navigate(){
+      Widget page = pageIndex == 0 ? AddWordPage(dictionary: widget.dictionary) : GrammarPage(dictionary: widget.dictionary,);
+      
+      navigateToPage(context, page);
+    }
 
     return Scaffold(
       appBar: isOrientationLandscape
@@ -82,20 +129,20 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
               ],
               actions: appBarActions(pageIndex),
             ),
-      floatingActionButton: pageIndex != 0 ? null : DictPageFabWidget(
-        dictionary: widget.dictionary,
-        updateState: () {
-          setState(() {});
-        },
-        scrollUp: () {
-          scrollController.animateTo(
-            scrollController.position.minScrollExtent,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.decelerate,
-          );
-        },
-        scrollUpBtnVisible: isScrollUpBtnVisible,
-      ),
+      floatingActionButton: pageIndex != 2
+          ? DictPageFabWidget(
+              dictionary: widget.dictionary,
+              onPressed: navigate,
+              scrollUp: () {
+                scrollController.animateTo(
+                  scrollController.position.minScrollExtent,
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.decelerate,
+                );
+              },
+              scrollUpBtnVisible: isScrollUpBtnVisible,
+            )
+          : null,
       body: Row(
         children: [
           if (isOrientationLandscape)
@@ -199,7 +246,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       showInfoSnackbar(context: context, text: strings.noWordsToExport);
       return;
     }
-    
+
     bool canceled = await exportJsonData(
       data: widget.dictionary.allWords,
       filename:
@@ -262,6 +309,19 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         setState(fn);
       } catch (_) {}
     });
+  }
+
+  //
+
+  // Navigation
+
+  void navigateToPage(BuildContext context, Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => page,
+      ),
+    ).then((_) {setState((){});});
   }
 
   //
