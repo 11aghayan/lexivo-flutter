@@ -11,6 +11,7 @@ import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 /// * If [isSuccess] is false, the background will be the theme's failure color
 ///
 /// The text is centered and styled using the theme's contrast primary color.
+/// The snackbar will automatically dismiss after 2.5 seconds.
 ///
 /// Parameters:
 /// * [context] - The build context used to show the snackbar and access theme
@@ -22,16 +23,45 @@ void showOperationResultSnackbar({
   required String text,
   required bool isSuccess,
 }) {
+  final colors = ThemeColors.getThemeColors(context);
+
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      backgroundColor: !isSuccess
-          ? ThemeColors.getThemeColors(context).failure
-          : ThemeColors.getThemeColors(context).primary,
+      duration: Duration(milliseconds: 2500),
+      backgroundColor: !isSuccess ? colors.failure : colors.primary,
       content: Text(
         text,
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: ThemeColors.getThemeColors(context).contrastPrimary,
+          color: colors.contrastPrimary,
+          fontSize: Sizes.snackbarTextSize,
+        ),
+      ),
+    ),
+  );
+}
+
+/// Displays an informational snackbar with the specified text.
+///
+/// The snackbar appears at the bottom of the screen with theme-specific styling.
+///
+/// Parameters:
+/// - [context]: The build context used to show the snackbar and access theme colors
+/// - [text]: The text message to display in the snackbar
+///
+/// The snackbar will automatically dismiss after 2.5 seconds.
+void showInfoSnackbar({required BuildContext context, required String text}) {
+  final colors = ThemeColors.getThemeColors(context);
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      duration: Duration(milliseconds: 2500),
+      backgroundColor: colors.infoSnackbarBg,
+      content: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: colors.mainText,
           fontSize: Sizes.snackbarTextSize,
         ),
       ),

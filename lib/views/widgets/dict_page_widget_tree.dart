@@ -195,6 +195,11 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   }
 
   void exportWords() async {
+    if (widget.dictionary.allWordsCount == 0) {
+      showInfoSnackbar(context: context, text: strings.noWordsToExport);
+      return;
+    }
+    
     bool canceled = await exportJsonData(
       data: widget.dictionary.allWords,
       filename:
@@ -215,6 +220,10 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   }
 
   void exportGrammar() {
+    if (widget.dictionary.allWordsCount == 0) {
+      showInfoSnackbar(context: context, text: strings.noGrammarToExport);
+      return;
+    }
     print("Grammar Exported");
     // TODO: implement
   }

@@ -53,6 +53,8 @@ abstract class KStrings {
   abstract final String descDetails;
   abstract final String optional;
   abstract final String emptyTextFieldError;
+  abstract final String noWordsToExport;
+  abstract final String noGrammarToExport;
   
 
   static KStrings getStringsForLang(AppLang appLang) {

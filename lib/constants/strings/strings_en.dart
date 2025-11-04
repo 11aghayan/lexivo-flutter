@@ -92,6 +92,10 @@ class KStrings_EN extends KStrings {
   final String optional = "Optional";
   @override
   final String emptyTextFieldError = "Field cannot be empty";
+  @override
+  final String noWordsToExport = "No words in dictionary to export";
+  @override
+  final String noGrammarToExport = "No grammar in dictionary to export";
 
   @override
   String twoStepDelete(String text) {
