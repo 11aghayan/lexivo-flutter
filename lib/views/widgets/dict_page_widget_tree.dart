@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
@@ -30,7 +31,7 @@ class DictPageWidgetTree extends StatefulWidget {
 }
 
 class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
-  final KStrings strings = KStrings.getStringsForLang(appLangNotifier.value);
+  final strings = KStrings.getStringsForLang(appLangNotifier.value);
   int pageIndex = 0;
   bool isScrollUpBtnVisible = false;
   ScrollController scrollController = ScrollController();
@@ -55,15 +56,15 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     final List<PageData> pages = [
       PageData(
         "wordsPageLabel",
-        Icons.abc,
+        FontAwesomeIcons.bookOpen,
         WordsPage(
           dictionary: widget.dictionary,
           isScrollUpBtnVisible: isScrollUpBtnVisible,
           scrollController: scrollController,
         ),
       ),
-      PageData("grammarsPageLabel", Icons.fork_left_rounded, GrammarsPage()),
-      PageData("activitiesPageLabel", Icons.task_rounded, ActivitiesPage()),
+      PageData("grammarsPageLabel", FontAwesomeIcons.language, GrammarsPage()),
+      PageData("activitiesPageLabel", FontAwesomeIcons.puzzlePiece, ActivitiesPage()),
     ];
 
     bool isOrientationLandscape =
@@ -85,7 +86,6 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         dictionary: widget.dictionary,
         updateState: () {
           setState(() {});
-          // TODO: Pass a function that will update state and run applyFilter function from words page
         },
         scrollUp: () {
           scrollController.animateTo(
@@ -154,12 +154,12 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         : [
             IconButton(
               onPressed: methods["import"]![pageIndex],
-              icon: Icon(Icons.download_rounded, size: size),
+              icon: Icon(FontAwesomeIcons.download, size: size),
               color: ThemeColors.getThemeColors(context).contrastPrimary,
             ),
             IconButton(
               onPressed: methods["export"]![pageIndex],
-              icon: Icon(Icons.upload_rounded, size: size),
+              icon: Icon(FontAwesomeIcons.upload, size: size),
               color: ThemeColors.getThemeColors(context).contrastPrimary,
             ),
           ];
@@ -262,24 +262,4 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       pageIndex = newPageIndex;
     });
   }
-
-  //   Widget generateNavigationItem(BuildContext context, int index) {
-  //     var colors = ThemeColors.getThemeColors(context);
-  //     bool isSelected = pageIndex == index;
-  //     PageData page = pages[index];
-  //     return CustomFilledButtonWidget(
-  //       onPressed: () {
-  //         if (setPageIndex != null) {
-  //           setPageIndex!(index);
-  //         }
-  //       },
-  //       backgroundColor: isSelected ? colors.contrastPrimary : colors.primary,
-  //       // height: 20,
-  //       child: Icon(
-  //         page.icon,
-  //         // size: 24,
-  //         color: isSelected ? colors.primary : colors.contrastPrimary,
-  //       ),
-  //     );
-  //   }
 }

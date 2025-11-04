@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/page_data.dart';
@@ -29,6 +30,7 @@ class MainPageWidgetTree extends StatefulWidget {
 }
 
 class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
+  final strings = KStrings.getStringsForLang(appLangNotifier.value);
   int pageIndex = 0;
 
   @override
@@ -36,13 +38,13 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     List<PageData> pages = [
       PageData(
         "dictionariesPageLabel",
-        Icons.menu_book_rounded,
+        FontAwesomeIcons.book,
         DictionariesPage(
           updateDictionary: updateDictionary,
           deleteDictionary: deleteDictionary,
         ),
       ),
-      PageData("profilePageLabel", Icons.account_circle, ProfilePage()),
+      PageData("profilePageLabel", FontAwesomeIcons.user, ProfilePage()),
     ];
 
     bool isOrientationLandscape =
@@ -92,10 +94,9 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
               selectedPageIndex: pageIndex,
               setPageIndex: setPageIndex,
             ),
-      floatingActionButton: MainPageFabWidget(
-        pageIndex: pageIndex,
-        addDictionary: addDictionary,
-      ),
+      floatingActionButton: pageIndex == 0
+          ? MainPageFabWidget(addDictionary: addDictionary)
+          : null,
     );
   }
 
@@ -107,7 +108,6 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
 
   void addDictionary(Dictionary dict) {
     bool success = Dictionary.addDictionary(dict);
-    KStrings strings = KStrings.getStringsForLang(appLangNotifier.value);
     showOperationResultSnackbar(
       context: context,
       text: success
@@ -124,7 +124,6 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
 
   void updateDictionary(Dictionary dict, Language newLang) {
     bool success = dict.setLanguage(newLang);
-    KStrings strings = KStrings.getStringsForLang(appLangNotifier.value);
     showOperationResultSnackbar(
       context: context,
       text: success
@@ -143,7 +142,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     dict.delete();
     showOperationResultSnackbar(
       context: context,
-      text: KStrings.getStringsForLang(appLangNotifier.value).dictionaryDeleted,
+      text: strings.dictionaryDeleted,
       isSuccess: true,
     );
     setState(() {});

@@ -6,13 +6,8 @@ import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/add_dict_dialog_widget.dart';
 
 class MainPageFabWidget extends StatelessWidget {
-  const MainPageFabWidget({
-    super.key,
-    required this.pageIndex,
-    required this.addDictionary,
-  });
+  const MainPageFabWidget({super.key, required this.addDictionary});
 
-  final int pageIndex;
   final Function(Dictionary) addDictionary;
 
   @override
@@ -28,26 +23,24 @@ class MainPageFabWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         spacing: Sizes.fabVerticalSpacing,
-        children: pageIndex == 0
-            ? [
-                FloatingActionButton.small(
-                  heroTag: "main_page_import_dict_fab",
-                  onPressed: importDict,
-                  backgroundColor: ThemeColors.getThemeColors(
-                    context,
-                  ).contrastPrimary,
-                  foregroundColor: ThemeColors.getThemeColors(context).accent,
-                  child: Icon(Icons.download_rounded),
-                ),
+        children: [
+          FloatingActionButton.small(
+            heroTag: "main_page_import_dict_fab",
+            onPressed: importDict,
+            backgroundColor: ThemeColors.getThemeColors(
+              context,
+            ).contrastPrimary,
+            foregroundColor: ThemeColors.getThemeColors(context).accent,
+            child: Icon(Icons.download_rounded),
+          ),
 
-                // Button Add
-                FloatingActionButton(
-                  heroTag: "main_page_add_dict_fab",
-                  onPressed: () => showAddDictDialog(context),
-                  child: Icon(Icons.add_rounded),
-                ),
-              ]
-            : [],
+          // Button Add
+          FloatingActionButton(
+            heroTag: "main_page_add_dict_fab",
+            onPressed: () => showAddDictDialog(context),
+            child: Icon(Icons.add_rounded),
+          ),
+        ],
       ),
     );
   }
