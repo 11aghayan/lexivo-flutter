@@ -25,6 +25,7 @@ class _GrammarsPageState extends State<GrammarsPage> {
   Widget build(BuildContext context) {
     final strings = KStrings.getStringsForLang(appLangNotifier.value);
     final colors = ThemeColors.getThemeColors(context);
+    final spacing = 8.0;
 
     return widget.dictionary.allGrammarCount == 0
         ? NoDataWidget(text: strings.noGrammar)
@@ -34,9 +35,9 @@ class _GrammarsPageState extends State<GrammarsPage> {
               SliverPadding(
                 padding: EdgeInsets.all(Sizes.mainPadding),
                 sliver: SliverMasonryGrid.extent(
-                  maxCrossAxisExtent: 500,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                  maxCrossAxisExtent: Sizes.widgetMaxWidth,
+                  crossAxisSpacing: spacing,
+                  mainAxisSpacing: spacing,
                   childCount: widget.dictionary.allGrammarCount,
                   itemBuilder: (context, index) {
                     Grammar grammar = widget.dictionary.allGrammar[index];
@@ -55,7 +56,7 @@ class _GrammarsPageState extends State<GrammarsPage> {
                           ).then((_) {
                             setState(() {});
                           }),
-                      padding: 16,
+                      padding: 24,
                       child: Row(
                         spacing: 4,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

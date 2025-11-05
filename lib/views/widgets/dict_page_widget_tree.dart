@@ -47,25 +47,29 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     // TODO: Delete
     if (widget.dictionary.allGrammarCount == 0) {
       widget.dictionary.addGrammarList([
-        Grammar.create("Grammar 1", [
-          GrammarSubmenu.create(
+        Grammar("id_1", "Grammar 1", [
+          GrammarSubmenu(
+            "id_1",
             "Submenu_1_1",
             ["Explanation_1_1_1", "Explanation_1_1_2"],
             ["Example_1_1_1", "Example_1_1_2"],
           ),
-          GrammarSubmenu.create(
+          GrammarSubmenu(
+            "id_2",
             "Submenu_1_2",
             ["Explanation_1_2_1", "Explanation_1_2_2"],
             ["Example_1_2_1", "Example_1_2_2"],
           ),
         ]),
-        Grammar.create("Grammar 2", [
-          GrammarSubmenu.create(
+        Grammar("id_2", "Grammar 2", [
+          GrammarSubmenu(
+            "id_1",
             "Submenu_2_1",
             ["Explanation_2_1_1", "Explanation_2_1_2"],
             ["Example_2_1_1", "Example_2_1_2"],
           ),
-          GrammarSubmenu.create(
+          GrammarSubmenu(
+            "id_2",
             "Submenu_2_2",
             ["Explanation_2_2_1", "Explanation_2_2_2"],
             ["Example_2_2_1", "Example_2_2_2"],
@@ -113,9 +117,11 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         MediaQuery.of(context).orientation == Orientation.landscape;
     PageData currentPageData = pages[pageIndex];
     AppLang appLang = appLangNotifier.value;
-    void navigate(){
-      Widget page = pageIndex == 0 ? AddWordPage(dictionary: widget.dictionary) : GrammarPage(dictionary: widget.dictionary,);
-      
+    void navigate() {
+      Widget page = pageIndex == 0
+          ? AddWordPage(dictionary: widget.dictionary)
+          : GrammarPage(dictionary: widget.dictionary);
+
       navigateToPage(context, page);
     }
 
@@ -316,12 +322,11 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   // Navigation
 
   void navigateToPage(BuildContext context, Widget page) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => page,
-      ),
-    ).then((_) {setState((){});});
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page)).then(
+      (_) {
+        setState(() {});
+      },
+    );
   }
 
   //

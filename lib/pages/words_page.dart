@@ -44,7 +44,6 @@ class _WordsPageState extends State<WordsPage> {
 
   @override
   void initState() {
-    print(1);
     filteredWords = widget.dictionary.allWords;
     searchedWords = filteredWords;
     levelFilters = getFilterDataFromEnumValues(WordLevel.values);
@@ -102,7 +101,7 @@ class _WordsPageState extends State<WordsPage> {
         SliverPadding(
           padding: EdgeInsets.all(Sizes.mainPadding),
           sliver: SliverMasonryGrid.extent(
-            maxCrossAxisExtent: 500,
+            maxCrossAxisExtent: Sizes.widgetMaxWidth,
             crossAxisSpacing: Sizes.wordsPageGridSpacing,
             mainAxisSpacing: Sizes.wordsPageGridSpacing,
             childCount: searchedWords.length,

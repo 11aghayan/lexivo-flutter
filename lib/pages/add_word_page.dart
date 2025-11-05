@@ -6,7 +6,7 @@ import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
-import 'package:lexivo_flutter/views/widgets/components/add_word_components/add_word_body.dart';
+import 'package:lexivo_flutter/views/widgets/components/add_word/add_word_body.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/side_app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/delete_dialog_widget.dart';

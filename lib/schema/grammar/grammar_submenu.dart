@@ -11,8 +11,11 @@ class GrammarSubmenu {
   List<String> examples;
 
   GrammarSubmenu(this.id, this.header, this.explanations, this.examples);
-  GrammarSubmenu.create(this.header, this.explanations, this.examples)
-    : id = Uuid().v4();
+  GrammarSubmenu.create()
+    : id = Uuid().v4(),
+    header = "",
+    explanations = [""],
+    examples = [""];
   GrammarSubmenu.copy(GrammarSubmenu gs)
     : id = gs.id,
       header = gs.header,

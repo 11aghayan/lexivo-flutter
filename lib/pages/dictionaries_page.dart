@@ -24,7 +24,7 @@ class DictionariesPage extends StatelessWidget {
         ? GridView(
             padding: const EdgeInsets.all(Sizes.mainPadding),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 600,
+              maxCrossAxisExtent: Sizes.widgetMaxWidth,
               childAspectRatio: 1.8,
               mainAxisSpacing: Sizes.gridViewItemsSpacing,
               crossAxisSpacing: Sizes.gridViewItemsSpacing,

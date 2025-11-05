@@ -8,9 +8,8 @@ import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
-import 'package:lexivo_flutter/views/theme/theme_colors.dart';
-import 'package:lexivo_flutter/views/widgets/components/add_word_components/word_field_dropdown.dart';
-import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/add_word/word_field_dropdown.dart';
+import 'package:lexivo_flutter/views/widgets/components/btns/save_btn_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/custom_divider_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/custom_text_field_widget.dart';
 
@@ -147,7 +146,7 @@ class _AddWordBodyState extends State<AddWordBody> {
             0,
           ),
           sliver: SliverMasonryGrid.extent(
-            maxCrossAxisExtent: 500,
+            maxCrossAxisExtent: Sizes.widgetMaxWidth,
             crossAxisSpacing: Sizes.addWordPageGridSpacing,
             mainAxisSpacing: Sizes.addWordPageGridSpacing,
             childCount: childrenTop.length,
@@ -172,7 +171,7 @@ class _AddWordBodyState extends State<AddWordBody> {
             horizontal: Sizes.addWordPageGridSpacing,
           ),
           sliver: SliverMasonryGrid.extent(
-            maxCrossAxisExtent: 500,
+            maxCrossAxisExtent: Sizes.widgetMaxWidth,
             crossAxisSpacing: Sizes.addWordPageGridSpacing,
             mainAxisSpacing: Sizes.addWordPageGridSpacing,
             childCount: 2,
@@ -191,29 +190,7 @@ class _AddWordBodyState extends State<AddWordBody> {
             mainPadding + safeArea.bottom,
           ),
           sliver: SliverToBoxAdapter(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 500),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: CustomFilledButtonWidget(
-                    onPressed: save,
-                    padding: 14,
-                    elevation: true,
-                    child: Text(
-                      strings.save,
-                      style: TextStyle(
-                        color: ThemeColors.getThemeColors(
-                          context,
-                        ).contrastPrimary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            child: Center(child: SaveBtnWidget(onPressed: save)),
           ),
         ),
       ],

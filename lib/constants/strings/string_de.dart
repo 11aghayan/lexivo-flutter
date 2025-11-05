@@ -99,6 +99,18 @@ class KStrings_DE extends KStrings {
   final String noGrammarToExport = "Keine Grammatik im Wörterbuch zum exportieren";
     @override
   final String noGrammar = "Keine Grammatik";
+  @override
+  final String addGrammarPageLabel = "Grammatik hinzufügen";
+  @override
+  final String header = "Kopfzeile";
+  @override
+  final String row = "Zeile";
+  @override
+  final String explanations = "Erklärungen";
+  @override
+  final String examples = "Beispiele";
+  @override
+  final String submenu = "Untermenü";
 
   @override
   String twoStepDelete(String text) {

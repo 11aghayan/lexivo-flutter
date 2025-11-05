@@ -28,6 +28,7 @@ class WordCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      radius: Sizes.borderRadius_1,
       onTap: () {
         Navigator.push(
           context,

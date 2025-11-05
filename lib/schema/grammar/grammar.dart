@@ -16,12 +16,18 @@ class Grammar {
     }
   }
 
-  Grammar.create(this.header, this.submenuList) : id = Uuid().v4();
+  Grammar.create() : id = Uuid().v4(), header = "", submenuList = [GrammarSubmenu.create()];
 
   Grammar.copy(Grammar g)
     : id = g.id,
       header = g.header,
       submenuList = g.submenuList.map((gs) => GrammarSubmenu.copy(gs)).toList();
+
+  int get submenuListLength => submenuList.length;
+
+  void addSubmenu() {
+    submenuList.add(GrammarSubmenu.create());
+  }
 
   // JSON
   factory Grammar.fromJson(Map<String, dynamic> json) =>

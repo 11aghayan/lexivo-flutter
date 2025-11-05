@@ -42,7 +42,7 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
             children: [
               Container(
                 width: double.maxFinite,
-                constraints: BoxConstraints(maxWidth: Sizes.dialogMaxWidth),
+                constraints: BoxConstraints(maxWidth: Sizes.widgetMaxWidth),
                 padding: EdgeInsets.all(Sizes.dialogInnerPadding),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Sizes.borderRadius_1),

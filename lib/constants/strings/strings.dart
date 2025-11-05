@@ -56,6 +56,12 @@ abstract class KStrings {
   abstract final String noWordsToExport;
   abstract final String noGrammarToExport;
   abstract final String noGrammar;
+  abstract final String addGrammarPageLabel;
+  abstract final String header;
+  abstract final String row;
+  abstract final String explanations;
+  abstract final String examples;
+  abstract final String submenu;
   
 
   static KStrings getStringsForLang(AppLang appLang) {

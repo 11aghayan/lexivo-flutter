@@ -98,6 +98,18 @@ class KStrings_EN extends KStrings {
   final String noGrammarToExport = "No grammar in dictionary to export";
   @override
   final String noGrammar = "No grammar";
+  @override
+  final String addGrammarPageLabel = "Add grammar";
+  @override
+  final String header = "Header";
+  @override
+  final String row = "Row";
+  @override
+  final String explanations = "Explanations";
+  @override
+  final String examples = "Examples";
+  @override
+  final String submenu = "Submenu";
 
   @override
   String twoStepDelete(String text) {
