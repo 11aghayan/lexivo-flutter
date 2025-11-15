@@ -199,27 +199,29 @@ class _AddWordBodyState extends State<AddWordBody> {
 
   void setType(String value) {
     WordType type = WordType.fromString(value);
-    setState(() {
-      emptyNativeError = false;
-      emptyPluralError = false;
-      emptyDescError = false;
-      tempWord.setType(type);
-      if (type == WordType.NOUN) {
-        tempWord.setGender(tempWord.gender ?? WordGender.MASCULINE);
-      }
-    });
+    emptyNativeError = false;
+    emptyPluralError = false;
+    emptyDescError = false;
+    tempWord.setType(type);
+    if (type == WordType.NOUN) {
+      tempWord.setGender(tempWord.gender ?? WordGender.MASCULINE);
+    }
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void setGender(String value) {
-    setState(() {
-      WordGender gender = WordGender.fromString(value);
-      if (gender != WordGender.PLURAL) {
-        emptyPluralError = false;
-      } else {
-        emptyNativeError = false;
-      }
-      tempWord.setGender(gender);
-    });
+    WordGender gender = WordGender.fromString(value);
+    if (gender != WordGender.PLURAL) {
+      emptyPluralError = false;
+    } else {
+      emptyNativeError = false;
+    }
+    tempWord.setGender(gender);
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void setLevel(String value) {
@@ -229,9 +231,10 @@ class _AddWordBodyState extends State<AddWordBody> {
   void setWord(String value) {
     tempWord.native = value;
     if (emptyNativeError) {
-      setState(() {
-        emptyNativeError = false;
-      });
+      emptyNativeError = false;
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -242,9 +245,10 @@ class _AddWordBodyState extends State<AddWordBody> {
   void setPlural(String value) {
     tempWord.plural = value;
     if (emptyPluralError) {
-      setState(() {
-        emptyPluralError = false;
-      });
+      emptyPluralError = false;
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -258,10 +262,11 @@ class _AddWordBodyState extends State<AddWordBody> {
 
   void setDesc(String value) {
     tempWord.desc = value;
+    emptyDescError = false;
     if (emptyDescError) {
-      setState(() {
-        emptyDescError = false;
-      });
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -312,7 +317,9 @@ class _AddWordBodyState extends State<AddWordBody> {
 
     emptyDescError = tempWord.desc == null || tempWord.desc!.trim().isEmpty;
 
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
 
     return emptyDescError || emptyNativeError || emptyPluralError;
   }

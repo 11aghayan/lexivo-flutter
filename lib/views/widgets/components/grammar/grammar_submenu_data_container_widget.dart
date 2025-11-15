@@ -29,7 +29,7 @@ class GrammarSubmenuDataContainer extends StatefulWidget {
     super.key,
     required this.data,
     required this.label,
-    this.canBeEmpty = false
+    this.canBeEmpty = false,
   });
 
   final List<String> data;
@@ -110,14 +110,16 @@ class _GrammarSubmenuDataContainerState
   }
 
   void onRowDelete(int index) {
-    setState(() {
-      widget.data.removeAt(index);
-    });
+    widget.data.removeAt(index);
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void onAddRow() {
-    setState(() {
-      widget.data.add("");
-    });
+    widget.data.add("");
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

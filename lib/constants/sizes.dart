@@ -30,5 +30,5 @@ abstract class Sizes {
   static const double fabVerticalSpacing = 16.0;
   static const double sideBarWidth = 100.0;
   static const double sideBarBasePadding = 16.0;
-  static const double widgetMaxWidth = 600.0;
+  static const double widgetMaxWidth = 550.0;
 }

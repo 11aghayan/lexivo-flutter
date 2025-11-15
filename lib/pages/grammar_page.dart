@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
@@ -9,6 +8,7 @@ import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/side_app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/dict_page_fab_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/dialogs/delete_dialog_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/grammar/grammar_page_body.dart';
 import 'package:lexivo_flutter/views/widgets/components/lang_flag_title.dart';
 
@@ -32,13 +32,11 @@ class _GrammarPageState extends State<GrammarPage> {
 
   late final titleWidgets = [
     LangFlagTitle(photoPath: widget.dictionary.language.photoPath),
-    AutoSizeText(
+    Text(
       widget.grammar?.header ?? strings.addGrammarPageLabel,
-      maxLines: 2,
-      minFontSize: 12,
-      softWrap: true,
       textAlign: TextAlign.center,
       style: TextStyle(color: colors.contrastPrimary),
+      maxLines: 2,
     ),
   ];
 
@@ -48,10 +46,17 @@ class _GrammarPageState extends State<GrammarPage> {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     final appBarActions = [
+      // Delete btn
       if (widget.grammar != null)
         IconButton(
           onPressed: () {
-            // TODO:
+            if (widget.grammar == null) return;
+            showDialog(
+              context: context,
+              builder: (context) => DeleteDialogWidget(
+                onDelete: () => deleteGrammar(widget.grammar!),
+              ),
+            );
           },
           icon: Icon(FontAwesomeIcons.trash, color: colors.deleteBtn),
         ),
@@ -69,7 +74,15 @@ class _GrammarPageState extends State<GrammarPage> {
               titleWidgets: titleWidgets,
               actions: appBarActions,
             ),
-          Expanded(child: GrammarPageBody(grammar: tempGrammar)),
+          Expanded(
+            child: GrammarPageBody(
+              grammar: tempGrammar,
+              isUpdate: widget.grammar != null,
+              saveInDictionary: widget.grammar == null
+                  ? addGrammar
+                  : updateGrammar,
+            ),
+          ),
         ],
       ),
       floatingActionButton: DictPageFabWidget(
@@ -81,9 +94,26 @@ class _GrammarPageState extends State<GrammarPage> {
     );
   }
 
-  Future<void> addSubmenu() async {
-    setState(() {
-      tempGrammar.addSubmenu();
-    });
+  void addSubmenu() {
+    tempGrammar.addSubmenu();
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  Future<void> addGrammar(Grammar g) async {
+    widget.dictionary.addGrammar(g);
+    // TODO: Save to db
+  }
+
+  Future<void> updateGrammar(Grammar g) async {
+    widget.dictionary.updateGrammar(g);
+    // TODO: Update in db
+  }
+
+  Future<void> deleteGrammar(Grammar g) async {
+    widget.dictionary.deleteGrammar(g);
+    Navigator.pop(context);
+    // TODO: Delete from DB
   }
 }

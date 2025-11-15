@@ -7,6 +7,34 @@ import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_butto
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_outlined_button_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/custom_text_field_widget.dart';
 
+/// A confirmation dialog widget used to confirm destructive "delete" actions.
+///
+/// This widget displays a centered dialog with a localized title, an optional
+/// two-step confirmation input, and action buttons for "Delete" and "Cancel".
+/// It integrates with the app's theming, sizing and localization helpers and
+/// uses custom button and text field widgets.
+///
+/// Behavior:
+/// - If [twoStepDeleteText] is provided, the dialog shows a text field and the
+///   "Delete" button is initially disabled. The button becomes enabled only
+///   when the trimmed input exactly equals [twoStepDeleteText].
+/// - Pressing the "Delete" button invokes [onDelete] and then closes the
+///   dialog (Navigator.pop).
+/// - Pressing the "Cancel" button simply closes the dialog (Navigator.pop).
+/// - Localization is read from a ValueListenable (appLangNotifier) so labels and
+///   hints update with the app language.
+///
+/// Parameters:
+/// - [twoStepDeleteText] (optional): The exact string the user must enter to
+///   enable deletion. Comparison ignores leading/trailing whitespace but is
+///   otherwise exact (case-sensitive).
+/// - [onDelete] (required): Callback invoked when the user confirms deletion.
+///
+/// Notes:
+/// - The widget relies on external helpers (ThemeColors, Sizes, KStrings,
+///   appLangNotifier) and custom UI components (CustomTextFieldWidget,
+///   CustomFilledButtonWidget, CustomOutlinedButtonWidget).
+/// - Intended to be presented via showDialog / Navigator overlays.
 class DeleteDialogWidget extends StatefulWidget {
   const DeleteDialogWidget({
     super.key,
@@ -22,13 +50,8 @@ class DeleteDialogWidget extends StatefulWidget {
 }
 
 class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
-  bool disabled = false;
-
-  @override
-  void initState() {
-    disabled = widget.twoStepDeleteText != null;
-    super.initState();
-  }
+  late final colors = ThemeColors.getThemeColors(context);
+  late bool disabled = widget.twoStepDeleteText != null;
 
   @override
   Widget build(BuildContext context) {
@@ -46,19 +69,20 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                 padding: EdgeInsets.all(Sizes.dialogInnerPadding),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
-                  color: Theme.of(context).canvasColor,
+                  color: colors.canvas,
                 ),
                 child: ValueListenableBuilder(
                   valueListenable: appLangNotifier,
                   builder: (context, appLang, child) {
+                    final strings = KStrings.getStringsForLang(appLang);
                     return Column(
                       spacing: Sizes.dialogVerticalSpacing,
                       children: [
                         // Title
                         Text(
-                          KStrings.getStringsForLang(appLang).deleteDialogTitle,
+                          strings.deleteDialogTitle,
                           style: TextStyle(
-                            color: ThemeColors.getThemeColors(context).mainText,
+                            color: colors.mainText,
                             fontSize: Sizes.fontSizeDialogTitle,
                             fontWeight: Sizes.fontWeightDialogTitle,
                           ),
@@ -69,18 +93,17 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                           CustomTextFieldWidget(
                             onChanged: (value) {
                               if (value.trim() == widget.twoStepDeleteText) {
-                                setState(() {
-                                  disabled = false;
-                                });
+                                disabled = false;
                               } else {
-                                setState(() {
-                                  disabled = true;
-                                });
+                                disabled = true;
+                              }
+                              if (mounted) {
+                                setState(() {});
                               }
                             },
-                            hint: KStrings.getStringsForLang(
-                              appLangNotifier.value,
-                            ).twoStepDelete(widget.twoStepDeleteText!),
+                            hint: strings.twoStepDelete(
+                              widget.twoStepDeleteText!,
+                            ),
                           ),
 
                         // Buttons
@@ -90,23 +113,15 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                           children: [
                             // Button Delete
                             CustomFilledButtonWidget(
-                              onPressed: disabled
-                                  ? null
-                                  : () {
-                                      widget.onDelete();
-                                      Navigator.pop(context);
-                                    },
+                              onPressed: () {
+                                widget.onDelete();
+                                Navigator.pop(context);
+                              },
                               disabled: disabled,
-                              backgroundColor: ThemeColors.getThemeColors(
-                                context,
-                              ).deleteBtn,
+                              backgroundColor: colors.deleteBtn,
                               child: Text(
-                                KStrings.getStringsForLang(appLang).delete,
-                                style: TextStyle(
-                                  color: ThemeColors.getThemeColors(
-                                    context,
-                                  ).contrastPrimary,
-                                ),
+                                strings.delete,
+                                style: TextStyle(color: colors.contrastPrimary),
                               ),
                             ),
 
@@ -114,12 +129,8 @@ class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
                             CustomOutlinedButtonWidget(
                               onPressed: () => Navigator.pop(context),
                               child: Text(
-                                KStrings.getStringsForLang(appLang).cancel,
-                                style: TextStyle(
-                                  color: ThemeColors.getThemeColors(
-                                    context,
-                                  ).mainText,
-                                ),
+                                strings.cancel,
+                                style: TextStyle(color: colors.mainText),
                               ),
                             ),
                           ],

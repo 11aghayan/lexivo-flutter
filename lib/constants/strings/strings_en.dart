@@ -110,6 +110,14 @@ class KStrings_EN extends KStrings {
   final String examples = "Examples";
   @override
   final String submenu = "Submenu";
+  @override
+  final String grammarAddedSuccessfully = "Grammar added successfully";
+  @override
+  final String grammarCouldNotBeAdded = "Grammar could not be added";
+  @override
+  final String grammarUpdatedSuccessfully = "Grammar updated successfully";
+  @override
+  final String grammarCouldNotBeUpdated = "Grammar could not be updated";
 
   @override
   String twoStepDelete(String text) {

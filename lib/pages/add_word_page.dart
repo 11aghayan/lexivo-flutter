@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
@@ -28,13 +27,11 @@ class AddWordPage extends StatelessWidget {
 
     List<Widget> titleWidgets = [
       LangFlagTitle(photoPath: dictionary.language.photoPath),
-      AutoSizeText(
+      Text(
         header,
-        maxLines: 2,
-        minFontSize: 16,
-        softWrap: true,
         textAlign: TextAlign.center,
         style: TextStyle(color: colors.contrastPrimary),
+        maxLines: 2,
       ),
     ];
     bool isOrientationLandscape =
@@ -52,7 +49,7 @@ class AddWordPage extends StatelessWidget {
           }
         });
       },
-      icon: Icon(FontAwesomeIcons.trash, color: colors.deleteBtn,),
+      icon: Icon(FontAwesomeIcons.trash, color: colors.deleteBtn),
     );
 
     return Scaffold(

@@ -46,7 +46,11 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
               return DictPageWidgetTree(dictionary: widget.dictionary);
             },
           ),
-        ).then((_) => setState(() {}));
+        ).then((_) {
+          if (mounted) {
+            setState(() {});
+          }
+        });
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: animationDuration),
@@ -82,17 +86,21 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
   }
 
   void rotate() async {
+    if (!mounted) return;
     setState(() => scale = 0.8);
     await Future.delayed(Duration(milliseconds: 50));
 
+    if (!mounted) return;
     setState(() => scale = 1.0);
     await Future.delayed(Duration(milliseconds: 40));
 
+    if (!mounted) return;
     setState(() {
       rotationInRadians = (rotationInRadians * -1) - getRadiansFromDegree(180);
     });
 
     Timer(Duration(milliseconds: (animationDuration / 2).toInt()), () {
+      if (!mounted) return;
       setState(() {
         isRotated = !isRotated;
       });

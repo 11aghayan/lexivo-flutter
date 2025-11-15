@@ -54,7 +54,9 @@ class _GrammarsPageState extends State<GrammarsPage> {
                               ),
                             ),
                           ).then((_) {
-                            setState(() {});
+                            if (mounted) {
+                              setState(() {});
+                            }
                           }),
                       padding: 24,
                       child: Row(

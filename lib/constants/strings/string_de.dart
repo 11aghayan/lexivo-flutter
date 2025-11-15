@@ -64,15 +64,16 @@ class KStrings_DE extends KStrings {
   @override
   final String wordsImportedSuccessfully = "Wörter erfolgreich importiert";
   @override
-  final String wordsCouldNotBeImported = "Wörter konnten nicht importiert werden";
-   @override
+  final String wordsCouldNotBeImported =
+      "Wörter konnten nicht importiert werden";
+  @override
   final String wordAddedSuccessfully = "Wort erfolgreich hinzugefügt";
   @override
   final String wordCouldNotBeAdded = "Wort konnte nicht hinzugefügt werden";
   @override
   final String wordUpdatedSuccessfully = "Wort wurde erfolgreich aktualisiert";
   @override
-  final String wordCouldNotBeUpdated = "Word konnte nicht aktualisiert werden";
+  final String wordCouldNotBeUpdated = "Wort konnte nicht aktualisiert werden";
   @override
   final String addWordPageLabel = "Wort hinzufügen";
   @override
@@ -96,8 +97,9 @@ class KStrings_DE extends KStrings {
   @override
   final String noWordsToExport = "Keine Wöret im Wörterbuch zum exportieren";
   @override
-  final String noGrammarToExport = "Keine Grammatik im Wörterbuch zum exportieren";
-    @override
+  final String noGrammarToExport =
+      "Keine Grammatik im Wörterbuch zum exportieren";
+  @override
   final String noGrammar = "Keine Grammatik";
   @override
   final String addGrammarPageLabel = "Grammatik hinzufügen";
@@ -111,6 +113,17 @@ class KStrings_DE extends KStrings {
   final String examples = "Beispiele";
   @override
   final String submenu = "Untermenü";
+  @override
+  final String grammarAddedSuccessfully = "Grammatik erfolgreich hinzugefügt";
+  @override
+  final String grammarCouldNotBeAdded =
+      "Grammatik konnte nicht hinzugefügt werden";
+  @override
+  final String grammarUpdatedSuccessfully =
+      "Grammatik wurde erfolgreich aktualisiert";
+  @override
+  final String grammarCouldNotBeUpdated =
+      "Grammatik konnte nicht aktualisiert werden";
 
   @override
   String twoStepDelete(String text) {

@@ -23,7 +23,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: true,
         actions: actions,
         leading: leading ? IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
             color: ThemeColors.getThemeColors(context).contrastPrimary,

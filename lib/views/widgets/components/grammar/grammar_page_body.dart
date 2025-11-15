@@ -5,14 +5,22 @@ import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar_submenu.dart';
+import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/save_btn_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/grammar/grammar_submenu_control_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/grammar/grammar_submenu_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/custom_text_field_widget.dart';
 
 class GrammarPageBody extends StatefulWidget {
-  const GrammarPageBody({super.key, required this.grammar});
+  const GrammarPageBody({
+    super.key,
+    required this.grammar,
+    required this.saveInDictionary,
+    required this.isUpdate,
+  });
 
   final Grammar grammar;
+  final Future<void> Function(Grammar g) saveInDictionary;
+  final bool isUpdate;
 
   @override
   State<GrammarPageBody> createState() => _GrammarPageBodyState();
@@ -22,6 +30,7 @@ class _GrammarPageBodyState extends State<GrammarPageBody> {
   final strings = KStrings.getStringsForLang(appLangNotifier.value);
 
   bool isHeaderError = false;
+  List<int> submenuHeaderErrorIndices = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +43,16 @@ class _GrammarPageBodyState extends State<GrammarPageBody> {
           sliver: SliverToBoxAdapter(
             child: Center(
               child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 500),
+                constraints: BoxConstraints(maxWidth: Sizes.widgetMaxWidth),
                 child: SizedBox(
                   width: double.infinity,
                   child: CustomTextFieldWidget(
-                    onChanged: (String value) {},
+                    onChanged: (String value) {
+                      widget.grammar.header = value;
+                    },
                     error: isHeaderError,
                     label: strings.header,
+                    initialValue: widget.grammar.header,
                   ),
                 ),
               ),
@@ -51,32 +63,97 @@ class _GrammarPageBodyState extends State<GrammarPageBody> {
         // Submenus
         SliverPadding(
           padding: EdgeInsets.all(Sizes.mainPadding),
-          sliver: SliverMasonryGrid.extent(
-            maxCrossAxisExtent: Sizes.widgetMaxWidth,
-            crossAxisSpacing: Sizes.addGrammarPageGridSpacing,
-            mainAxisSpacing: Sizes.addGrammarPageGridSpacing,
-            childCount: widget.grammar.submenuListLength,
-            itemBuilder: (context, index) {
-              GrammarSubmenu submenu = widget.grammar.submenuList[index];
-              return GrammarSubmenuControlWidget(submenu: submenu, deletable: widget.grammar.submenuListLength > 1,);
-            },
-          ),
+          sliver: widget.grammar.submenuListLength < 2
+              ? SliverToBoxAdapter(
+                  child: Center(
+                    child: GrammarSubmenuWidget(
+                      submenu: widget.grammar.submenuList[0],
+                      emptyHeaderError: submenuHeaderErrorIndices.contains(0),
+                      deletable: false,
+                      onDelete: () {},
+                    ),
+                  ),
+                )
+              : SliverMasonryGrid.extent(
+                  maxCrossAxisExtent: Sizes.widgetMaxWidth,
+                  crossAxisSpacing: Sizes.addGrammarPageGridSpacing,
+                  mainAxisSpacing: Sizes.addGrammarPageGridSpacing,
+                  childCount: widget.grammar.submenuListLength,
+                  itemBuilder: (context, index) {
+                    GrammarSubmenu submenu = widget.grammar.submenuList[index];
+                    return GrammarSubmenuWidget(
+                      submenu: submenu,
+                      emptyHeaderError: submenuHeaderErrorIndices.contains(index),
+                      deletable: true,
+                      onDelete: () => deleteSubmenu(submenu),
+                    );
+                  },
+                ),
         ),
 
         // Save button
         SliverPadding(
           padding: EdgeInsets.all(Sizes.mainPadding),
           sliver: SliverToBoxAdapter(
-            child: Center(
-              child: SaveBtnWidget(
-                onPressed: () {
-                  //TODO:
-                },
-              ),
-            ),
+            child: Center(child: SaveBtnWidget(onPressed: save)),
           ),
         ),
       ],
     );
+  }
+
+  void deleteSubmenu(GrammarSubmenu submenu) {
+    widget.grammar.deleteSubmenu(submenu);
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void save() async {
+    if (_necessaryFieldsError()) return;
+    try {
+      await widget.saveInDictionary(widget.grammar);
+      if (mounted) {
+        String text = !widget.isUpdate
+            ? strings.grammarAddedSuccessfully
+            : strings.grammarUpdatedSuccessfully;
+        showOperationResultSnackbar(
+          context: context,
+          text: text,
+          isSuccess: true,
+        );
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      print(e);
+      if (mounted) {
+        String text = !widget.isUpdate
+            ? strings.grammarCouldNotBeAdded
+            : strings.grammarCouldNotBeUpdated;
+        showOperationResultSnackbar(
+          context: context,
+          text: text,
+          isSuccess: false,
+        );
+      }
+    }
+  }
+
+  bool _necessaryFieldsError() {
+    isHeaderError = widget.grammar.header.trim().isEmpty;
+
+    List<int> errorIndices = [];
+    for (int i = 0; i < widget.grammar.submenuListLength; i++) {
+      if (widget.grammar.submenuList[i].header.trim().isEmpty) {
+        errorIndices.add(i);
+      }
+    }
+    submenuHeaderErrorIndices = errorIndices;
+
+    if (mounted) {
+      setState(() {});
+    }
+
+    return isHeaderError || submenuHeaderErrorIndices.isNotEmpty;
   }
 }

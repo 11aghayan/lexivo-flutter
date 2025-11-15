@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,11 +35,11 @@ class DictPageWidgetTree extends StatefulWidget {
 
 class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   final strings = KStrings.getStringsForLang(appLangNotifier.value);
+  final int animationDuration = 300;
+  final scrollController = ScrollController();
   int pageIndex = 0;
   bool isScrollUpBtnVisible = false;
-  ScrollController scrollController = ScrollController();
   bool areNavbarAndAppBarVisible = true;
-  final int animationDuration = 300;
 
   @override
   void initState() {
@@ -54,12 +53,12 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
             ["Explanation_1_1_1", "Explanation_1_1_2"],
             ["Example_1_1_1", "Example_1_1_2"],
           ),
-          GrammarSubmenu(
-            "id_2",
-            "Submenu_1_2",
-            ["Explanation_1_2_1", "Explanation_1_2_2"],
-            ["Example_1_2_1", "Example_1_2_2"],
-          ),
+          // GrammarSubmenu(
+          //   "id_2",
+          //   "Submenu_1_2",
+          //   ["Explanation_1_2_1", "Explanation_1_2_2"],
+          //   ["Example_1_2_1", "Example_1_2_2"],
+          // ),
         ]),
         Grammar("id_2", "Grammar 2", [
           GrammarSubmenu(
@@ -117,6 +116,24 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         MediaQuery.of(context).orientation == Orientation.landscape;
     PageData currentPageData = pages[pageIndex];
     AppLang appLang = appLangNotifier.value;
+
+    final titleWidgets = [
+      LangFlagTitle(
+        photoPath: widget.dictionary.language.photoPath,
+        height: 50,
+        width: 50,
+      ),
+      Text(
+        currentPageData.getLabel(appLang),
+        style: TextStyle(
+          color: ThemeColors.getThemeColors(context).contrastPrimary,
+          fontWeight: FontWeight.w700,
+          fontSize: 12
+        ),
+        maxLines: 2,
+      ),
+    ];
+
     void navigate() {
       Widget page = pageIndex == 0
           ? AddWordPage(dictionary: widget.dictionary)
@@ -124,21 +141,19 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
 
       navigateToPage(context, page);
     }
-
+      
     return Scaffold(
       appBar: isOrientationLandscape
           ? null
           : AppBarWidget(
-              titleWidgets: [
-                LangFlagTitle(photoPath: widget.dictionary.language.photoPath),
-                Text(currentPageData.getLabel(appLang)),
-              ],
+              titleWidgets: titleWidgets,
               actions: appBarActions(pageIndex),
             ),
       floatingActionButton: pageIndex != 2
           ? DictPageFabWidget(
               dictionary: widget.dictionary,
               onPressed: navigate,
+              extraOffset: true,
               scrollUp: () {
                 scrollController.animateTo(
                   scrollController.position.minScrollExtent,
@@ -153,23 +168,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         children: [
           if (isOrientationLandscape)
             SideAppBarWidget(
-              titleWidgets: [
-                LangFlagTitle(
-                  photoPath: widget.dictionary.language.photoPath,
-                  height: 50,
-                  width: 50,
-                ),
-                AutoSizeText(
-                  maxLines: 1,
-                  minFontSize: 12,
-                  wrapWords: true,
-                  currentPageData.getLabel(appLang),
-                  style: TextStyle(
-                    color: ThemeColors.getThemeColors(context).contrastPrimary,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
+              titleWidgets: titleWidgets,
               actions: appBarActions(pageIndex, size: 32),
             ),
           Expanded(child: currentPageData.pageWidget),
@@ -223,11 +222,10 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       List<dynamic>? data = await importJsonData();
       if (data != null) {
         List<Word> words = data.map((e) => Word.fromJson(e)).toList();
-        setState(() {
-          widget.dictionary.addWords(words);
-        });
+        widget.dictionary.addWords(words);
 
         if (mounted) {
+          setState(() {});
           showOperationResultSnackbar(
             context: context,
             text: strings.wordsImportedSuccessfully,
@@ -324,7 +322,9 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   void navigateToPage(BuildContext context, Widget page) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => page)).then(
       (_) {
-        setState(() {});
+        if (mounted) {
+          setState(() {});
+        }
       },
     );
   }
@@ -332,8 +332,9 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   //
 
   void setPageIndex(int newPageIndex) {
-    setState(() {
-      pageIndex = newPageIndex;
-    });
+    pageIndex = newPageIndex;
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

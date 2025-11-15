@@ -20,7 +20,7 @@ class WordsPage extends StatefulWidget {
     super.key,
     required this.dictionary,
     required this.isScrollUpBtnVisible,
-    required this.scrollController
+    required this.scrollController,
   });
 
   final Dictionary dictionary;
@@ -59,7 +59,7 @@ class _WordsPageState extends State<WordsPage> {
   }
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
     return CustomScrollView(
       controller: widget.scrollController,
       semanticChildCount: 2,
@@ -91,7 +91,11 @@ class _WordsPageState extends State<WordsPage> {
 
                 // If no results are there
                 if (searchedWords.isEmpty)
-                  NoDataWidget(text: KStrings.getStringsForLang(appLangNotifier.value).noWords),
+                  NoDataWidget(
+                    text: KStrings.getStringsForLang(
+                      appLangNotifier.value,
+                    ).noWords,
+                  ),
               ],
             ),
           ),
@@ -111,16 +115,18 @@ class _WordsPageState extends State<WordsPage> {
                 dictionary: widget.dictionary,
                 word: word,
                 updateState: () {
-                  setState(() {
-                    filterWords();
-                  });
+                  filterWords();
+                  if (mounted) {
+                    setState(() {});
+                  }
                 },
                 onDelete: () {
-                  setState(() {
-                    widget.dictionary.deleteWord(word);
-                    filteredWords.remove(word);
-                    searchedWords.remove(word);
-                  });
+                  widget.dictionary.deleteWord(word);
+                  filteredWords.remove(word);
+                  searchedWords.remove(word);
+                  if (mounted) {
+                    setState(() {});
+                  }
                 },
               );
             },
@@ -175,22 +181,24 @@ class _WordsPageState extends State<WordsPage> {
   // Search methods
 
   void onSearchTextChange(String value) {
-    setState(() {
-      textEditingController.text = value;
-      search();
-    });
+    textEditingController.text = value;
+    search();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void toggleSearchMode() {
-    setState(() {
-      isSearchStrict = !isSearchStrict;
-      search();
-    });
+    isSearchStrict = !isSearchStrict;
+    search();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void clearSearch() {
     if (textEditingController.text.trim().isNotEmpty) {
-        onSearchTextChange("");
+      onSearchTextChange("");
     }
   }
 
@@ -227,14 +235,16 @@ class _WordsPageState extends State<WordsPage> {
   }
 
   void _onFilterChanged() {
-    setState(() {
-      filterWords();
-    });
+    filterWords();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void toggleFiltersContainer() {
-    setState(() {
-      isFiltersContainerExpanded = !isFiltersContainerExpanded;
-    });
+    isFiltersContainerExpanded = !isFiltersContainerExpanded;
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

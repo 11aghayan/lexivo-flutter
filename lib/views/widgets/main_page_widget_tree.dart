@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
@@ -54,7 +53,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
       appBar: isOrientationLandscape
           ? null
           : AppBarWidget(
-              titleWidgets: [Text(KStrings.appName)],
+              titleWidgets: [Text(KStrings.appName, maxLines: 2,)],
               actions: [AppLangSwitcherWidget(), ThemeSwitcherWidget()],
               leading: false,
             ),
@@ -63,14 +62,13 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
           if (isOrientationLandscape)
             SideAppBarWidget(
               titleWidgets: [
-                AutoSizeText(
+                Text(
                   KStrings.appName,
-                  maxLines: 1,
-                  minFontSize: 20,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     color: ThemeColors.getThemeColors(context).contrastPrimary,
                   ),
+                  maxLines: 2,
                 ),
               ],
               actions: [AppLangSwitcherWidget(), ThemeSwitcherWidget()],
@@ -101,9 +99,10 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
   }
 
   void setPageIndex(int newPageIndex) {
-    setState(() {
-      pageIndex = newPageIndex;
-    });
+    pageIndex = newPageIndex;
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void addDictionary(Dictionary dict) {
@@ -115,9 +114,9 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
           : strings.duplicateDictionary,
       isSuccess: success,
     );
+    // TODO: Add to DB
 
-    if (success) {
-      // TODO: Add to DB
+    if (success && mounted) {
       setState(() {});
     }
   }
@@ -131,10 +130,10 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
           : strings.duplicateDictionary,
       isSuccess: success,
     );
+    // TODO: Update DB
 
-    if (success) {
+    if (success && mounted) {
       setState(() {});
-      // TODO: Update DB
     }
   }
 
@@ -145,7 +144,10 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
       text: strings.dictionaryDeleted,
       isSuccess: true,
     );
-    setState(() {});
     // TODO: Delete from DB
+
+    if (mounted) {
+      setState(() {});
+    }
   }
 }

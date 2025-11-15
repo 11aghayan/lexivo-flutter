@@ -16,7 +16,10 @@ class Grammar {
     }
   }
 
-  Grammar.create() : id = Uuid().v4(), header = "", submenuList = [GrammarSubmenu.create()];
+  Grammar.create()
+    : id = Uuid().v4(),
+      header = "",
+      submenuList = [GrammarSubmenu.create()];
 
   Grammar.copy(Grammar g)
     : id = g.id,
@@ -27,6 +30,10 @@ class Grammar {
 
   void addSubmenu() {
     submenuList.add(GrammarSubmenu.create());
+  }
+
+  void deleteSubmenu(GrammarSubmenu submenu) {
+    submenuList.remove(submenu);
   }
 
   // JSON

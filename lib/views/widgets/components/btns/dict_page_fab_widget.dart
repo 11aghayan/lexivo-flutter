@@ -11,12 +11,14 @@ class DictPageFabWidget extends StatelessWidget {
     required this.scrollUp,
     required this.dictionary,
     required this.onPressed,
+    this.extraOffset = false
   });
 
   final Dictionary dictionary;
   final bool scrollUpBtnVisible;
   final void Function() scrollUp;
   final void Function() onPressed;
+  final bool extraOffset;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class DictPageFabWidget extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-        right: isOrientationLandscape ? Sizes.sideBarWidth + safeArea : 0,
+        right: isOrientationLandscape ? safeArea + (extraOffset ? Sizes.sideBarWidth : 0) : 0,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
