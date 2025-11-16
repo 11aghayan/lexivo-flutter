@@ -24,8 +24,8 @@ import 'package:lexivo_flutter/views/widgets/components/text_field/custom_text_f
 ///
 /// The widget maintains its state using [StatefulWidget] and updates the UI
 /// accordingly when rows are added, removed, or edited.
-class GrammarSubmenuDataContainer extends StatefulWidget {
-  const GrammarSubmenuDataContainer({
+class AddGrammarSubmenuDataContainer extends StatefulWidget {
+  const AddGrammarSubmenuDataContainer({
     super.key,
     required this.data,
     required this.label,
@@ -37,12 +37,12 @@ class GrammarSubmenuDataContainer extends StatefulWidget {
   final bool canBeEmpty;
 
   @override
-  State<GrammarSubmenuDataContainer> createState() =>
-      _GrammarSubmenuDataContainerState();
+  State<AddGrammarSubmenuDataContainer> createState() =>
+      _AddGrammarSubmenuDataContainerState();
 }
 
-class _GrammarSubmenuDataContainerState
-    extends State<GrammarSubmenuDataContainer> {
+class _AddGrammarSubmenuDataContainerState
+    extends State<AddGrammarSubmenuDataContainer> {
   late ThemeColors colors = ThemeColors.getThemeColors(context);
   late KStrings strings = KStrings.getStringsForLang(appLangNotifier.value);
 

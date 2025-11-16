@@ -6,13 +6,12 @@ import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/pages/add_word_page.dart';
-import 'package:lexivo_flutter/pages/grammar_page.dart';
+import 'package:lexivo_flutter/pages/add_grammar_page.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/pages/activities_page.dart';
 import 'package:lexivo_flutter/pages/grammars_page.dart';
 import 'package:lexivo_flutter/pages/words_page.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
-import 'package:lexivo_flutter/schema/grammar/grammar_submenu.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/util/export_import_json.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
@@ -43,40 +42,6 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
 
   @override
   void initState() {
-    // TODO: Delete
-    if (widget.dictionary.allGrammarCount == 0) {
-      widget.dictionary.addGrammarList([
-        Grammar("id_1", "Grammar 1", [
-          GrammarSubmenu(
-            "id_1",
-            "Submenu_1_1",
-            ["Explanation_1_1_1", "Explanation_1_1_2"],
-            ["Example_1_1_1", "Example_1_1_2"],
-          ),
-          // GrammarSubmenu(
-          //   "id_2",
-          //   "Submenu_1_2",
-          //   ["Explanation_1_2_1", "Explanation_1_2_2"],
-          //   ["Example_1_2_1", "Example_1_2_2"],
-          // ),
-        ]),
-        Grammar("id_2", "Grammar 2", [
-          GrammarSubmenu(
-            "id_1",
-            "Submenu_2_1",
-            ["Explanation_2_1_1", "Explanation_2_1_2"],
-            ["Example_2_1_1", "Example_2_1_2"],
-          ),
-          GrammarSubmenu(
-            "id_2",
-            "Submenu_2_2",
-            ["Explanation_2_2_1", "Explanation_2_2_2"],
-            ["Example_2_2_1", "Example_2_2_2"],
-          ),
-        ]),
-      ]);
-    }
-
     scrollController.addListener(_onScroll);
     super.initState();
   }
@@ -128,16 +93,14 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         style: TextStyle(
           color: ThemeColors.getThemeColors(context).contrastPrimary,
           fontWeight: FontWeight.w700,
-          fontSize: 12
         ),
-        maxLines: 2,
       ),
     ];
 
     void navigate() {
       Widget page = pageIndex == 0
           ? AddWordPage(dictionary: widget.dictionary)
-          : GrammarPage(dictionary: widget.dictionary);
+          : AddGrammarPage(dictionary: widget.dictionary);
 
       navigateToPage(context, page);
     }
@@ -224,6 +187,8 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         List<Word> words = data.map((e) => Word.fromJson(e)).toList();
         widget.dictionary.addWords(words);
 
+        // TODO: Save to db
+
         if (mounted) {
           setState(() {});
           showOperationResultSnackbar(
@@ -265,18 +230,54 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     }
   }
 
-  void importGrammar() {
-    print("Grammar Imported");
-    // TODO: implement
+  void importGrammar() async {
+    try {
+      List<dynamic>? data = await importJsonData();
+      if (data != null) {
+        List<Grammar> grammarList = data.map((e) => Grammar.fromJson(e)).toList();
+        widget.dictionary.addGrammarList(grammarList);
+        
+        // TODO: Save to db
+        
+        if (mounted) {
+          setState(() {});
+          showOperationResultSnackbar(
+            context: context,
+            text: strings.grammarImportedSuccessfully,
+            isSuccess: true,
+          );
+        }
+      }
+    } catch (e) {
+      print(e);
+      if (mounted) {
+        showOperationResultSnackbar(
+          context: context,
+          text: strings.grammarCouldNotBeImported,
+          isSuccess: false,
+        );
+      }
+    }
   }
 
-  void exportGrammar() {
-    if (widget.dictionary.allWordsCount == 0) {
+  void exportGrammar() async {
+    if (widget.dictionary.allGrammarCount == 0) {
       showInfoSnackbar(context: context, text: strings.noGrammarToExport);
       return;
     }
-    print("Grammar Exported");
-    // TODO: implement
+
+    bool canceled = await exportJsonData(
+      data: widget.dictionary.allGrammar,
+      filename:
+          "${strings.grammar.toLowerCase()}_lexivo_${widget.dictionary.language.name}",
+    );
+    if (!canceled && mounted) {
+      showOperationResultSnackbar(
+        context: context,
+        text: strings.grammarExportedSuccessfully,
+        isSuccess: true,
+      );
+    }
   }
 
   // Scroll control methods

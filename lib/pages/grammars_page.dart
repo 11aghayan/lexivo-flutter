@@ -63,11 +63,13 @@ class _GrammarsPageState extends State<GrammarsPage> {
                         spacing: 4,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            grammar.header,
-                            style: TextStyle(
-                              color: colors.mainText,
-                              fontSize: 16,
+                          Flexible(
+                            child: Text(
+                              grammar.header,
+                              style: TextStyle(
+                                color: colors.mainText,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                           Icon(

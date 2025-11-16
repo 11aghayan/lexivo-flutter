@@ -25,7 +25,7 @@ abstract class Themes {
         titleTextStyle: TextStyle(
           color: colors.contrastPrimary,
           fontWeight: FontWeight.w700,
-          fontSize: 24,
+          fontSize: 20,
         ),
         actionsIconTheme: IconThemeData(color: colors.contrastPrimary),
       ),

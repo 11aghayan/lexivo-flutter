@@ -66,6 +66,10 @@ abstract class KStrings {
   abstract final String grammarCouldNotBeAdded;
   abstract final String grammarUpdatedSuccessfully;
   abstract final String grammarCouldNotBeUpdated;
+  abstract final String grammar;
+  abstract final String grammarExportedSuccessfully;
+  abstract final String grammarImportedSuccessfully;
+  abstract final String grammarCouldNotBeImported;
   
 
   static KStrings getStringsForLang(AppLang appLang) {

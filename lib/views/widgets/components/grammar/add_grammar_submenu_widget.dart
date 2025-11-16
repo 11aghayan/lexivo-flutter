@@ -5,11 +5,11 @@ import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar_submenu.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/delete_dialog_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/grammar/grammar_submenu_data_container_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/grammar/add_grammar_submenu_data_container_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/custom_text_field_widget.dart';
 
-class GrammarSubmenuWidget extends StatefulWidget {
-  const GrammarSubmenuWidget({
+class AddGrammarSubmenuWidget extends StatefulWidget {
+  const AddGrammarSubmenuWidget({
     super.key,
     required this.submenu,
     required this.deletable,
@@ -23,10 +23,10 @@ class GrammarSubmenuWidget extends StatefulWidget {
   final bool emptyHeaderError;
 
   @override
-  State<GrammarSubmenuWidget> createState() => _GrammarSubmenuWidgetState();
+  State<AddGrammarSubmenuWidget> createState() => _AddGrammarSubmenuWidgetState();
 }
 
-class _GrammarSubmenuWidgetState extends State<GrammarSubmenuWidget> {
+class _AddGrammarSubmenuWidgetState extends State<AddGrammarSubmenuWidget> {
   late ThemeColors colors = ThemeColors.getThemeColors(context);
   late KStrings strings = KStrings.getStringsForLang(appLangNotifier.value);
 
@@ -92,13 +92,13 @@ class _GrammarSubmenuWidgetState extends State<GrammarSubmenuWidget> {
             ),
 
             // Explanations
-            GrammarSubmenuDataContainer(
+            AddGrammarSubmenuDataContainer(
               data: widget.submenu.explanations,
               label: strings.explanations,
             ),
 
             // Examples
-            GrammarSubmenuDataContainer(
+            AddGrammarSubmenuDataContainer(
               data: widget.submenu.examples,
               label: strings.examples,
               canBeEmpty: true,

@@ -64,10 +64,14 @@ class SideNavbarWidget extends StatelessWidget {
                     child: Icon(page.icon, color: foregroundColor, size: 24),
                   ),
                 ),
-                Text(
-                  page.getLabel(appLang),
-                  style: TextStyle(color: colors.contrastPrimary, fontSize: 12),
-                  maxLines: 2,
+                FittedBox(
+                  child: Text(
+                    page.getLabel(appLang),
+                    style: TextStyle(
+                      color: colors.contrastPrimary,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
               ],
             ),

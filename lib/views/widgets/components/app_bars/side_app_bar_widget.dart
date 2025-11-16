@@ -17,8 +17,22 @@ class SideAppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final safeArea = MediaQuery.of(context).padding;
-    var colors = ThemeColors.getThemeColors(context);
-    const basePadding = Sizes.sideBarBasePadding;
+    final colors = ThemeColors.getThemeColors(context);
+    final basePadding = Sizes.sideBarBasePadding;
+    final titleWidgets = this.titleWidgets.map((w) {
+      if (w is Text) {
+        final text = Text(
+          w.data!,
+          style: TextStyle(
+            fontWeight: w.style?.fontWeight,
+            fontSize: w.style?.fontSize ?? 18,
+            color: w.style?.color ?? colors.contrastPrimary,
+          ),
+        );
+        return FittedBox(child: text);
+      }
+      return w;
+    }).toList();
 
     return Container(
       color: colors.primary,

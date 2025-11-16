@@ -7,11 +7,11 @@ import 'package:lexivo_flutter/schema/grammar/grammar.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar_submenu.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/save_btn_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/grammar/grammar_submenu_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/grammar/add_grammar_submenu_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/custom_text_field_widget.dart';
 
-class GrammarPageBody extends StatefulWidget {
-  const GrammarPageBody({
+class AddGrammarPageBody extends StatefulWidget {
+  const AddGrammarPageBody({
     super.key,
     required this.grammar,
     required this.saveInDictionary,
@@ -23,10 +23,10 @@ class GrammarPageBody extends StatefulWidget {
   final bool isUpdate;
 
   @override
-  State<GrammarPageBody> createState() => _GrammarPageBodyState();
+  State<AddGrammarPageBody> createState() => _AddGrammarPageBodyState();
 }
 
-class _GrammarPageBodyState extends State<GrammarPageBody> {
+class _AddGrammarPageBodyState extends State<AddGrammarPageBody> {
   final strings = KStrings.getStringsForLang(appLangNotifier.value);
 
   bool isHeaderError = false;
@@ -66,7 +66,7 @@ class _GrammarPageBodyState extends State<GrammarPageBody> {
           sliver: widget.grammar.submenuListLength < 2
               ? SliverToBoxAdapter(
                   child: Center(
-                    child: GrammarSubmenuWidget(
+                    child: AddGrammarSubmenuWidget(
                       submenu: widget.grammar.submenuList[0],
                       emptyHeaderError: submenuHeaderErrorIndices.contains(0),
                       deletable: false,
@@ -81,7 +81,7 @@ class _GrammarPageBodyState extends State<GrammarPageBody> {
                   childCount: widget.grammar.submenuListLength,
                   itemBuilder: (context, index) {
                     GrammarSubmenu submenu = widget.grammar.submenuList[index];
-                    return GrammarSubmenuWidget(
+                    return AddGrammarSubmenuWidget(
                       submenu: submenu,
                       emptyHeaderError: submenuHeaderErrorIndices.contains(index),
                       deletable: true,

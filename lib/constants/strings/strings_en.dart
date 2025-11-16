@@ -118,6 +118,14 @@ class KStrings_EN extends KStrings {
   final String grammarUpdatedSuccessfully = "Grammar updated successfully";
   @override
   final String grammarCouldNotBeUpdated = "Grammar could not be updated";
+  @override
+  final String grammar = "grammar";
+  @override
+  final String grammarExportedSuccessfully = "Grammar exported successfully";
+  @override
+  final String grammarImportedSuccessfully = "Grammar imported successfully";
+  @override
+  final String grammarCouldNotBeImported = "Grammar could not be imported";
 
   @override
   String twoStepDelete(String text) {

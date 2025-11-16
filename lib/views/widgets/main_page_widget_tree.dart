@@ -10,7 +10,6 @@ import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/pages/dictionaries_page.dart';
 import 'package:lexivo_flutter/pages/profile_page.dart';
-import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/side_app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_lang_switcher_widget.dart';
@@ -53,7 +52,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
       appBar: isOrientationLandscape
           ? null
           : AppBarWidget(
-              titleWidgets: [Text(KStrings.appName, maxLines: 2,)],
+              titleWidgets: [Text(KStrings.appName)],
               actions: [AppLangSwitcherWidget(), ThemeSwitcherWidget()],
               leading: false,
             ),
@@ -66,9 +65,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
                   KStrings.appName,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    color: ThemeColors.getThemeColors(context).contrastPrimary,
                   ),
-                  maxLines: 2,
                 ),
               ],
               actions: [AppLangSwitcherWidget(), ThemeSwitcherWidget()],
