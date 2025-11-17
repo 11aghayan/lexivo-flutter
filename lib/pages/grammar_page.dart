@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/pages/add_grammar_page.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
@@ -28,20 +29,39 @@ class GrammarPage extends StatefulWidget {
 }
 
 class _GrammarPageState extends State<GrammarPage> {
+  late Grammar grammar = widget.grammar;
   late final strings = KStrings.getStringsForLang(appLangNotifier.value);
   late final colors = ThemeColors.getThemeColors(context);
-  late final titleWidgets = [
-    LangFlagTitle(photoPath: widget.dictionary.language.photoPath),
-    Text(widget.grammar.header, textAlign: TextAlign.center),
-  ];
   late final appBarActions = [
+    IconButton(
+      onPressed: () =>
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddGrammarPage(
+                dictionary: widget.dictionary,
+                grammar: grammar,
+              ),
+            ),
+          ).then((_) {
+            if (mounted) {
+              setState(() {
+                grammar = widget.dictionary.allGrammar.firstWhere(
+                  (e) => e.id == grammar.id,
+                );
+              });
+            }
+          }),
+      icon: Icon(FontAwesomeIcons.penToSquare),
+    ),
+
     // Delete btn
     IconButton(
       onPressed: () {
         showDialog(
           context: context,
           builder: (context) =>
-              DeleteDialogWidget(onDelete: () => deleteGrammar(widget.grammar)),
+              DeleteDialogWidget(onDelete: () => deleteGrammar(grammar)),
         );
       },
       icon: Icon(FontAwesomeIcons.trash, color: colors.deleteBtn),
@@ -52,6 +72,11 @@ class _GrammarPageState extends State<GrammarPage> {
   Widget build(BuildContext context) {
     final isOrientationLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
+    final safeArea = MediaQuery.of(context).padding;
+    final titleWidgets = [
+    LangFlagTitle(photoPath: widget.dictionary.language.photoPath),
+    Text(grammar.header, textAlign: TextAlign.center),
+  ];
 
     return Scaffold(
       appBar: !isOrientationLandscape
@@ -67,14 +92,18 @@ class _GrammarPageState extends State<GrammarPage> {
             ),
           Expanded(
             child: MasonryGridView.extent(
-              //TODO: Check the swipe up side padding
-              padding: EdgeInsets.all(Sizes.mainPadding),
+              padding: EdgeInsets.fromLTRB(
+                Sizes.mainPadding,
+                Sizes.mainPadding,
+                Sizes.mainPadding + safeArea.right,
+                Sizes.mainPadding,
+              ),
               maxCrossAxisExtent: Sizes.widgetMaxWidth,
               mainAxisSpacing: Sizes.gridViewItemsSpacing,
               crossAxisSpacing: Sizes.gridViewItemsSpacing,
-              itemCount: widget.grammar.submenuListLength,
+              itemCount: grammar.submenuListLength,
               itemBuilder: (context, index) => GrammarSubmenuContainer(
-                submenu: widget.grammar.submenuList[index],
+                submenu: grammar.submenuList[index],
               ),
             ),
           ),

@@ -50,7 +50,7 @@ class _GrammarsPageState extends State<GrammarsPage> {
                             MaterialPageRoute(
                               builder: (_) => GrammarPage(
                                 dictionary: widget.dictionary,
-                                grammar: grammar,
+                                grammar: grammar
                               ),
                             ),
                           ).then((_) {

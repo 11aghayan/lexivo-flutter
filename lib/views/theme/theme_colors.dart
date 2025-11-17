@@ -25,7 +25,7 @@ class ThemeColorsLight extends ThemeColors {
   @override
   final Color failure = Color.fromRGBO(167, 1, 29, 1);
   @override
-  final Color deleteBtn = Color.fromRGBO(167, 1, 29, 1);
+  final Color deleteBtn = Color.fromRGBO(200, 2, 35, 1);
   @override
   final Color disabledBtn = Color.fromRGBO(171, 171, 171, 1);
   @override
@@ -33,7 +33,7 @@ class ThemeColorsLight extends ThemeColors {
   @override
   final Color divider = Color.fromRGBO(196, 198, 203, 1);
   @override
-  final Color wordCardBg = Color.fromRGBO(221, 224, 227, 1);
+  final Color listItemBg = Color.fromRGBO(221, 224, 227, 1);
   @override
   final Color infoSnackbarBg = Color.fromRGBO(221, 224, 227, 1);
   @override
@@ -76,7 +76,7 @@ class ThemeColorsDark extends ThemeColors {
   @override
   final Color divider = Color.fromRGBO(123, 125, 131, 1);
   @override
-  final Color wordCardBg = Color.fromRGBO(50, 50, 50, 1);
+  final Color listItemBg = Color.fromRGBO(50, 50, 50, 1);
   @override
   final Color infoSnackbarBg = Color.fromRGBO(50, 50, 50, 1);
   @override
@@ -106,7 +106,7 @@ abstract class ThemeColors {
   abstract final Color disabledBtn;
   abstract final Color emptyPageText;
   abstract final Color divider;
-  abstract final Color wordCardBg;
+  abstract final Color listItemBg;
   abstract final Color infoSnackbarBg;
   abstract final Color searchModeBg;
   abstract final Color filterNotSelected;
