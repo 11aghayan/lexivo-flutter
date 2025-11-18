@@ -16,25 +16,27 @@ class GrammarSubmenuContainer extends StatelessWidget {
     final strings = KStrings.getStringsForLang(appLangNotifier.value);
     final paddingVertical = 4.0;
     final paddingHorizontal = 12.0;
+    final backgroundColor = colors.canvas;
+    final foregroundColor = colors.mainText;
+    final shape = RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(Sizes.borderRadius_2),
+        side: BorderSide(color: colors.outlinedBtnBorder)
+      );
 
     return ExpansionTile(
       title: Text(submenu.header),
-      textColor: colors.mainText,
-      iconColor: colors.mainText,
-      backgroundColor: colors.listItemBg,
-      collapsedBackgroundColor: colors.listItemBg,
+      textColor: foregroundColor,
+      iconColor: foregroundColor,
+      backgroundColor: backgroundColor,
+      collapsedBackgroundColor: backgroundColor,
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       tilePadding: EdgeInsets.symmetric(
         horizontal: paddingHorizontal,
         vertical: paddingVertical,
       ),
       childrenPadding: EdgeInsets.all(8),
-      collapsedShape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(Sizes.borderRadius_2),
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(Sizes.borderRadius_2),
-      ),
+      collapsedShape: shape,
+      shape: shape,
       children: [
         ...generateListTiles(
           context,
@@ -71,7 +73,7 @@ class GrammarSubmenuContainer extends StatelessWidget {
           title: Text(data[index], maxLines: 10),
           textColor: colors.mainText,
           titleTextStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-          shape: Border(bottom: BorderSide(width: 1, color: colors.shadow)),
+          shape: Border(bottom: BorderSide(width: 1, color: colors.outlinedBtnBorder)),
         ),
       ),
     ];
