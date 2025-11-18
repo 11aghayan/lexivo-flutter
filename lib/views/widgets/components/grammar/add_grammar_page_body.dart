@@ -76,8 +76,8 @@ class _AddGrammarPageBodyState extends State<AddGrammarPageBody> {
                 )
               : SliverMasonryGrid.extent(
                   maxCrossAxisExtent: Sizes.widgetMaxWidth,
-                  crossAxisSpacing: Sizes.addGrammarPageGridSpacing,
-                  mainAxisSpacing: Sizes.addGrammarPageGridSpacing,
+                  crossAxisSpacing: Sizes.gridViewItemsSpacing,
+                  mainAxisSpacing: Sizes.gridViewItemsSpacing,
                   childCount: widget.grammar.submenuListLength,
                   itemBuilder: (context, index) {
                     GrammarSubmenu submenu = widget.grammar.submenuList[index];

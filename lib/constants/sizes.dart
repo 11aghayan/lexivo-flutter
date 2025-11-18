@@ -18,15 +18,7 @@ abstract class Sizes {
   static const double fontSizeDialogTitle = 18.0;
   static const FontWeight fontWeightDialogTitle = FontWeight.w600;
   static const double snackbarTextSize = 16.0;
-  static const double emptyPageFontSize = 18.0;
-  static const FontWeight emptyPageFontWeight = FontWeight.w600;
-  static const double wordsPageGridSpacing = 12.0;
-  static const double addWordPageGridSpacing = 16.0;
-  static const double addGrammarPageGridSpacing = 16.0;
-  static const double wordsCardVerticalSpacingTight = 4.0;
   static const double wordsCardVerticalSpacingLoose = 12.0;
-  static const double wordsCardInfoFontSize = 16.0;
-  static const FontWeight wordsCardInfoFontWeight = FontWeight.w600;
   static const double fabVerticalSpacing = 16.0;
   static const double sideBarWidth = 100.0;
   static const double sideBarBasePadding = 16.0;

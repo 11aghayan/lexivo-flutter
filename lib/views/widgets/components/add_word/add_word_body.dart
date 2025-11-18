@@ -147,8 +147,8 @@ class _AddWordBodyState extends State<AddWordBody> {
           ),
           sliver: SliverMasonryGrid.extent(
             maxCrossAxisExtent: Sizes.widgetMaxWidth,
-            crossAxisSpacing: Sizes.addWordPageGridSpacing,
-            mainAxisSpacing: Sizes.addWordPageGridSpacing,
+            crossAxisSpacing: Sizes.gridViewItemsSpacing,
+            mainAxisSpacing: Sizes.gridViewItemsSpacing,
             childCount: childrenTop.length,
             itemBuilder: (context, index) {
               return childrenTop[index];
@@ -160,20 +160,18 @@ class _AddWordBodyState extends State<AddWordBody> {
         SliverPadding(
           padding: EdgeInsets.symmetric(
             horizontal: Sizes.mainPadding,
-            vertical: Sizes.addWordPageGridSpacing + 4,
+            vertical: Sizes.gridViewItemsSpacing + 4,
           ),
           sliver: SliverToBoxAdapter(child: CustomDividerWidget()),
         ),
 
         // Description Segment
         SliverPadding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Sizes.addWordPageGridSpacing,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: Sizes.gridViewItemsSpacing),
           sliver: SliverMasonryGrid.extent(
             maxCrossAxisExtent: Sizes.widgetMaxWidth,
-            crossAxisSpacing: Sizes.addWordPageGridSpacing,
-            mainAxisSpacing: Sizes.addWordPageGridSpacing,
+            crossAxisSpacing: Sizes.gridViewItemsSpacing,
+            mainAxisSpacing: Sizes.gridViewItemsSpacing,
             childCount: 2,
             itemBuilder: (context, index) {
               return childrenBottom[index];
@@ -185,7 +183,7 @@ class _AddWordBodyState extends State<AddWordBody> {
         SliverPadding(
           padding: EdgeInsets.fromLTRB(
             mainPadding,
-            Sizes.addWordPageGridSpacing + 8,
+            Sizes.gridViewItemsSpacing + 8,
             mainPadding,
             mainPadding + safeArea.bottom,
           ),

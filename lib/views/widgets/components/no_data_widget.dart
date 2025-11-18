@@ -16,8 +16,8 @@ class NoDataWidget extends StatelessWidget {
           text,
           style: TextStyle(
             color: ThemeColors.getThemeColors(context).emptyPageText,
-            fontSize: Sizes.emptyPageFontSize,
-            fontWeight: Sizes.emptyPageFontWeight,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

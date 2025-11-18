@@ -17,7 +17,7 @@ class WordCardWidget extends StatelessWidget {
     required this.word,
     required this.onDelete,
     required this.dictionary,
-    required this.updateState
+    required this.updateState,
   });
 
   final Word word;

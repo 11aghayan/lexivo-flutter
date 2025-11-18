@@ -11,13 +11,15 @@ class WordCardMainContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final verticalSpacingTight = 4.0;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: Sizes.wordsCardVerticalSpacingLoose,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: Sizes.wordsCardVerticalSpacingTight,
+          spacing: verticalSpacingTight,
           children: textData(context, [
             word.native,
             word.nativeDetails,
@@ -29,7 +31,7 @@ class WordCardMainContent extends StatelessWidget {
         CustomDividerWidget(),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: Sizes.wordsCardVerticalSpacingTight,
+          spacing: verticalSpacingTight,
           children: textData(context, [word.desc, word.descDetails]),
         ),
       ],
