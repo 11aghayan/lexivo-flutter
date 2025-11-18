@@ -103,8 +103,8 @@ class _WordsPageState extends State<WordsPage> {
           padding: EdgeInsets.all(Sizes.mainPadding),
           sliver: SliverMasonryGrid.extent(
             maxCrossAxisExtent: Sizes.widgetMaxWidth,
-            crossAxisSpacing: Sizes.wordsPageGridSpacing,
-            mainAxisSpacing: Sizes.wordsPageGridSpacing,
+            crossAxisSpacing: Sizes.gridViewItemsSpacing,
+            mainAxisSpacing: Sizes.gridViewItemsSpacing,
             childCount: searchedWords.length,
             itemBuilder: (context, index) {
               Word word = searchedWords[index];
