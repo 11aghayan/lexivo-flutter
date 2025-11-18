@@ -15,7 +15,8 @@ class CustomFilledButtonWidget extends StatelessWidget {
     this.elevation = false,
     this.noSplash = false,
     this.borderColor,
-    this.borderWidth
+    this.borderWidth,
+    this.outlined = false
   });
 
   final VoidCallback? onPressed;
@@ -29,6 +30,7 @@ class CustomFilledButtonWidget extends StatelessWidget {
   final bool noSplash;
   final Color? borderColor;
   final double? borderWidth;
+  final bool outlined;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,10 @@ class CustomFilledButtonWidget extends StatelessWidget {
           ) : null,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
+            side: BorderSide(
+              color: outlined ? colors.outlinedBtnBorder : Colors.transparent,
+              width: outlined ? 1 : 0
+            )
           ),
         ),
         child: child,

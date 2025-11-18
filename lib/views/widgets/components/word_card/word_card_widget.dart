@@ -27,9 +27,14 @@ class WordCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      radius: Sizes.borderRadius_1,
-      onTap: () {
+    final colors = ThemeColors.getThemeColors(context);
+
+    return CustomFilledButtonWidget(
+      borderRadius: Sizes.borderRadius_1,
+      outlined: true,
+      padding: 16,
+      backgroundColor: colors.canvas,
+      onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -38,57 +43,44 @@ class WordCardWidget extends StatelessWidget {
           ),
         ).then((_) => updateState());
       },
-      child: Container(
-        padding: EdgeInsets.all(Sizes.mainPadding),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: Sizes.shadowBlurRadius,
-              color: ThemeColors.getThemeColors(context).listItemBg,
-              spreadRadius: Sizes.shadowSpreadRadius,
-            ),
-          ],
-        ),
-        child: Column(
-          spacing: Sizes.wordsCardVerticalSpacingLoose,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            WordCardInfoContent(word: word),
-            WordCardMainContent(word: word),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CustomFilledButtonWidget(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      DialogRoute(
-                        context: context,
-                        builder: (context) =>
-                            DeleteDialogWidget(onDelete: onDelete),
-                      ),
-                    );
-                  },
-                  backgroundColor: ThemeColors.getThemeColors(
-                    context,
-                  ).deleteBtn,
-                  child: Text(
-                    KStrings.getStringsForLang(appLangNotifier.value).delete,
-                    style: TextStyle(
-                      color: ThemeColors.getThemeColors(
-                        context,
-                      ).contrastPrimary,
-                    ),
-                  ),
+      child: Column(
+        spacing: Sizes.wordsCardVerticalSpacingLoose,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Info content
+          WordCardInfoContent(word: word),
+
+          // Main content
+          WordCardMainContent(word: word),
+
+          // Delete btn row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              // Delete btn
+              CustomFilledButtonWidget(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => DeleteDialogWidget(onDelete: onDelete),
                 ),
-              ],
-            ),
-          ],
-        ),
+                backgroundColor: colors.deleteBtn,
+                child: Text(
+                  KStrings.getStringsForLang(appLangNotifier.value).delete,
+                  style: TextStyle(color: colors.contrastPrimary),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 }
+
+// boxShadow: [
+//             BoxShadow(
+//               blurRadius: Sizes.shadowBlurRadius,
+//               color: ThemeColors.getThemeColors(context).listItemBg,
+//               spreadRadius: Sizes.shadowSpreadRadius,
+//             ),
+//           ],
