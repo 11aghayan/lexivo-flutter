@@ -78,7 +78,10 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
             ? DictionaryCardBackFaceWidget(
                 dictionary: widget.dictionary,
                 updateDictionary: widget.updateDictionary,
-                deleteDictionary: widget.deleteDictionary,
+                deleteDictionary: () {
+                  widget.deleteDictionary(widget.dictionary);
+                  rotate();
+                },
               )
             : DictionaryCardFrontFaceWidget(dictionary: widget.dictionary),
       ),

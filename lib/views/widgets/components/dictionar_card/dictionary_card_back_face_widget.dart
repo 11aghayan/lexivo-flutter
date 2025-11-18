@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
-import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/util/math_util.dart';
@@ -24,11 +23,13 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
   final Dictionary dictionary;
   final double iconSize = 32;
   final Function(Dictionary, Language) updateDictionary;
-  final Function(Deletable) deleteDictionary;
+  final void Function() deleteDictionary;
 
   @override
   Widget build(BuildContext context) {
-    Color iconColorDark = ThemeColors.getThemeColors(context).dictionaryIconBtn;
+    final colors = ThemeColors.getThemeColors(context);
+    final strings = KStrings.getStringsForLang(appLangNotifier.value);
+    final iconColorDark = colors.dictionaryIconBtn;
 
     return Container(
       transformAlignment: Alignment.center,
@@ -39,7 +40,7 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
+        color: colors.canvas,
         borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
       ),
       child: Column(
@@ -49,7 +50,7 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: ThemeColors.getThemeColors(context).mainText,
+              color: colors.mainText,
             ),
           ),
           Divider(),
@@ -113,23 +114,19 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
                           return Padding(
                             padding: EdgeInsets.only(bottom: viewInsets.bottom),
                             child: DeleteDialogWidget(
-                              onDelete: () => deleteDictionary(dictionary),
+                              onDelete: deleteDictionary,
                               twoStepDeleteText:
-                                  "${KStrings.getStringsForLang(appLangNotifier.value).delete.toLowerCase()} ${dictionary.language.nameOriginal}",
+                                  "${strings.delete.toLowerCase()} ${dictionary.language.nameOriginal}",
                             ),
                           );
                         },
                       );
                     },
-                    backgroundColor: ThemeColors.getThemeColors(
-                      context,
-                    ).deleteBtn,
+                    backgroundColor: colors.deleteBtn,
                     child: Icon(
                       Icons.delete_forever_rounded,
                       size: iconSize,
-                      color: ThemeColors.getThemeColors(
-                        context,
-                      ).contrastPrimary,
+                      color: colors.contrastPrimary,
                     ),
                   ),
                 ),
