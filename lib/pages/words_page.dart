@@ -39,7 +39,6 @@ class _WordsPageState extends State<WordsPage> {
   late List<FilterData> levelFilters;
   late List<FilterData> typeFilters;
   late List<FilterData> genderFilters;
-  bool isFiltersContainerExpanded = false;
   int renderNum = 0;
 
   @override
@@ -82,11 +81,9 @@ class _WordsPageState extends State<WordsPage> {
 
                 // Filters container
                 FiltersContainerWidget(
-                  toggleExpanded: toggleFiltersContainer,
                   levelFilters: levelFilters,
                   typeFilters: typeFilters,
                   genderFilters: genderFilters,
-                  isExpanded: isFiltersContainerExpanded,
                 ),
 
                 // If no results are there
@@ -236,13 +233,6 @@ class _WordsPageState extends State<WordsPage> {
 
   void _onFilterChanged() {
     filterWords();
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
-  void toggleFiltersContainer() {
-    isFiltersContainerExpanded = !isFiltersContainerExpanded;
     if (mounted) {
       setState(() {});
     }
