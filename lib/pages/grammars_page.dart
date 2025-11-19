@@ -43,14 +43,14 @@ class _GrammarsPageState extends State<GrammarsPage> {
                     Grammar grammar = widget.dictionary.allGrammar[index];
                     return CustomFilledButtonWidget(
                       backgroundColor: colors.canvas,
-                      borderWidth: 1,
+                      outlined: true,
                       onPressed: () =>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (_) => GrammarPage(
                                 dictionary: widget.dictionary,
-                                grammar: grammar
+                                grammar: grammar,
                               ),
                             ),
                           ).then((_) {

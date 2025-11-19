@@ -132,6 +132,16 @@ class KStrings_DE extends KStrings {
   final String grammarImportedSuccessfully = "Grammatik erfolgreich importiert";
   @override
   final String grammarCouldNotBeImported = "Grammatik konnte nicht importiert werden";
+  @override
+  final String startPracticeBtnText = "Los";
+  @override
+  final String wordToDesc = "Wort zur Beschreibung";
+  @override
+  final String descToWord = "Beschreibung zum Wort";
+  @override
+  final String practice = "Üben";
+  @override
+  final String test = "Prüfen";
 
   @override
   String twoStepDelete(String text) {

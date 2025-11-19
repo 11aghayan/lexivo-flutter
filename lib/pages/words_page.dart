@@ -5,15 +5,15 @@ import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/filter_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
-import 'package:lexivo_flutter/schema/interface/localized_to_string_interface.dart';
 import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
+import 'package:lexivo_flutter/util/filter_data_util.dart';
 import 'package:lexivo_flutter/views/widgets/components/no_data_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/search_words_text_field_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/word_card/word_card_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/word_filters/filters_container_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/word_filters/word_filters_container_widget.dart';
 
 class WordsPage extends StatefulWidget {
   const WordsPage({
@@ -33,23 +33,22 @@ class WordsPage extends StatefulWidget {
 
 class _WordsPageState extends State<WordsPage> {
   TextEditingController textEditingController = TextEditingController(text: "");
-  late List<Word> filteredWords;
-  late List<Word> searchedWords;
+  late List<Word> filteredWords = widget.dictionary.allWords;
+  late List<Word> searchedWords = filteredWords;
   bool isSearchStrict = false;
-  late List<FilterData> levelFilters;
-  late List<FilterData> typeFilters;
-  late List<FilterData> genderFilters;
+  late List<FilterData> levelFilters = getFilterDataFromEnumValues(
+    WordLevel.values,
+    _onFilterChanged,
+  );
+  late List<FilterData> typeFilters = getFilterDataFromEnumValues(
+    WordType.values,
+    _onFilterChanged,
+  );
+  late List<FilterData> genderFilters = getFilterDataFromEnumValues(
+    WordGender.values,
+    _onFilterChanged,
+  );
   int renderNum = 0;
-
-  @override
-  void initState() {
-    filteredWords = widget.dictionary.allWords;
-    searchedWords = filteredWords;
-    levelFilters = getFilterDataFromEnumValues(WordLevel.values);
-    typeFilters = getFilterDataFromEnumValues(WordType.values);
-    genderFilters = getFilterDataFromEnumValues(WordGender.values);
-    super.initState();
-  }
 
   @override
   void didUpdateWidget(covariant WordsPage oldWidget) {
@@ -80,10 +79,10 @@ class _WordsPageState extends State<WordsPage> {
                 ),
 
                 // Filters container
-                FiltersContainerWidget(
+                WordFiltersContainerWidget(
+                  genderFilters: genderFilters,
                   levelFilters: levelFilters,
                   typeFilters: typeFilters,
-                  genderFilters: genderFilters,
                 ),
 
                 // If no results are there
@@ -175,6 +174,13 @@ class _WordsPageState extends State<WordsPage> {
     return d.selected;
   }
 
+  void _onFilterChanged() {
+    filterWords();
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   // Search methods
 
   void onSearchTextChange(String value) {
@@ -216,25 +222,4 @@ class _WordsPageState extends State<WordsPage> {
   }
 
   //
-
-  List<FilterData> getFilterDataFromEnumValues(
-    List<LocalizedToStringInterface> values,
-  ) {
-    return List.generate(values.length, (index) {
-      var value = values[index];
-      return FilterData(
-        value.toLocalizedString(appLangNotifier.value),
-        value,
-        false,
-        _onFilterChanged,
-      );
-    });
-  }
-
-  void _onFilterChanged() {
-    filterWords();
-    if (mounted) {
-      setState(() {});
-    }
-  }
 }

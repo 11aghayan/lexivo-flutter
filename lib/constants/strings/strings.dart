@@ -70,6 +70,11 @@ abstract class KStrings {
   abstract final String grammarExportedSuccessfully;
   abstract final String grammarImportedSuccessfully;
   abstract final String grammarCouldNotBeImported;
+  abstract final String startPracticeBtnText;
+  abstract final String wordToDesc;
+  abstract final String descToWord;
+  abstract final String practice;
+  abstract final String test;
   
 
   static KStrings getStringsForLang(AppLang appLang) {

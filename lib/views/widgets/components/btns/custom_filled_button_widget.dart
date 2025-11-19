@@ -13,10 +13,8 @@ class CustomFilledButtonWidget extends StatelessWidget {
     this.disabled = false,
     this.alignment = Alignment.center,
     this.elevation = false,
-    this.noSplash = false,
-    this.borderColor,
-    this.borderWidth,
-    this.outlined = false
+    this.outlined = false,
+    this.foregroundColor,
   });
 
   final VoidCallback? onPressed;
@@ -27,39 +25,32 @@ class CustomFilledButtonWidget extends StatelessWidget {
   final bool disabled;
   final Alignment? alignment;
   final bool elevation;
-  final bool noSplash;
-  final Color? borderColor;
-  final double? borderWidth;
   final bool outlined;
+  final Color? foregroundColor;
 
   @override
   Widget build(BuildContext context) {
     final colors = ThemeColors.getThemeColors(context);
 
     return FilledButton(
-        onPressed: disabled ? null : onPressed,
-        style: FilledButton.styleFrom(
-          disabledBackgroundColor: colors.disabledBtn,
-          backgroundColor: backgroundColor ?? colors.primary,
-          foregroundColor: colors.mainText,
-          alignment: alignment,
-          padding: EdgeInsets.all(padding),
-          elevation: elevation ? 1 : 0,
-          shadowColor: colors.shadow,
-          overlayColor: noSplash ? Colors.transparent : null,
-          side: borderWidth != null ? BorderSide(
-            color: borderColor ?? colors.outlinedBtnBorder,
-            width: borderWidth!
-          ) : null,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-            side: BorderSide(
-              color: outlined ? colors.outlinedBtnBorder : Colors.transparent,
-              width: outlined ? 1 : 0
-            )
+      onPressed: disabled ? null : onPressed,
+      style: FilledButton.styleFrom(
+        disabledBackgroundColor: colors.disabledBtn,
+        backgroundColor: backgroundColor ?? colors.primary,
+        foregroundColor: foregroundColor ?? colors.mainText,
+        alignment: alignment,
+        padding: EdgeInsets.all(padding),
+        elevation: elevation ? 1 : 0,
+        shadowColor: colors.shadow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+          side: BorderSide(
+            color: outlined ? colors.outlinedBtnBorder : Colors.transparent,
+            width: outlined ? 1 : 0,
           ),
         ),
-        child: child,
-      );
+      ),
+      child: child,
+    );
   }
 }

@@ -8,7 +8,7 @@ import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/pages/add_word_page.dart';
 import 'package:lexivo_flutter/pages/add_grammar_page.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
-import 'package:lexivo_flutter/pages/activities_page.dart';
+import 'package:lexivo_flutter/pages/practice_setup_page.dart';
 import 'package:lexivo_flutter/pages/grammars_page.dart';
 import 'package:lexivo_flutter/pages/words_page.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
@@ -73,7 +73,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       PageData(
         "activitiesPageLabel",
         FontAwesomeIcons.puzzlePiece,
-        ActivitiesPage(),
+        PracticeSetupPage(),
       ),
     ];
 
