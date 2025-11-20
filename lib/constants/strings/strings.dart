@@ -74,7 +74,8 @@ abstract class KStrings {
   abstract final String wordToDesc;
   abstract final String descToWord;
   abstract final String practice;
-  abstract final String test;
+  abstract final String exam;
+  abstract final String noWordsMatchingTheFilters;
   
 
   static KStrings getStringsForLang(AppLang appLang) {

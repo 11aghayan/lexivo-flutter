@@ -139,9 +139,11 @@ class KStrings_DE extends KStrings {
   @override
   final String descToWord = "Beschreibung zum Wort";
   @override
-  final String practice = "Üben";
+  final String practice = "Übung";
   @override
-  final String test = "Prüfen";
+  final String exam = "Prüfung";
+  @override
+  final String noWordsMatchingTheFilters = "Keine Wörter, die den Filtern entsprechen.";
 
   @override
   String twoStepDelete(String text) {

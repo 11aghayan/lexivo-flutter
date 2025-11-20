@@ -6,7 +6,6 @@ abstract class Sizes {
   static const double borderRadius_1 = 32.0;
   static const double borderRadius_2 = 20.0;
   static const double borderRadius_3 = 16.0;
-  static const double dictionaryCardHeight = 200.0;
   static const double gridViewItemsSpacing = 10.0;
   static const double cardInnerPadding = 8.0;
   static const double shadowBlurRadius = 3.0;

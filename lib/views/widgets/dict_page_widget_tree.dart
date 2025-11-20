@@ -73,7 +73,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
       PageData(
         "activitiesPageLabel",
         FontAwesomeIcons.puzzlePiece,
-        PracticeSetupPage(),
+        PracticeSetupPage(dictionary: widget.dictionary),
       ),
     ];
 
@@ -104,7 +104,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
 
       navigateToPage(context, page);
     }
-      
+
     return Scaffold(
       appBar: isOrientationLandscape
           ? null
@@ -234,11 +234,13 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     try {
       List<dynamic>? data = await importJsonData();
       if (data != null) {
-        List<Grammar> grammarList = data.map((e) => Grammar.fromJson(e)).toList();
+        List<Grammar> grammarList = data
+            .map((e) => Grammar.fromJson(e))
+            .toList();
         widget.dictionary.addGrammarList(grammarList);
-        
+
         // TODO: Save to db
-        
+
         if (mounted) {
           setState(() {});
           showOperationResultSnackbar(

@@ -29,12 +29,14 @@ void showOperationResultSnackbar({
     SnackBar(
       duration: Duration(milliseconds: 2500),
       backgroundColor: !isSuccess ? colors.failure : colors.primary,
-      content: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: colors.contrastPrimary,
-          fontSize: Sizes.snackbarTextSize,
+      content: Flexible(
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colors.contrastPrimary,
+            fontSize: Sizes.snackbarTextSize,
+          ),
         ),
       ),
     ),
@@ -57,12 +59,14 @@ void showInfoSnackbar({required BuildContext context, required String text}) {
     SnackBar(
       duration: Duration(milliseconds: 2500),
       backgroundColor: colors.infoSnackbarBg,
-      content: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: colors.mainText,
-          fontSize: Sizes.snackbarTextSize,
+      content: Flexible(
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colors.mainText,
+            fontSize: Sizes.snackbarTextSize,
+          ),
         ),
       ),
     ),

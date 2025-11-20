@@ -135,7 +135,9 @@ class KStrings_EN extends KStrings {
   @override
   final String practice = "Practice";
   @override
-  final String test = "Test";
+  final String exam = "Exam";
+  @override
+  final String noWordsMatchingTheFilters = "No words matching the filters";
 
   @override
   String twoStepDelete(String text) {
