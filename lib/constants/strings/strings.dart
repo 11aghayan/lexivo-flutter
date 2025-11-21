@@ -76,6 +76,7 @@ abstract class KStrings {
   abstract final String practice;
   abstract final String exam;
   abstract final String noWordsMatchingTheFilters;
+  abstract final String startAgain;
   
 
   static KStrings getStringsForLang(AppLang appLang) {

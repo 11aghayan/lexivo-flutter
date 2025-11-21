@@ -2,10 +2,23 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
+import 'package:lexivo_flutter/schema/word/word.dart';
+import 'package:lexivo_flutter/util/math_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
+import 'package:lexivo_flutter/views/widgets/components/flip_card/flip_card_back_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/flip_card/flip_card_front_widget.dart';
 
 class FlipCardWidget extends StatefulWidget {
-  const FlipCardWidget({super.key});
+  const FlipCardWidget({
+    super.key,
+    required this.word,
+    required this.switchCard,
+    required this.isActive,
+  });
+
+  final Word word;
+  final void Function() switchCard;
+  final bool isActive;
 
   @override
   State<FlipCardWidget> createState() => _FlipCardWidgetState();
@@ -13,38 +26,115 @@ class FlipCardWidget extends StatefulWidget {
 
 class _FlipCardWidgetState extends State<FlipCardWidget> {
   late final colors = ThemeColors.getThemeColors(context);
-  final flipDurationMs = 300;
+  late final frontWidget = FlipCardFrontWidget(word: widget.word);
+  late final backWidget = FlipCardBackWidget(word: widget.word);
+  final animationDuration = 150;
   final cardPadding = 10.0;
+  late Widget child = frontWidget;
+  late double scaleFactor = 1;
+  late var screenSize = MediaQuery.of(context).size;
+  late final biggestScreenSize = max(screenSize.width, screenSize.height);
+  bool noAnimation = false;
+  double flipDegree = 0.0;
   bool isFlipped = false;
+  double translateX = 0;
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    
+    screenSize = MediaQuery.of(context).size;
+
     return GestureDetector(
+      onTap: isFlipped ? null : flip,
+      onHorizontalDragStart: (details) {
+        noAnimation = true;
+        _updateState();
+      },
+      onHorizontalDragEnd: onSwipeEnd,
+      onHorizontalDragUpdate: onSwipeUpdate,
       child: AnimatedContainer(
-          duration: Duration(milliseconds: flipDurationMs),
-          height: min(500, screenSize.height - 120),
-          width: min(350, screenSize.width - (Sizes.mainPadding * 2) - 40),
-          padding: EdgeInsets.all(cardPadding),
-          decoration: BoxDecoration(
-            color: colors.canvas,
-            borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
-            border: Border.all(width: 1, color: colors.outlinedBtnBorder),
-          ),
-          child: SizedBox(
-            child: Column(
-              children: [
-                Text("Wordsdfijsdfoiljsdoilfjsdoifjsdiofjsidojfasoidjasoidjsaoidjasoidjass")
-              ],
-            ),
-          ),
+        duration: Duration(milliseconds: noAnimation ? 0 : animationDuration),
+        transformAlignment: Alignment.center,
+        transform: Matrix4.identity()
+          ..scaleAdjoint(scaleFactor)
+          ..rotateY(getRadiansFromDegree(flipDegree))
+          ..translateByDouble(translateX, 0, 0, 1),
+        height: min(500, screenSize.height - 120),
+        width: min(350, screenSize.width - (Sizes.mainPadding * 2) - 40),
+        padding: EdgeInsets.all(cardPadding),
+        decoration: BoxDecoration(
+          color: colors.canvas,
+          borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
+          border: Border.all(width: 1, color: colors.outlinedBtnBorder),
         ),
+        child: SizedBox(child: child),
+      ),
     );
   }
 
-  void flip() {
+  void flip() async {
+    if (!widget.isActive) return;
     isFlipped = true;
+
+    // Flipping first half and scaling down
+    flipDegree = 90;
+    scaleFactor = 0.9;
+    _updateState();
+
+    // Updating the content
+    await Future.delayed(Duration(milliseconds: animationDuration));
+    noAnimation = true;
+    child = backWidget;
+    flipDegree = -90;
+    _updateState();
+
+    // Flipping the remaining half and scaling up
+    noAnimation = false;
+    flipDegree = 0;
+    scaleFactor = 1;
+    _updateState();
+  }
+
+  void onSwipeUpdate(DragUpdateDetails details) {
+    final dx = details.delta.dx;
+    translateX += dx;
+    _updateState();
+  }
+
+  void onSwipeEnd(DragEndDetails details) async {
+    if (!widget.isActive) return;
+    noAnimation = false;
+    _updateState();
+    double velocity = details.velocity.pixelsPerSecond.dx;
+    if (velocity.abs() > 6000 || translateX.abs() > 180) {
+      if (translateX > 0) {
+        swipeRight();
+      } else {
+        swipeLeft();
+      }
+      await Future.delayed(Duration(milliseconds: animationDuration));
+      widget.switchCard();
+    } else {
+      bringBack();
+    }
+    _updateState();
+  }
+
+  void swipeLeft() {
+    // TODO: Add color and actions
+    translateX = -biggestScreenSize - 10;
+  }
+
+  void swipeRight() {
+    // TODO: Add color and actions
+    translateX = biggestScreenSize + 10;
+  }
+
+  void bringBack() {
+    translateX = 0;
+  }
+
+  void _updateState() {
+    if (!mounted) return;
     setState(() {});
   }
 }

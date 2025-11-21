@@ -138,6 +138,8 @@ class KStrings_EN extends KStrings {
   final String exam = "Exam";
   @override
   final String noWordsMatchingTheFilters = "No words matching the filters";
+  @override
+  final String startAgain = "Start again";
 
   @override
   String twoStepDelete(String text) {

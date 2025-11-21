@@ -144,6 +144,8 @@ class KStrings_DE extends KStrings {
   final String exam = "Prüfung";
   @override
   final String noWordsMatchingTheFilters = "Keine Wörter, die den Filtern entsprechen.";
+  @override
+  final String startAgain = "Nochmal beginnen";
 
   @override
   String twoStepDelete(String text) {

@@ -98,6 +98,8 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
               onSwitched: () => testMode = !testMode,
             ),
 
+            // TODO: If not a test add a count slector, otherwise set count to 50 and divide evenly between levels
+          
             // Start button
             ConstrainedBox(
               constraints: BoxConstraints(maxWidth: Sizes.widgetMaxWidth),
@@ -144,7 +146,7 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     return widget.dictionary.allWords.where((w) {
       bool levelMatch = level.contains(w.level);
       bool typeMatch = type.contains(w.type);
-      bool genderMatch = gender.contains(w.gender);
+      bool genderMatch = w.type != WordType.NOUN || gender.contains(w.gender);
       return levelMatch && typeMatch && genderMatch;
     }).toList();
   }
