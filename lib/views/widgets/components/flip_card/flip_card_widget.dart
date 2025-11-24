@@ -105,7 +105,7 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
     noAnimation = false;
     _updateState();
     double velocity = details.velocity.pixelsPerSecond.dx;
-    if (velocity.abs() > 6000 || translateX.abs() > 180) {
+    if (velocity.abs() > 4000 || translateX.abs() > 180) {
       if (translateX > 0) {
         swipeRight();
       } else {

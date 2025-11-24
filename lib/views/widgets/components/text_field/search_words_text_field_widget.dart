@@ -37,7 +37,7 @@ class SearchWordsTextFieldWidget extends StatelessWidget {
           CustomFilledButtonWidget(
             onPressed: toggleSearchMode,
             backgroundColor: isSearchStrict
-                ? ThemeColors.getThemeColors(context).searchModeBg
+                ? ThemeColors.getThemeColors(context).filterSelected
                 : Colors.transparent,
             child: Icon(Icons.spellcheck_rounded),
           ),

@@ -146,6 +146,8 @@ class KStrings_DE extends KStrings {
   final String noWordsMatchingTheFilters = "Keine Wörter, die den Filtern entsprechen.";
   @override
   final String startAgain = "Nochmal beginnen";
+  @override
+  final String wordsCount = "Anzahl der Wörter";
 
   @override
   String twoStepDelete(String text) {

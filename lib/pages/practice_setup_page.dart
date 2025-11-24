@@ -12,7 +12,7 @@ import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/util/filter_data_util.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
-import 'package:lexivo_flutter/views/widgets/components/binary_selection_switch_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/switches/binary_selection_switch_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/word_filters/word_filters_container_widget.dart';
 
@@ -28,19 +28,20 @@ class PracticeSetupPage extends StatefulWidget {
 class _PracticeSetupPageState extends State<PracticeSetupPage> {
   late final levelFilters = getFilterDataFromEnumValues(
     WordLevel.values,
-    _onFilterChanged,
+    _updateState,
   );
   late final typeFilters = getFilterDataFromEnumValues(
     WordType.values,
-    _onFilterChanged,
+    _updateState,
   );
   late final genderFilters = getFilterDataFromEnumValues(
     WordGender.values,
-    _onFilterChanged,
+    _updateState,
   );
   late final colors = ThemeColors.getThemeColors(context);
   final strings = KStrings.getStringsForLang(appLangNotifier.value);
   late final commonTextStyle = TextStyle(color: colors.mainText);
+  int wordCount = 25;
   bool directionDescToWord = false;
   bool testMode = false;
 
@@ -57,7 +58,7 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
           Sizes.mainPadding + safeArea.bottom,
         ),
         child: Column(
-          spacing: 8,
+          spacing: 18,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Filters container
@@ -95,11 +96,48 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
               rightWidget: Flexible(
                 child: Text(strings.exam, style: commonTextStyle),
               ),
-              onSwitched: () => testMode = !testMode,
+              onSwitched: () {
+                testMode = !testMode;
+                _updateState();
+              },
             ),
 
-            // TODO: If not a test add a count slector, otherwise set count to 50 and divide evenly between levels
-          
+            if (!testMode)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Word count slider header
+                  Text(
+                    strings.wordsCount,
+                    style: TextStyle(color: colors.mainText),
+                  ),
+
+                  // Word count slider
+                  SliderTheme(
+                    data: SliderThemeData(
+                      inactiveTrackColor: colors.filterNotSelected,
+                      activeTrackColor: colors.filterSelected,
+                      thumbColor: colors.primary,
+                      activeTickMarkColor: colors.primary,
+                      inactiveTickMarkColor: colors.primary,
+                      showValueIndicator: ShowValueIndicator.onDrag,
+                      valueIndicatorColor: colors.primary,
+                      valueIndicatorTextStyle: TextStyle(color: colors.contrastPrimary),
+                      trackHeight: 10,
+                    ),
+                    
+                    child: Slider(
+                    value: getSliderValueFromWordCount(wordCount),
+                    divisions: 3,
+                    min: 10.0,
+                    max: 100.0,
+                    label: wordCount.toString(),
+                    onChanged: setWordCount,
+                  ),
+                  ),
+                ],
+              ),
+
             // Start button
             ConstrainedBox(
               constraints: BoxConstraints(maxWidth: Sizes.widgetMaxWidth),
@@ -127,7 +165,7 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     );
   }
 
-  void _onFilterChanged() {
+  void _updateState() {
     if (mounted) {
       setState(() {});
     }
@@ -143,12 +181,35 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     var gender = genderFilters.where((f) => f.selected).map((e) => e.value);
     gender = gender.isEmpty ? genderFilters.map((e) => e.value) : gender;
 
-    return widget.dictionary.allWords.where((w) {
-      bool levelMatch = level.contains(w.level);
-      bool typeMatch = type.contains(w.type);
-      bool genderMatch = w.type != WordType.NOUN || gender.contains(w.gender);
-      return levelMatch && typeMatch && genderMatch;
-    }).toList();
+    return widget.dictionary.allWords
+        .where((w) {
+          bool levelMatch = level.contains(w.level);
+          bool typeMatch = type.contains(w.type);
+          bool genderMatch =
+              w.type != WordType.NOUN || gender.contains(w.gender);
+          return levelMatch && typeMatch && genderMatch;
+        })
+        .take(wordCount)
+        .toList();
+  }
+
+  double getSliderValueFromWordCount(int wordCount) {
+    return switch (wordCount) {
+      10 => 10,
+      50 => 70,
+      100 => 100,
+      _ => 40,
+    };
+  }
+
+  void setWordCount(double sliderValue) {
+    wordCount = switch (sliderValue) {
+      10 => 10,
+      > 50 && < 100 => 50,
+      100 => 100,
+      _ => 25,
+    };
+    _updateState();
   }
 
   void onStart() {

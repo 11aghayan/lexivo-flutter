@@ -43,15 +43,13 @@ class HorizontalScrollingFiltersWidget extends StatelessWidget {
               return CustomFilledButtonWidget(
                 onPressed: item.toggleSelected,
                 backgroundColor: item.selected
-                    ? colors.accent
+                    ? colors.filterSelected
                     : colors.filterNotSelected,
                 padding: 16,
                 child: Text(
                   item.label,
                   style: TextStyle(
-                    color: !item.selected
-                        ? colors.mainText
-                        : colors.contrastPrimary,
+                    color: colors.mainText,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

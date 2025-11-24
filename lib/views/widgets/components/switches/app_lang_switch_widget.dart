@@ -5,8 +5,8 @@ import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AppLangSwitcherWidget extends StatelessWidget {
-  const AppLangSwitcherWidget({super.key});
+class AppLangSwitchWidget extends StatelessWidget {
+  const AppLangSwitchWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

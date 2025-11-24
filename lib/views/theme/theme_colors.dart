@@ -37,9 +37,9 @@ class ThemeColorsLight extends ThemeColors {
   @override
   final Color infoSnackbarBg = Color.fromRGBO(221, 224, 227, 1);
   @override
-  final Color searchModeBg = Color.fromRGBO(195, 225, 255, 1);
+  final Color filterSelected = Color.fromRGBO(195, 225, 255, 1);
   @override
-  final Color filterNotSelected = Color.fromRGBO(226, 230, 233, 1);
+  final Color filterNotSelected = Color.fromRGBO(238, 240, 242, 1);
   @override
   final Color searchTextFieldBorder = Color.fromRGBO(215, 215, 215, 1);
 }
@@ -80,9 +80,9 @@ class ThemeColorsDark extends ThemeColors {
   @override
   final Color infoSnackbarBg = Color.fromRGBO(50, 50, 50, 1);
   @override
-  final Color searchModeBg = Color.fromRGBO(0, 25, 72, 1);
+  final Color filterSelected = Color.fromRGBO(25, 75, 170, 1);
   @override
-  final Color filterNotSelected = Color.fromRGBO(0, 31, 88, 1);
+  final Color filterNotSelected = Color.fromRGBO(46, 56, 75, 1);
   @override
   final Color searchTextFieldBorder = Color.fromRGBO(40, 40, 40, 1);
 }
@@ -108,7 +108,7 @@ abstract class ThemeColors {
   abstract final Color divider;
   abstract final Color listItemBg;
   abstract final Color infoSnackbarBg;
-  abstract final Color searchModeBg;
+  abstract final Color filterSelected;
   abstract final Color filterNotSelected;
   abstract final Color searchTextFieldBorder;
 

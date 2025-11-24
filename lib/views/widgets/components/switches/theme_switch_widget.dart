@@ -4,8 +4,8 @@ import 'package:lexivo_flutter/data/shared_pref_keys.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeSwitcherWidget extends StatelessWidget {
-  const ThemeSwitcherWidget({super.key});
+class ThemeSwitchWidget extends StatelessWidget {
+  const ThemeSwitchWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

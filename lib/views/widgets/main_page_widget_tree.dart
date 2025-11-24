@@ -12,11 +12,11 @@ import 'package:lexivo_flutter/pages/dictionaries_page.dart';
 import 'package:lexivo_flutter/pages/profile_page.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/side_app_bar_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/app_lang_switcher_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/switches/app_lang_switch_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/main_page_fab_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/navbars/navbar_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/navbars/side_navbar_widget.dart';
-import 'package:lexivo_flutter/views/widgets/components/theme_switcher_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/switches/theme_switch_widget.dart';
 
 class MainPageWidgetTree extends StatefulWidget {
   const MainPageWidgetTree({super.key, required this.appLang});
@@ -53,7 +53,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
           ? null
           : AppBarWidget(
               titleWidgets: [Text(KStrings.appName)],
-              actions: [AppLangSwitcherWidget(), ThemeSwitcherWidget()],
+              actions: [AppLangSwitchWidget(), ThemeSwitchWidget()],
               leading: false,
             ),
       body: Row(
@@ -68,7 +68,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
                   ),
                 ),
               ],
-              actions: [AppLangSwitcherWidget(), ThemeSwitcherWidget()],
+              actions: [AppLangSwitchWidget(), ThemeSwitchWidget()],
               leading: false,
             ),
           Expanded(child: pages[pageIndex].pageWidget),
