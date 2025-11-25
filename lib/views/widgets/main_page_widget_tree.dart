@@ -63,9 +63,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
               titleWidgets: [
                 Text(
                   KStrings.appName,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ],
               actions: [AppLangSwitchWidget(), ThemeSwitchWidget()],
@@ -97,9 +95,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
 
   void setPageIndex(int newPageIndex) {
     pageIndex = newPageIndex;
-    if (mounted) {
-      setState(() {});
-    }
+    _updateState();
   }
 
   void addDictionary(Dictionary dict) {
@@ -113,8 +109,8 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     );
     // TODO: Add to DB
 
-    if (success && mounted) {
-      setState(() {});
+    if (success) {
+      _updateState();
     }
   }
 
@@ -129,8 +125,8 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     );
     // TODO: Update DB
 
-    if (success && mounted) {
-      setState(() {});
+    if (success) {
+      _updateState();
     }
   }
 
@@ -143,8 +139,11 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     );
     // TODO: Delete from DB
 
-    if (mounted) {
-      setState(() {});
-    }
+    _updateState();
+  }
+
+  void _updateState() {
+    if (!mounted) return;
+    setState(() {});
   }
 }

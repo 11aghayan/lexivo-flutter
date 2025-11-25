@@ -13,6 +13,8 @@ class DictionaryCardFrontFaceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = ThemeColors.getThemeColors(context);
+    
     return Stack(
       children: [
         Container(
@@ -27,7 +29,7 @@ class DictionaryCardFrontFaceWidget extends StatelessWidget {
           child: Text(
             Strings.toCapitalized(dictionary.language.nameOriginal),
             style: TextStyle(
-              color: ThemeColors.getThemeColors(context).contrastPrimary,
+              color: colors.contrastPrimary,
               fontSize: 32,
               fontWeight: FontWeight.w700,
             ),
@@ -52,9 +54,7 @@ class DictionaryCardFrontFaceWidget extends StatelessWidget {
                     return Text(
                       "${KStrings.getStringsForLang(appLang).words} : ${dictionary.allWordsCount}",
                       style: TextStyle(
-                        color: ThemeColors.getThemeColors(
-                          context,
-                        ).contrastPrimary,
+                        color: colors.contrastPrimary,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),

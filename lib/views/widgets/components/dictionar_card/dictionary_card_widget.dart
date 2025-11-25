@@ -46,11 +46,7 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
               return DictPageWidgetTree(dictionary: widget.dictionary);
             },
           ),
-        ).then((_) {
-          if (mounted) {
-            setState(() {});
-          }
-        });
+        ).then((_) => _updateState());
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: animationDuration),
@@ -68,7 +64,6 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
               spreadRadius: Sizes.shadowSpreadRadius,
             ),
           ],
-          // border: Border.all(width: 1.5, color: ThemeColors.getThemeColors(context).cardBorderColor),
           image: DecorationImage(
             image: AssetImage(widget.dictionary.language.photoPath),
             fit: BoxFit.fill,
@@ -89,24 +84,25 @@ class _DictionaryCardWidgetState extends State<DictionaryCardWidget> {
   }
 
   void rotate() async {
-    if (!mounted) return;
-    setState(() => scale = 0.8);
+    scale = 0.8;
+    _updateState();
     await Future.delayed(Duration(milliseconds: 50));
 
-    if (!mounted) return;
-    setState(() => scale = 1.0);
+    scale = 1.0;
+    _updateState();
     await Future.delayed(Duration(milliseconds: 40));
 
-    if (!mounted) return;
-    setState(() {
-      rotationInRadians = (rotationInRadians * -1) - getRadiansFromDegree(180);
-    });
+    rotationInRadians = (rotationInRadians * -1) - getRadiansFromDegree(180);
+    _updateState();
 
     Timer(Duration(milliseconds: (animationDuration / 2).toInt()), () {
-      if (!mounted) return;
-      setState(() {
-        isRotated = !isRotated;
-      });
+      isRotated = !isRotated;
+      _updateState();
     });
+  }
+
+  void _updateState() {
+    if (!mounted) return;
+    setState(() {});
   }
 }

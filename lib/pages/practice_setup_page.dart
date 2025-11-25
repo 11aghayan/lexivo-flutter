@@ -98,6 +98,9 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
               ),
               onSwitched: () {
                 testMode = !testMode;
+                if (testMode) {
+                  wordCount = 50;
+                }
                 _updateState();
               },
             ),
