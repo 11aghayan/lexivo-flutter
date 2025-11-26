@@ -5,9 +5,16 @@ import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 
 class WordCardInfoContent extends StatelessWidget {
-  const WordCardInfoContent({super.key, required this.word});
+  const WordCardInfoContent({
+    super.key,
+    required this.word,
+    this.hideGender = false,
+    this.hideLevel = false,
+  });
 
   final Word word;
+  final bool hideGender;
+  final bool hideLevel;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,9 @@ class WordCardInfoContent extends StatelessWidget {
           ),
         ),
 
-        if (word.gender != null && word.gender != WordGender.NO_GENDER)
+        if (!hideGender &&
+            word.gender != null &&
+            word.gender != WordGender.NO_GENDER)
           Text(
             word.gender?.toLocalizedString(appLangNotifier.value) ?? "",
             style: TextStyle(
@@ -37,14 +46,15 @@ class WordCardInfoContent extends StatelessWidget {
             ),
           ),
 
-        Text(
-          word.level.toLocalizedString(appLangNotifier.value),
-          style: TextStyle(
-            color: ThemeColors.getThemeColors(context).mainText,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
+        if (!hideLevel)
+          Text(
+            word.level.toLocalizedString(appLangNotifier.value),
+            style: TextStyle(
+              color: ThemeColors.getThemeColors(context).mainText,
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+            ),
           ),
-        ),
       ],
     );
   }

@@ -14,11 +14,13 @@ class FlipCardWidget extends StatefulWidget {
     required this.word,
     required this.switchCard,
     required this.isActive,
+    required this.directionDescToWord,
   });
 
   final Word word;
   final void Function() switchCard;
   final bool isActive;
+  final bool directionDescToWord;
 
   @override
   State<FlipCardWidget> createState() => _FlipCardWidgetState();
@@ -26,7 +28,10 @@ class FlipCardWidget extends StatefulWidget {
 
 class _FlipCardWidgetState extends State<FlipCardWidget> {
   late final colors = ThemeColors.getThemeColors(context);
-  late final frontWidget = FlipCardFrontWidget(word: widget.word);
+  late final frontWidget = FlipCardFrontWidget(
+    word: widget.word,
+    directionDescToWord: widget.directionDescToWord,
+  );
   late final backWidget = FlipCardBackWidget(word: widget.word);
   final animationDuration = 150;
   final cardPadding = 10.0;
@@ -44,13 +49,10 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
     screenSize = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onTap: isFlipped ? null : flip,
-      onHorizontalDragStart: (details) {
-        noAnimation = true;
-        _updateState();
-      },
-      onHorizontalDragEnd: onSwipeEnd,
-      onHorizontalDragUpdate: onSwipeUpdate,
+      onTap: isFlipped || !widget.isActive ? null : flip,
+      onHorizontalDragStart: !isFlipped ? null : onSwipeStart,
+      onHorizontalDragEnd: !widget.isActive || !isFlipped ? null : onSwipeEnd,
+      onHorizontalDragUpdate: !isFlipped ? null : onSwipeUpdate,
       child: AnimatedContainer(
         duration: Duration(milliseconds: noAnimation ? 0 : animationDuration),
         transformAlignment: Alignment.center,
@@ -72,10 +74,8 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
   }
 
   void flip() async {
-    if (!widget.isActive) return;
-    isFlipped = true;
-
     // Flipping first half and scaling down
+    isFlipped = true;
     flipDegree = 90;
     scaleFactor = 0.9;
     _updateState();
@@ -94,6 +94,11 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
     _updateState();
   }
 
+  void onSwipeStart(DragStartDetails details) {
+    noAnimation = true;
+    _updateState();
+  }
+
   void onSwipeUpdate(DragUpdateDetails details) {
     final dx = details.delta.dx;
     translateX += dx;
@@ -101,11 +106,10 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
   }
 
   void onSwipeEnd(DragEndDetails details) async {
-    if (!widget.isActive) return;
     noAnimation = false;
     _updateState();
     double velocity = details.velocity.pixelsPerSecond.dx;
-    if (velocity.abs() > 4000 || translateX.abs() > 180) {
+    if (velocity.abs() > 2000 || translateX.abs() > 180) {
       if (translateX > 0) {
         swipeRight();
       } else {

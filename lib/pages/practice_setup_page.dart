@@ -184,6 +184,8 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     var gender = genderFilters.where((f) => f.selected).map((e) => e.value);
     gender = gender.isEmpty ? genderFilters.map((e) => e.value) : gender;
 
+    // TODO: Get random words;
+    
     return widget.dictionary.allWords
         .where((w) {
           bool levelMatch = level.contains(w.level);

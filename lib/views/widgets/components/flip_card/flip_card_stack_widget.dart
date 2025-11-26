@@ -3,9 +3,14 @@ import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/views/widgets/components/flip_card/flip_card_widget.dart';
 
 class FlipCardStackWidget extends StatefulWidget {
-  const FlipCardStackWidget({super.key, required this.words});
+  const FlipCardStackWidget({
+    super.key,
+    required this.words,
+    required this.directionDescToWord,
+  });
 
   final List<Word> words;
+  final bool directionDescToWord;
 
   @override
   State<FlipCardStackWidget> createState() => _FlipCardStackWidgetState();
@@ -27,6 +32,7 @@ class _FlipCardStackWidgetState extends State<FlipCardStackWidget> {
             scale: topIndex <= index ? 1 : 0.5,
             child: FlipCardWidget(
               word: word,
+              directionDescToWord: widget.directionDescToWord,
               switchCard: switchCard,
               isActive: topIndex == index,
             ),

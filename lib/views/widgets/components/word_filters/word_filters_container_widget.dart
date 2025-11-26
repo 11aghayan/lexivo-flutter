@@ -3,6 +3,7 @@ import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/filter_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/util/string_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/word_filters/horizontal_scrolling_filters_widget.dart';
 
@@ -74,7 +75,16 @@ class WordFiltersContainerWidget extends StatelessWidget {
         // Gender filter
         HorizontalScrollingFiltersWidget(
           header: strings.gender,
-          items: genderFilters,
+          items: genderFilters
+              .map(
+                (f) => FilterData(
+                  Strings.toCapitalized(f.label),
+                  f.value,
+                  f.selected,
+                  f.updateState,
+                ),
+              )
+              .toList(),
         ),
       ],
     );

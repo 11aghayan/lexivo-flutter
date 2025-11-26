@@ -50,7 +50,11 @@ class _PracticePageState extends State<PracticePage> {
               ),
 
               // Flip card stack
-              FlipCardStackWidget(key: ValueKey(key), words: widget.words),
+              FlipCardStackWidget(
+                key: ValueKey(key),
+                words: widget.words,
+                directionDescToWord: widget.directionDescToWord,
+              ),
             ],
           ),
         ),
