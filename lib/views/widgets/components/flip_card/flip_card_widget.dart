@@ -125,11 +125,13 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
 
   void swipeLeft() {
     // TODO: Add color and actions
+    // TODO: wrong guess
     translateX = -biggestScreenSize - 10;
   }
 
   void swipeRight() {
     // TODO: Add color and actions
+    // TODO: right guess
     translateX = biggestScreenSize + 10;
   }
 

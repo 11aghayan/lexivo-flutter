@@ -125,18 +125,20 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                       inactiveTickMarkColor: colors.primary,
                       showValueIndicator: ShowValueIndicator.onDrag,
                       valueIndicatorColor: colors.primary,
-                      valueIndicatorTextStyle: TextStyle(color: colors.contrastPrimary),
+                      valueIndicatorTextStyle: TextStyle(
+                        color: colors.contrastPrimary,
+                      ),
                       trackHeight: 10,
                     ),
-                    
+
                     child: Slider(
-                    value: getSliderValueFromWordCount(wordCount),
-                    divisions: 3,
-                    min: 10.0,
-                    max: 100.0,
-                    label: wordCount.toString(),
-                    onChanged: setWordCount,
-                  ),
+                      value: getSliderValueFromWordCount(wordCount),
+                      divisions: 3,
+                      min: 10.0,
+                      max: 100.0,
+                      label: wordCount.toString(),
+                      onChanged: setWordCount,
+                    ),
                   ),
                 ],
               ),
@@ -184,18 +186,14 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     var gender = genderFilters.where((f) => f.selected).map((e) => e.value);
     gender = gender.isEmpty ? genderFilters.map((e) => e.value) : gender;
 
-    // TODO: Get random words;
-    
-    return widget.dictionary.allWords
-        .where((w) {
-          bool levelMatch = level.contains(w.level);
-          bool typeMatch = type.contains(w.type);
-          bool genderMatch =
-              w.type != WordType.NOUN || gender.contains(w.gender);
-          return levelMatch && typeMatch && genderMatch;
-        })
-        .take(wordCount)
-        .toList();
+    return widget.dictionary.allWords.where((w) {
+        bool levelMatch = level.contains(w.level);
+        bool typeMatch = type.contains(w.type);
+        bool genderMatch = w.type != WordType.NOUN || gender.contains(w.gender);
+        return levelMatch && typeMatch && genderMatch;
+      }).toList()
+      ..shuffle()
+      ..take(wordCount).toList();
   }
 
   double getSliderValueFromWordCount(int wordCount) {

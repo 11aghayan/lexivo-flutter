@@ -24,4 +24,9 @@ abstract class Sizes {
   static const double sideBarWidth = 100.0;
   static const double sideBarBasePadding = 16.0;
   static const double widgetMaxWidth = 550.0;
+  static const double flipCardPadding = 10;
+  static const double flipCardVerticalSpacing = 12;
+  static const double flipCardMainTextFontSize = 24;
+  static const double flipCardSecondaryTextFontSize = 20;
+  static const double flipCardDetailsTextFontSize = 18;
 }
