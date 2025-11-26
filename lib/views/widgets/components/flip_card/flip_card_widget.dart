@@ -15,10 +15,14 @@ class FlipCardWidget extends StatefulWidget {
     required this.switchCard,
     required this.isActive,
     required this.directionDescToWord,
+    required this.setBgRedOpacity,
+    required this.setBgGreenOpacity,
   });
 
   final Word word;
   final void Function() switchCard;
+  final void Function(double, bool) setBgRedOpacity;
+  final void Function(double, bool) setBgGreenOpacity;
   final bool isActive;
   final bool directionDescToWord;
 
@@ -96,18 +100,21 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
 
   void onSwipeStart(DragStartDetails details) {
     noAnimation = true;
-    _updateState();
   }
 
   void onSwipeUpdate(DragUpdateDetails details) {
     final dx = details.delta.dx;
     translateX += dx;
-    _updateState();
+    var bgOpacity = translateX.abs() / 360;
+    if (translateX > 0) {
+      widget.setBgGreenOpacity(bgOpacity, false);
+    } else {
+      widget.setBgRedOpacity(bgOpacity, false);
+    }
   }
 
   void onSwipeEnd(DragEndDetails details) async {
     noAnimation = false;
-    _updateState();
     double velocity = details.velocity.pixelsPerSecond.dx;
     if (velocity.abs() > 2000 || translateX.abs() > 180) {
       if (translateX > 0) {
@@ -120,22 +127,22 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
     } else {
       bringBack();
     }
-    _updateState();
   }
 
   void swipeLeft() {
-    // TODO: Add color and actions
-    // TODO: wrong guess
+    widget.word.resetPracticeCountdown();
     translateX = -biggestScreenSize - 10;
+    widget.setBgRedOpacity(0, true);
   }
 
   void swipeRight() {
-    // TODO: Add color and actions
-    // TODO: right guess
+    widget.word.decrementPracticeCountdown();
     translateX = biggestScreenSize + 10;
+    widget.setBgGreenOpacity(0, true);
   }
 
   void bringBack() {
+    widget.setBgGreenOpacity(0, true);
     translateX = 0;
   }
 

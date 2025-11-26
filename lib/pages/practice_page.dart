@@ -31,7 +31,10 @@ class _PracticePageState extends State<PracticePage> {
     LangFlagTitle(photoPath: widget.flagPhotoPath),
     Text(strings.practice),
   ];
+  bool isAnimationOn = false;
+  Color bgColor = Colors.transparent;
   int key = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +43,14 @@ class _PracticePageState extends State<PracticePage> {
         child: Center(
           child: Stack(
             children: [
+              // Swipe responsive bg
+              AnimatedContainer(
+                duration: Duration(milliseconds: isAnimationOn ? 200 : 0),
+                color: bgColor,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+
               // Start again button
               Center(
                 child: CustomFilledButtonWidget(
@@ -54,6 +65,8 @@ class _PracticePageState extends State<PracticePage> {
                 key: ValueKey(key),
                 words: widget.words,
                 directionDescToWord: widget.directionDescToWord,
+                setBgGreenOpacity: setBgGreenOpacity,
+                setBgRedOpacity: setBgRedOpacity,
               ),
             ],
           ),
@@ -65,6 +78,27 @@ class _PracticePageState extends State<PracticePage> {
   void resetCardStack() {
     key++;
     _updateState();
+  }
+
+  void setBgRedOpacity(double opacity, bool animated) {
+    _toggleAnimated(animated);
+    opacity = opacity > 0.7 ? 0.7 : opacity;
+    bgColor = Color.fromRGBO(200, 70, 70, opacity);
+    _updateState();
+  }
+
+  void setBgGreenOpacity(double opacity, bool animated) {
+    _toggleAnimated(animated);
+    opacity = opacity > 0.5 ? 0.5 : opacity;
+    bgColor = Color.fromRGBO(70, 200, 70, opacity);
+    _updateState();
+  }
+
+  void _toggleAnimated(bool animated) {
+    if (animated != isAnimationOn) {
+      isAnimationOn = animated;
+      _updateState();
+    }
   }
 
   _updateState() {

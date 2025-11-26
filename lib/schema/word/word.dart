@@ -68,7 +68,6 @@ class Word {
   void setType(WordType value) => type = value;
   void setLevel(WordLevel value) => level = value;
   void setGender(WordGender value) => gender = value;
-  set setPracticeCountdown(int value) => practiceCountdown = value;
   set setNative(String? value) => native = value?.trim();
   set setNativeDetails(String? value) => nativeDetails = value?.trim();
   set setPlural(String? value) => plural = value?.trim();
@@ -76,6 +75,18 @@ class Word {
   set setPast2(String? value) => past2 = value?.trim();
   set setDesc(String? value) => desc = value?.trim();
   set setDescDetails(String? value) => descDetails = value?.trim();
+
+  void resetPracticeCountdown() {
+    // TODO: RESET in DB
+    practiceCountdown = 7;
+  }
+
+  void decrementPracticeCountdown() {
+    if (practiceCountdown > 0) {
+      // TODO: Decrement in DB
+      practiceCountdown--;
+    }
+  }
 
   bool containsString(String string, bool strict) {
     string = string.trim();

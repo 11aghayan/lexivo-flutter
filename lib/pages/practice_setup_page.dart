@@ -193,7 +193,8 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
         return levelMatch && typeMatch && genderMatch;
       }).toList()
       ..shuffle()
-      ..take(wordCount).toList();
+      ..sort((w1, w2) => w1.practiceCountdown.compareTo(w2.practiceCountdown))
+      ..take((wordCount).ceil());
   }
 
   double getSliderValueFromWordCount(int wordCount) {

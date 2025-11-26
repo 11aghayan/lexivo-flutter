@@ -7,10 +7,14 @@ class FlipCardStackWidget extends StatefulWidget {
     super.key,
     required this.words,
     required this.directionDescToWord,
+    required this.setBgRedOpacity,
+    required this.setBgGreenOpacity,
   });
 
   final List<Word> words;
   final bool directionDescToWord;
+  final void Function(double, bool) setBgRedOpacity;
+  final void Function(double, bool) setBgGreenOpacity;
 
   @override
   State<FlipCardStackWidget> createState() => _FlipCardStackWidgetState();
@@ -34,6 +38,8 @@ class _FlipCardStackWidgetState extends State<FlipCardStackWidget> {
               word: word,
               directionDescToWord: widget.directionDescToWord,
               switchCard: switchCard,
+              setBgGreenOpacity: widget.setBgGreenOpacity,
+              setBgRedOpacity: widget.setBgRedOpacity,
               isActive: topIndex == index,
             ),
           ),
