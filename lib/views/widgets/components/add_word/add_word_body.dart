@@ -210,7 +210,7 @@ class _AddWordBodyState extends State<AddWordBody> {
   }
 
   void setGender(String value) {
-    WordGender gender = WordGender.fromString(value);
+    WordGender? gender = WordGender.fromString(value);
     if (gender != WordGender.PLURAL) {
       emptyPluralError = false;
     } else {

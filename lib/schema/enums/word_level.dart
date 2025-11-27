@@ -21,7 +21,7 @@ enum WordLevel implements LocalizedToStringInterface {
 
   static WordLevel fromString(String stringValue) {
     return values.firstWhere(
-      (wt) => wt.toString() == stringValue.toUpperCase(),
+      (wl) => wl.toString() == stringValue.toUpperCase(),
       orElse: () => B1,
     );
   }

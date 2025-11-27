@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/shared_pref_keys.dart';
+import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/enums/app_theme_enum.dart';
+import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/views/theme/themes.dart';
 import 'package:lexivo_flutter/views/widgets/main_page_widget_tree.dart';
@@ -45,8 +47,11 @@ class _MainAppState extends State<MainApp> {
     Language.init();
   }
 
-  void initDictionaries() {
-    // TODO: 
+  void initDictionaries() async {
+    Db db = await Db.init();
+    List<Dictionary> dicts = await db.dict.getAll();
+    Dictionary.setAllDictionaries(dicts);
+    _updateState();
   }
 
   @override
@@ -67,5 +72,10 @@ class _MainAppState extends State<MainApp> {
         );
       },
     );
+  }
+
+  void _updateState() {
+    if (!mounted) return;
+    setState(() {});
   }
 }

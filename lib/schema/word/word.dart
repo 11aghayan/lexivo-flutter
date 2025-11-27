@@ -67,7 +67,7 @@ class Word {
 
   void setType(WordType value) => type = value;
   void setLevel(WordLevel value) => level = value;
-  void setGender(WordGender value) => gender = value;
+  void setGender(WordGender? value) => gender = value;
   set setNative(String? value) => native = value?.trim();
   set setNativeDetails(String? value) => nativeDetails = value?.trim();
   set setPlural(String? value) => plural = value?.trim();

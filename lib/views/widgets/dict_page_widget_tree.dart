@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/pages/add_word_page.dart';
 import 'package:lexivo_flutter/pages/add_grammar_page.dart';
@@ -187,7 +188,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         List<Word> words = data.map((e) => Word.fromJson(e)).toList();
         widget.dictionary.addWords(words);
 
-        // TODO: Save to db
+        await Db.getDb().word.insertWords(widget.dictionary.id, words);
 
         if (mounted) {
           setState(() {});

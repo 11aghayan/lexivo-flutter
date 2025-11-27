@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/page_data.dart';
+import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
 import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
@@ -98,7 +99,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     _updateState();
   }
 
-  void addDictionary(Dictionary dict) {
+  void addDictionary(Dictionary dict) async {
     bool success = Dictionary.addDictionary(dict);
     showOperationResultSnackbar(
       context: context,
@@ -107,7 +108,8 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
           : strings.duplicateDictionary,
       isSuccess: success,
     );
-    // TODO: Add to DB
+
+    await Db.getDb().dict.addDict(dict);
 
     if (success) {
       _updateState();
