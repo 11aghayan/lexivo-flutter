@@ -45,9 +45,6 @@ class FlipCardBackWidget extends StatelessWidget {
                 spacing: Sizes.flipCardVerticalSpacing,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // TODO Remove
-                  Text(word.practiceCountdown.toString()),
-                  
                   // Native
                   if (word.native != null)
                     Text(word.native!, style: mainTextStyle),

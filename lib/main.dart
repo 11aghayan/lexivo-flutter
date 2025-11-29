@@ -26,7 +26,6 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     initTheme();
     initAppLang();
-    initLanguages();
     initDictionaries();
     super.initState();
   }
@@ -43,14 +42,15 @@ class _MainAppState extends State<MainApp> {
     appLangNotifier.value = lang;
   }
 
-  void initLanguages() {
-    Language.init();
-  }
-
   void initDictionaries() async {
-    Db db = await Db.init();
-    List<Dictionary> dicts = await db.dict.getAll();
+    final db = await Db.init();
+
+    Language.init();
+    await db.lang.initLangsToDb(Language.allLanguagesList);
+
+    List<Dictionary> dicts = await Db.getDb().dict.getAll();
     Dictionary.setAllDictionaries(dicts);
+
     _updateState();
   }
 

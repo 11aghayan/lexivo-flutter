@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
@@ -79,17 +80,17 @@ class AddWordPage extends StatelessWidget {
   }
 
   Future<void> addWord(Word word) async {
-    dictionary.addWord(word);
-    // TODO: Save to DB
+    final w = dictionary.addWord(word);
+    await Db.getDb().word.insertWords(w.id, [w]);
   }
 
   Future<void> updateWord(Word word) async {
-    dictionary.updateWord(word);
-    // TODO: Update in DB
+    final w = dictionary.updateWord(word);
+    await Db.getDb().word.updateWord(w, dictionary.id);
   }
 
   Future<void> deleteWord(Word word) async {
     dictionary.deleteWord(word);
-    // TODO: Delete from DB
+    await Db.getDb().word.deleteWord(word.id);
   }
 }

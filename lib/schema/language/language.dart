@@ -30,6 +30,13 @@ class Language {
   static Language get spanish => _spanish!;
   static Language get italian => _italian!;
 
+  static Language getLanguage(String lang) {
+    return allLanguagesList.firstWhere(
+      (l) => l.name == lang,
+      orElse: () => throw Exception("Invalid language '$lang' provided"),
+    );
+  }
+
   static void init() {
     _english = Language("english", "english");
     _german = Language("german", "deutsch");

@@ -3,18 +3,19 @@ import 'package:sqflite/sqflite.dart';
 
 class Table {
   final Database _db;
+  Batch? batch;
 
   Table(this._db);
 
   Future<List<Map<String, dynamic>>> selectQuery({
     required String table,
     List<SelectColumn> columns = const [SelectColumn(col: "*")],
-    SelectWhere? condition,
     List<JoinTable> joinList = const [],
+    QueryWhere? where,
   }) async {
     String cols = "";
     String joinOn = "";
-    String where = "";
+    String onCondition = where == null ? "" : where.queryString();
 
     for (int i = 0; i < columns.length; i++) {
       var col = columns[i];
@@ -28,36 +29,21 @@ class Table {
       joinOn += join.queryString(table);
     }
 
-    if (condition != null) {
-      where += "WHERE ";
-      SelectWhere? cond = condition;
-      do {
-        where += cond!.queryString();
-
-        if (cond.and != null) {
-          where += " AND ";
-          cond = cond.and;
-        } else if (cond.or != null) {
-          where += " OR ";
-          cond = cond.or;
-        } else {
-          cond = null;
-        }
-      } while (cond != null);
-    }
-
-    String sql = "SELECT $cols FROM $table $joinOn $where;";
+    String sql = "SELECT $cols FROM $table $joinOn $onCondition;";
 
     return await _db.rawQuery(sql);
   }
 
-  Future<void> insertQuery({
+  Table insertQuery({
     required String table,
     required List<List<InsertValue>> valuesList,
-  }) async {
+  }) {
     if (valuesList.isEmpty) {
       throw Exception("Empty valueList");
     }
+
+    batch = batch ?? _db.batch();
+
     String cols = "";
     String valueRows = "";
 
@@ -89,6 +75,39 @@ class Table {
       }
     }
 
-    await _db.rawQuery("INSERT INTO $table ($cols) VALUES $valueRows;");
+    batch!.rawQuery("INSERT INTO $table ($cols) VALUES $valueRows;");
+    return this;
+  }
+
+  Table updateQuery({
+    required String table,
+    required List<InsertValue> values,
+    required QueryWhere where,
+  }) {
+    batch = batch ?? _db.batch();
+
+    String cols = "";
+
+    for (var val in values) {
+      final data = val.data != null ? "'${val.data}'" : "NULL";
+      cols += "${val.col} = $data,";
+    }
+    cols = cols.replaceRange(cols.length - 1, null, "");
+
+    batch!.rawQuery("UPDATE $table SET $cols ${where.queryString()};");
+    return this;
+  }
+
+  Table deleteQuery({required String table, required QueryWhere where}) {
+    batch = batch ?? _db.batch();
+    batch!.rawQuery("DELETE FROM $table ${where.queryString()};");
+    return this;
+  }
+
+  Future<void> commit() async {
+    if (batch == null) return;
+
+    await batch!.commit();
+    batch = null;
   }
 }

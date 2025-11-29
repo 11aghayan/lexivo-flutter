@@ -5,7 +5,6 @@ import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/data/page_data.dart';
 import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/enums/app_lang_enum.dart';
-import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
@@ -116,7 +115,7 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
     }
   }
 
-  void updateDictionary(Dictionary dict, Language newLang) {
+  void updateDictionary(Dictionary dict, Language newLang) async {
     bool success = dict.setLanguage(newLang);
     showOperationResultSnackbar(
       context: context,
@@ -125,21 +124,23 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
           : strings.duplicateDictionary,
       isSuccess: success,
     );
-    // TODO: Update DB
+
+    await Db.getDb().dict.updateDict(dict);
 
     if (success) {
       _updateState();
     }
   }
 
-  void deleteDictionary(Deletable dict) {
+  void deleteDictionary(Dictionary dict) async {
     dict.delete();
     showOperationResultSnackbar(
       context: context,
       text: strings.dictionaryDeleted,
       isSuccess: true,
     );
-    // TODO: Delete from DB
+
+    await Db.getDb().dict.deleteDictById(dict.id);
 
     _updateState();
   }

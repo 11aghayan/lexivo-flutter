@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
-import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
@@ -16,7 +15,7 @@ class DictionariesPage extends StatelessWidget {
   });
 
   final Function(Dictionary, Language) updateDictionary;
-  final Function(Deletable) deleteDictionary;
+  final Function(Dictionary) deleteDictionary;
 
   @override
   Widget build(BuildContext context) {

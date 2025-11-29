@@ -1,17 +1,50 @@
-class SelectWhere {
+class QueryWhere {
   final String col;
-  final String equals;
-  final SelectWhere? or;
-  final SelectWhere? and;
+  final QueryWhereOperator operator;
+  final String value;
+  final QueryWhere? or;
+  final QueryWhere? and;
 
-  SelectWhere({required this.col, required this.equals, this.or, this.and}) {
+  QueryWhere({
+    required this.col,
+    required this.operator,
+    required this.value,
+    this.or,
+    this.and,
+  }) {
     if (or != null && and != null) {
       throw Exception("Either 'or' or 'and' may be provided. Provided both");
     }
   }
 
-  String queryString() {
-    return "$col = $equals";
+  String queryString({ bool head = true }) {
+    String where = head ? "WHERE " : "";
+    where = "$where $col ${operator.toString()} '$value'";
+
+    if (and != null) {
+      return "$where AND ${and!.queryString(head: false)}";
+    }
+
+    if (or != null) {
+      return "$where OR ${or!.queryString(head: false)}";
+    }
+
+    return where;
+  }
+}
+
+enum QueryWhereOperator {
+  EQUALS,
+  GT,
+  LT;
+
+  @override
+  String toString() {
+    return switch (this) {
+      GT => ">",
+      LT => "<",
+      _ => "=",
+    };
   }
 }
 
@@ -48,4 +81,5 @@ class InsertValue {
   final String? data;
 
   InsertValue({required this.col, required this.data});
+  
 }

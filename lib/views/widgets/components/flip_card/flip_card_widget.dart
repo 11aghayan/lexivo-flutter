@@ -12,6 +12,7 @@ class FlipCardWidget extends StatefulWidget {
   const FlipCardWidget({
     super.key,
     required this.word,
+    required this.dictId,
     required this.switchCard,
     required this.isActive,
     required this.directionDescToWord,
@@ -20,6 +21,7 @@ class FlipCardWidget extends StatefulWidget {
   });
 
   final Word word;
+  final String dictId;
   final void Function() switchCard;
   final void Function(double, bool) setBgRedOpacity;
   final void Function(double, bool) setBgGreenOpacity;
@@ -129,14 +131,14 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
     }
   }
 
-  void swipeLeft() {
-    widget.word.resetPracticeCountdown();
+  void swipeLeft() async {
+    await widget.word.resetPracticeCountdown(widget.dictId);
     translateX = -biggestScreenSize - 10;
     widget.setBgRedOpacity(0, true);
   }
 
-  void swipeRight() {
-    widget.word.decrementPracticeCountdown();
+  void swipeRight() async {
+    await widget.word.decrementPracticeCountdown(widget.dictId);
     translateX = biggestScreenSize + 10;
     widget.setBgGreenOpacity(0, true);
   }

@@ -10,11 +10,7 @@ class Grammar {
   String header;
   List<GrammarSubmenu> submenuList;
 
-  Grammar(this.id, this.header, this.submenuList) {
-    if (submenuList.isEmpty) {
-      throw Exception();
-    }
-  }
+  Grammar(this.id, this.header, this.submenuList);
 
   Grammar.create()
     : id = Uuid().v4(),
@@ -27,6 +23,9 @@ class Grammar {
       submenuList = g.submenuList.map((gs) => GrammarSubmenu.copy(gs)).toList();
 
   int get submenuListLength => submenuList.length;
+
+  void setSubmenuList(List<GrammarSubmenu> submenuList) =>
+      this.submenuList = submenuList;
 
   void addSubmenu() {
     submenuList.add(GrammarSubmenu.create());

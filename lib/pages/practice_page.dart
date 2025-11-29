@@ -12,11 +12,13 @@ class PracticePage extends StatefulWidget {
   const PracticePage({
     super.key,
     required this.words,
+    required this.dictId,
     required this.directionDescToWord,
     required this.flagPhotoPath,
   });
 
   final List<Word> words;
+  final String dictId;
   final bool directionDescToWord;
   final String flagPhotoPath;
 
@@ -63,6 +65,7 @@ class _PracticePageState extends State<PracticePage> {
               // Flip card stack
               FlipCardStackWidget(
                 key: ValueKey(key),
+                dictId: widget.dictId,
                 words: widget.words,
                 directionDescToWord: widget.directionDescToWord,
                 setBgGreenOpacity: setBgGreenOpacity,

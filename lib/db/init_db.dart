@@ -8,12 +8,15 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 Future<Database> initDb() async {
-  // TODO: REINIT; ADD on delete cascade
   var dbPath = await getDatabasesPath();
   String path = join(dbPath, 'local_storage.db');
+  
   Database database = await openDatabase(
     path,
     version: 1,
+    onConfigure: (Database db) async {
+      await db.execute('PRAGMA foreign_keys = ON');
+    },
     onCreate: (Database db, int version) async {
       // Creating table 'language'
       await db.execute(
@@ -51,6 +54,7 @@ Future<Database> initDb() async {
               reference: ForeignKeyReference(
                 referenceTable: TableLanguage.name,
                 referenceTableColumn: TableLanguage.pk,
+                onDeleteCascade: false,
               ),
             ),
           ],
@@ -74,6 +78,7 @@ Future<Database> initDb() async {
               reference: ForeignKeyReference(
                 referenceTable: TableDict.name,
                 referenceTableColumn: TableDict.pk,
+                onDeleteCascade: true,
               ),
             ),
             SqlTableColumn(
@@ -123,6 +128,16 @@ Future<Database> initDb() async {
               primaryKey: true,
             ),
             SqlTableColumn(
+              name: TableGrammar.colDictId,
+              type: SqlColumnType.ID,
+              notNull: true,
+              reference: ForeignKeyReference(
+                referenceTable: TableDict.name,
+                referenceTableColumn: TableDict.pk,
+                onDeleteCascade: true,
+              ),
+            ),
+            SqlTableColumn(
               name: TableGrammar.colHeader,
               type: SqlColumnType.SHORT_TEXT,
               notNull: true,
@@ -148,6 +163,7 @@ Future<Database> initDb() async {
               reference: ForeignKeyReference(
                 referenceTable: TableGrammar.name,
                 referenceTableColumn: TableGrammar.pk,
+                onDeleteCascade: true,
               ),
             ),
             SqlTableColumn(

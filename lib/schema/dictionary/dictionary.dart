@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar_submenu.dart';
-import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
 import 'package:lexivo_flutter/util/string_util.dart';
@@ -10,7 +9,7 @@ import 'package:uuid/uuid.dart';
 part 'dictionary.g.dart';
 
 @JsonSerializable()
-class Dictionary implements Deletable {
+class Dictionary {
   final String id;
   List<Word> allWords;
   List<Grammar> allGrammar;
@@ -38,7 +37,6 @@ class Dictionary implements Deletable {
     return true;
   }
 
-  @override
   void delete() {
     allDictionaries.remove(this);
   }
@@ -46,73 +44,24 @@ class Dictionary implements Deletable {
 
   // Word methods
 
-  /// Adds multiple [Word] instances to the dictionary.
-  ///
-  /// Iterates over [words] and adds each element by delegating to [addWord],
-  /// preserving the order of the provided list. If [words] is empty, no changes
-  /// are made to the dictionary.
-  ///
-  /// Parameters:
-  /// - [words]: The list of [Word] objects to add (expected to be non-null).
-  ///
-  /// Complexity: O(n) where n is the number of words in [words].
-  ///
-  /// Example:
-  /// ```dart
-  /// addWords([word1, word2, word3]);
-  /// ```
   void addWords(List<Word> words) {
     for (Word word in words) {
       addWord(word);
     }
   }
 
-  /// Trims string fields on [word] and adds it to the internal word collection.
-  ///
-  /// This method first calls `_trimStringFieldsInWord(word)` to remove leading and
-  /// trailing whitespace from any string properties of the provided [Word] object,
-  /// then appends the (mutated) instance to `allWords`.
-  ///
-  /// Parameters:
-  /// - [word]: The Word instance to sanitize and add. This method mutates the
-  ///   provided object.
-  ///
-  /// Side effects:
-  /// - The passed [word] is modified (its string fields are trimmed).
-  /// - The `allWords` collection is expanded with the provided [word].
-  void addWord(Word word) {
+  Word addWord(Word word) {
     _trimStringFieldsInWord(word);
     allWords.add(word);
+    return word;
   }
 
-  /// Trims string fields on the provided [word] and updates the in-memory
-  /// collection by replacing the existing entry that has the same `id`.
-  ///
-  /// This calls [_trimStringFieldsInWord(word)] before performing the update.
-  /// If an item in [allWords] has `id == word.id`, that item is replaced with
-  /// the provided [word] instance; otherwise [allWords] remains unchanged.
-  /// The list order is preserved.
-  ///
-  /// [word]: The Word instance whose trimmed version should replace the existing
-  /// entry. Must have a valid `id`.
-  ///
-  /// Time complexity: O(n) in the number of items in [allWords].
-  void updateWord(Word word) {
+  Word updateWord(Word word) {
     _trimStringFieldsInWord(word);
     allWords = allWords.map((w) => w.id == word.id ? word : w).toList();
+    return word;
   }
 
-  /// Removes [word] from the dictionary's collection of words.
-  ///
-  /// If [word] is present in `allWords`, it will be removed. If [word] is not
-  /// found, the collection remains unchanged. Removal uses the equality semantics
-  /// of the `Word` type (i.e., `==`), so ensure `Word` implements equality as
-  /// expected.
-  ///
-  /// Parameters:
-  /// - [word]: The `Word` instance to remove.
-  ///
-  /// This method does not return a value.
   void deleteWord(Word word) {
     allWords.remove(word);
   }
@@ -145,14 +94,18 @@ class Dictionary implements Deletable {
     }
   }
 
-  void addGrammar(Grammar grammar) {
+  Grammar addGrammar(Grammar grammar) {
     _trimStringFieldsInGrammar(grammar);
     allGrammar.add(grammar);
+    return grammar;
   }
 
-  void updateGrammar(Grammar grammar) {
+  Grammar updateGrammar(Grammar grammar) {
     _trimStringFieldsInGrammar(grammar);
-    allGrammar = allGrammar.map((g) => g.id == grammar.id ? grammar : g).toList();
+    allGrammar = allGrammar
+        .map((g) => g.id == grammar.id ? grammar : g)
+        .toList();
+    return grammar;
   }
 
   void deleteGrammar(Grammar grammar) {

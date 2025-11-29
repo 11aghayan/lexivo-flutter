@@ -6,12 +6,14 @@ class FlipCardStackWidget extends StatefulWidget {
   const FlipCardStackWidget({
     super.key,
     required this.words,
+    required this.dictId,
     required this.directionDescToWord,
     required this.setBgRedOpacity,
     required this.setBgGreenOpacity,
   });
 
   final List<Word> words;
+  final String dictId;
   final bool directionDescToWord;
   final void Function(double, bool) setBgRedOpacity;
   final void Function(double, bool) setBgGreenOpacity;
@@ -36,6 +38,7 @@ class _FlipCardStackWidgetState extends State<FlipCardStackWidget> {
             scale: topIndex <= index ? 1 : 0.5,
             child: FlipCardWidget(
               word: word,
+              dictId: widget.dictId,
               directionDescToWord: widget.directionDescToWord,
               switchCard: switchCard,
               setBgGreenOpacity: widget.setBgGreenOpacity,

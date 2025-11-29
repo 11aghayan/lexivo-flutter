@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
@@ -78,13 +79,13 @@ class _AddGrammarPageState extends State<AddGrammarPage> {
     }
   }
 
-  Future<void> addGrammar(Grammar g) async {
-    widget.dictionary.addGrammar(g);
-    // TODO: Save to db
+  Future<void> addGrammar(Grammar grammar) async {
+    final g = widget.dictionary.addGrammar(grammar);
+    await Db.getDb().grammar.insertGrammar(widget.dictionary.id, [g]);
   }
 
-  Future<void> updateGrammar(Grammar g) async {
-    widget.dictionary.updateGrammar(g);
-    // TODO: Update in db
+  Future<void> updateGrammar(Grammar grammar) async {
+    final g = widget.dictionary.updateGrammar(grammar);
+    await Db.getDb().grammar.updateGrammar(g);
   }
 }

@@ -237,6 +237,7 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                 )
               : PracticePage(
                   words: words,
+                  dictId: widget.dictionary.id,
                   directionDescToWord: directionDescToWord,
                   flagPhotoPath: widget.dictionary.language.photoPath,
                 );

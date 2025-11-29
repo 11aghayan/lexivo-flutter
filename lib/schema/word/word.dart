@@ -1,3 +1,4 @@
+import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
@@ -76,15 +77,15 @@ class Word {
   set setDesc(String? value) => desc = value?.trim();
   set setDescDetails(String? value) => descDetails = value?.trim();
 
-  void resetPracticeCountdown() {
-    // TODO: RESET in DB
+  Future<void> resetPracticeCountdown(String dictId) async {
     practiceCountdown = 7;
+    await Db.getDb().word.updateWord(this, dictId);
   }
 
-  void decrementPracticeCountdown() {
+  Future<void> decrementPracticeCountdown(String dictId) async {
     if (practiceCountdown > 0) {
-      // TODO: Decrement in DB
       practiceCountdown--;
+      await Db.getDb().word.updateWord(this, dictId);
     }
   }
 

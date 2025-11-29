@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
-import 'package:lexivo_flutter/schema/interface/deletable_interface.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 import 'package:lexivo_flutter/util/math_util.dart';
@@ -21,7 +20,7 @@ class DictionaryCardWidget extends StatefulWidget {
 
   final Dictionary dictionary;
   final Function(Dictionary, Language) updateDictionary;
-  final Function(Deletable) deleteDictionary;
+  final Function(Dictionary) deleteDictionary;
 
   @override
   State<DictionaryCardWidget> createState() => _DictionaryCardWidgetState();

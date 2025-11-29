@@ -240,7 +240,10 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
             .toList();
         widget.dictionary.addGrammarList(grammarList);
 
-        // TODO: Save to db
+        await Db.getDb().grammar.insertGrammar(
+          widget.dictionary.id,
+          grammarList,
+        );
 
         if (mounted) {
           setState(() {});

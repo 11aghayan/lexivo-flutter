@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/pages/add_grammar_page.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
@@ -74,9 +75,9 @@ class _GrammarPageState extends State<GrammarPage> {
         MediaQuery.of(context).orientation == Orientation.landscape;
     final safeArea = MediaQuery.of(context).padding;
     final titleWidgets = [
-    LangFlagTitle(photoPath: widget.dictionary.language.photoPath),
-    Text(grammar.header, textAlign: TextAlign.center),
-  ];
+      LangFlagTitle(photoPath: widget.dictionary.language.photoPath),
+      Text(grammar.header, textAlign: TextAlign.center),
+    ];
 
     return Scaffold(
       appBar: !isOrientationLandscape
@@ -102,9 +103,8 @@ class _GrammarPageState extends State<GrammarPage> {
               mainAxisSpacing: Sizes.gridViewItemsSpacing,
               crossAxisSpacing: Sizes.gridViewItemsSpacing,
               itemCount: grammar.submenuListLength,
-              itemBuilder: (context, index) => GrammarSubmenuContainer(
-                submenu: grammar.submenuList[index],
-              ),
+              itemBuilder: (context, index) =>
+                  GrammarSubmenuContainer(submenu: grammar.submenuList[index]),
             ),
           ),
         ],
@@ -114,7 +114,9 @@ class _GrammarPageState extends State<GrammarPage> {
 
   Future<void> deleteGrammar(Grammar g) async {
     widget.dictionary.deleteGrammar(g);
-    Navigator.pop(context);
-    // TODO: Delete from DB
+    await Db.getDb().grammar.deleteGrammar(grammar.id);
+    if (mounted) {
+      Navigator.pop(context);
+    }
   }
 }
