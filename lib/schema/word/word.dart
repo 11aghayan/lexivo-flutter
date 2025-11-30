@@ -79,13 +79,13 @@ class Word {
 
   Future<void> resetPracticeCountdown(String dictId) async {
     practiceCountdown = 7;
-    await Db.getDb().word.updateWord(this, dictId);
+    await Db.getDb().word.updateWord(dictId, this);
   }
 
   Future<void> decrementPracticeCountdown(String dictId) async {
     if (practiceCountdown > 0) {
       practiceCountdown--;
-      await Db.getDb().word.updateWord(this, dictId);
+      await Db.getDb().word.updateWord(dictId, this);
     }
   }
 

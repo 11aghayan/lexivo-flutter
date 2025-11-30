@@ -76,11 +76,3 @@ class WordCardWidget extends StatelessWidget {
     );
   }
 }
-
-// boxShadow: [
-//             BoxShadow(
-//               blurRadius: Sizes.shadowBlurRadius,
-//               color: ThemeColors.getThemeColors(context).listItemBg,
-//               spreadRadius: Sizes.shadowSpreadRadius,
-//             ),
-//           ],

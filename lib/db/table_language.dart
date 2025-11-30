@@ -1,8 +1,8 @@
 import 'package:lexivo_flutter/db/query_util.dart';
-import 'package:lexivo_flutter/db/table.dart';
+import 'package:lexivo_flutter/db/db_query.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 
-class TableLanguage extends Table {
+class TableLanguage extends DbQuery {
   static final name = "language";
   static final pk = "name";
   static final colNameOriginal = "nameOriginal";

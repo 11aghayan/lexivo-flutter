@@ -1,10 +1,10 @@
 import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/db/query_util.dart';
-import 'package:lexivo_flutter/db/table.dart';
+import 'package:lexivo_flutter/db/db_query.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/language/language.dart';
 
-class TableDict extends Table {
+class TableDict extends DbQuery {
   static final name = "dictionary";
   static final pk = "id";
   static final colLanguage = "language";

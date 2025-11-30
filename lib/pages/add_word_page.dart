@@ -81,12 +81,12 @@ class AddWordPage extends StatelessWidget {
 
   Future<void> addWord(Word word) async {
     final w = dictionary.addWord(word);
-    await Db.getDb().word.insertWords(w.id, [w]);
+    await Db.getDb().word.insertWords(dictionary.id, [w]);
   }
 
   Future<void> updateWord(Word word) async {
     final w = dictionary.updateWord(word);
-    await Db.getDb().word.updateWord(w, dictionary.id);
+    await Db.getDb().word.updateWord(dictionary.id, w);
   }
 
   Future<void> deleteWord(Word word) async {

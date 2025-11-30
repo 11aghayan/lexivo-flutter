@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:lexivo_flutter/db/query_util.dart';
-import 'package:lexivo_flutter/db/table.dart';
+import 'package:lexivo_flutter/db/db_query.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar_submenu.dart';
 
-class TableGrammarSubmenu extends Table {
+class TableGrammarSubmenu extends DbQuery {
   static final name = "grammarSubmenu";
   static final pk = "id";
   static final colGrammarId = "grammarId";
@@ -37,7 +37,7 @@ class TableGrammarSubmenu extends Table {
     });
   }
 
-  void updateSubmenuWithoutCommit(Table query, GrammarSubmenu submenu) {
+  void updateSubmenuWithoutCommit(DbQuery query, GrammarSubmenu submenu) {
     query.updateQuery(
       table: name,
       values: [

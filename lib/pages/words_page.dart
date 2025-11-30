@@ -4,6 +4,7 @@ import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/filter_data.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
+import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
 import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_level.dart';
@@ -116,14 +117,7 @@ class _WordsPageState extends State<WordsPage> {
                     setState(() {});
                   }
                 },
-                onDelete: () {
-                  widget.dictionary.deleteWord(word);
-                  filteredWords.remove(word);
-                  searchedWords.remove(word);
-                  if (mounted) {
-                    setState(() {});
-                  }
-                },
+                onDelete: () => onDelete(word),
               );
             },
           ),
@@ -176,9 +170,7 @@ class _WordsPageState extends State<WordsPage> {
 
   void _onFilterChanged() {
     filterWords();
-    if (mounted) {
-      setState(() {});
-    }
+    _updateState();
   }
 
   // Search methods
@@ -186,17 +178,13 @@ class _WordsPageState extends State<WordsPage> {
   void onSearchTextChange(String value) {
     textEditingController.text = value;
     search();
-    if (mounted) {
-      setState(() {});
-    }
+    _updateState();
   }
 
   void toggleSearchMode() {
     isSearchStrict = !isSearchStrict;
     search();
-    if (mounted) {
-      setState(() {});
-    }
+    _updateState();
   }
 
   void clearSearch() {
@@ -222,4 +210,17 @@ class _WordsPageState extends State<WordsPage> {
   }
 
   //
+
+  void onDelete(Word word) async {
+    widget.dictionary.deleteWord(word);
+    filteredWords.remove(word);
+    searchedWords.remove(word);
+    await Db.getDb().word.deleteWord(word.id);
+    _updateState();
+  }
+
+  void _updateState() {
+    if (!mounted) return;
+    setState(() {});
+  }
 }

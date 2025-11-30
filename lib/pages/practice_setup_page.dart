@@ -85,25 +85,26 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
             ),
 
             // Mode selector
-            BinarySelectionSwitchWidget(
-              leftWidget: Flexible(
-                child: Text(
-                  strings.practice,
-                  textAlign: TextAlign.end,
-                  style: commonTextStyle,
-                ),
-              ),
-              rightWidget: Flexible(
-                child: Text(strings.exam, style: commonTextStyle),
-              ),
-              onSwitched: () {
-                testMode = !testMode;
-                if (testMode) {
-                  wordCount = 50;
-                }
-                _updateState();
-              },
-            ),
+            // TODO: Uncomment when implemented
+            // BinarySelectionSwitchWidget(
+            //   leftWidget: Flexible(
+            //     child: Text(
+            //       strings.practice,
+            //       textAlign: TextAlign.end,
+            //       style: commonTextStyle,
+            //     ),
+            //   ),
+            //   rightWidget: Flexible(
+            //     child: Text(strings.exam, style: commonTextStyle),
+            //   ),
+            //   onSwitched: () {
+            //     testMode = !testMode;
+            //     if (testMode) {
+            //       wordCount = 50;
+            //     }
+            //     _updateState();
+            //   },
+            // ),
 
             if (!testMode)
               Column(

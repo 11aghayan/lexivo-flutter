@@ -1,11 +1,11 @@
 import 'package:lexivo_flutter/db/query_util.dart';
-import 'package:lexivo_flutter/db/table.dart';
+import 'package:lexivo_flutter/db/db_query.dart';
 import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
 
-class TableWord extends Table {
+class TableWord extends DbQuery {
   static final name = "word";
   static final pk = "id";
   static final colDictId = "dictId";
@@ -33,7 +33,7 @@ class TableWord extends Table {
     ).commit();
   }
 
-  Future<void> updateWord(Word word, String dictId) async {
+  Future<void> updateWord(String dictId, Word word) async {
     await updateQuery(
       table: name,
       values: _getInsertValuesFromWord(word, dictId),

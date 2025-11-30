@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/db/query_util.dart';
-import 'package:lexivo_flutter/db/table.dart';
+import 'package:lexivo_flutter/db/db_query.dart';
 import 'package:lexivo_flutter/db/table_grammar_submenu.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
 
-class TableGrammar extends Table {
+class TableGrammar extends DbQuery {
   static final name = "grammar";
   static final pk = "id";
   static final colHeader = "header";

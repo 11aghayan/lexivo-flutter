@@ -62,28 +62,13 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
               children: [
                 // Icon EDIT
                 CustomOutlinedButtonWidget(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      DialogRoute(
-                        context: context,
-                        builder: (context) {
-                          return AddDictDialogWidget(
-                            dictionary: dictionary,
-                            updateDictionary: updateDictionary,
-                          );
-                        },
-                      ),
-                    );
-                  },
+                  onPressed: () => onEdit(context),
                   child: Icon(Icons.edit, size: iconSize, color: iconColorDark),
                 ),
 
                 // Icon UPLOAD
                 CustomOutlinedButtonWidget(
-                  onPressed: () {
-                    // TODO: Add upload dict func
-                  },
+                  onPressed: () => onUpload(context),
                   child: Icon(
                     Icons.file_upload_outlined,
                     size: iconSize,
@@ -93,9 +78,7 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
 
                 // Icon DOWNLOAD
                 CustomOutlinedButtonWidget(
-                  onPressed: () {
-                    // TODO: Add download dict func
-                  },
+                  onPressed: () {},
                   child: Icon(
                     Icons.cloud_download_outlined,
                     size: iconSize,
@@ -106,22 +89,7 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
                 // Icon DELETE
                 IntrinsicHeight(
                   child: CustomFilledButtonWidget(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          final viewInsets = MediaQuery.of(context).viewInsets;
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: viewInsets.bottom),
-                            child: DeleteDialogWidget(
-                              onDelete: deleteDictionary,
-                              twoStepDeleteText:
-                                  "${strings.delete.toLowerCase()} ${dictionary.language.nameOriginal}",
-                            ),
-                          );
-                        },
-                      );
-                    },
+                    onPressed: () => onDelete(context, strings),
                     backgroundColor: colors.deleteBtn,
                     child: Icon(
                       Icons.delete_forever_rounded,
@@ -135,6 +103,50 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void onEdit(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AddDictDialogWidget(
+          dictionary: dictionary,
+          updateDictionary: updateDictionary,
+        );
+      },
+    );
+  }
+
+  void onUpload(context) {
+    // TODO: Show a dialog and tell the user that all data on the server will be overriden with the one on the device; if the user agrees continue;
+    // TODO: Open something where user can choose either to export or upload
+    // TODO: Wait for the response;
+    // TODO: If response ok show snackbar success
+    // TODO: Else show snackbar failure
+  }
+
+  void onDownload(context) {
+    // TODO: Show a dialog and tell the user that all data will be overriden with the one from server; if the user agrees continue;
+    // TODO: Fetch data from the server
+    // TODO: Update in memory
+    // TODO: Update in DB
+  }
+
+  void onDelete(context, strings) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        final viewInsets = MediaQuery.of(context).viewInsets;
+        return Padding(
+          padding: EdgeInsets.only(bottom: viewInsets.bottom),
+          child: DeleteDialogWidget(
+            onDelete: deleteDictionary,
+            twoStepDeleteText:
+                "${strings.delete.toLowerCase()} ${dictionary.language.nameOriginal}",
+          ),
+        );
+      },
     );
   }
 }

@@ -17,16 +17,16 @@ class QueryWhere {
     }
   }
 
-  String queryString({ bool head = true }) {
-    String where = head ? "WHERE " : "";
+  String queryString({ bool attachWhere = false }) {
+    String where = attachWhere ? "WHERE " : "";
     where = "$where $col ${operator.toString()} '$value'";
 
     if (and != null) {
-      return "$where AND ${and!.queryString(head: false)}";
+      return "$where AND ${and!.queryString()}";
     }
 
     if (or != null) {
-      return "$where OR ${or!.queryString(head: false)}";
+      return "$where OR ${or!.queryString()}";
     }
 
     return where;

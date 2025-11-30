@@ -191,13 +191,13 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         await Db.getDb().word.insertWords(widget.dictionary.id, words);
 
         if (mounted) {
-          setState(() {});
           showOperationResultSnackbar(
             context: context,
             text: strings.wordsImportedSuccessfully,
             isSuccess: true,
           );
         }
+        _updateState();
       }
     } catch (e) {
       print(e);
@@ -246,13 +246,13 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
         );
 
         if (mounted) {
-          setState(() {});
           showOperationResultSnackbar(
             context: context,
             text: strings.grammarImportedSuccessfully,
             isSuccess: true,
           );
         }
+        _updateState();
       }
     } catch (e) {
       print(e);
@@ -288,7 +288,6 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
 
   // Scroll control methods
   void setScrollUpBtnVisibility(bool isVisible) {
-    if (!mounted) return;
     isScrollUpBtnVisible = isVisible;
   }
 
@@ -329,9 +328,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
   void navigateToPage(BuildContext context, Widget page) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => page)).then(
       (_) {
-        if (mounted) {
-          setState(() {});
-        }
+        _updateState();
       },
     );
   }
@@ -340,8 +337,11 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
 
   void setPageIndex(int newPageIndex) {
     pageIndex = newPageIndex;
-    if (mounted) {
-      setState(() {});
-    }
+    _updateState();
+  }
+
+  _updateState() {
+    if (!mounted) return;
+    setState(() {});
   }
 }
