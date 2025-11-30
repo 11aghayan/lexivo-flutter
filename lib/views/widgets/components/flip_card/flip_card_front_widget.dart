@@ -30,7 +30,7 @@ class FlipCardFrontWidget extends StatelessWidget {
         spacing: Sizes.flipCardVerticalSpacing,
         children: [
           // Word info row
-          WordCardInfoContent(word: word, hideGender: true),
+          WordCardInfoContent(word: word, hideGender: directionDescToWord),
 
           // Divider 
           CustomDividerWidget(),

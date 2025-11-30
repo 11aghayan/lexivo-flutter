@@ -105,7 +105,6 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
             //     _updateState();
             //   },
             // ),
-
             if (!testMode)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -187,15 +186,18 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     var gender = genderFilters.where((f) => f.selected).map((e) => e.value);
     gender = gender.isEmpty ? genderFilters.map((e) => e.value) : gender;
 
-    return widget.dictionary.allWords.where((w) {
-        bool levelMatch = level.contains(w.level);
-        bool typeMatch = type.contains(w.type);
-        bool genderMatch = w.type != WordType.NOUN || gender.contains(w.gender);
-        return levelMatch && typeMatch && genderMatch;
-      }).toList()
-      ..shuffle()
-      ..sort((w1, w2) => w1.practiceCountdown.compareTo(w2.practiceCountdown))
-      ..take((wordCount).ceil());
+    final words = widget.dictionary.allWords.where((w) {
+      bool levelMatch = level.contains(w.level);
+      bool typeMatch = type.contains(w.type);
+      bool genderMatch = w.type != WordType.NOUN || gender.contains(w.gender);
+      return levelMatch && typeMatch && genderMatch;
+    }).toList();
+    words.shuffle();
+    words.sort(
+      (w1, w2) => w2.practiceCountdown.compareTo(w1.practiceCountdown),
+    );
+    
+    return words.take(wordCount).toList();
   }
 
   double getSliderValueFromWordCount(int wordCount) {
