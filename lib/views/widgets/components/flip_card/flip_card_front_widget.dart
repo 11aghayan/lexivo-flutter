@@ -44,6 +44,7 @@ class FlipCardFrontWidget extends StatelessWidget {
                   // Main text
                   Text(
                     mainText,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: colors.mainText,
                       fontSize: Sizes.flipCardMainTextFontSize,
@@ -58,6 +59,7 @@ class FlipCardFrontWidget extends StatelessWidget {
                   if (details != null)
                     Text(
                       details,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: colors.secondary,
                         fontSize: Sizes.flipCardDetailsTextFontSize,

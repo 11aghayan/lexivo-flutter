@@ -47,12 +47,17 @@ class FlipCardBackWidget extends StatelessWidget {
                 children: [
                   // Native
                   if (word.native != null)
-                    Text(word.native!, style: mainTextStyle),
+                    Text(
+                      word.native!,
+                      textAlign: TextAlign.center,
+                      style: mainTextStyle,
+                    ),
 
                   // Plural
                   if (word.plural != null)
                     Text(
                       word.plural!,
+                      textAlign: TextAlign.center,
                       style: word.native == null
                           ? mainTextStyle
                           : secondaryTextStyle,
@@ -60,25 +65,45 @@ class FlipCardBackWidget extends StatelessWidget {
 
                   // Native details
                   if (word.nativeDetails != null)
-                    Text(word.nativeDetails!, style: detailsTextStyle),
+                    Text(
+                      word.nativeDetails!,
+                      textAlign: TextAlign.center,
+                      style: detailsTextStyle,
+                    ),
 
                   // Past 1
                   if (word.past1 != null)
-                    Text(word.past1!, style: secondaryTextStyle),
+                    Text(
+                      word.past1!,
+                      textAlign: TextAlign.center,
+                      style: secondaryTextStyle,
+                    ),
 
                   // Past 2
                   if (word.past2 != null)
-                    Text(word.past2!, style: secondaryTextStyle),
+                    Text(
+                      word.past2!,
+                      textAlign: TextAlign.center,
+                      style: secondaryTextStyle,
+                    ),
 
                   // Divider
                   CustomDividerWidget(),
 
                   // Desc
-                  Text(word.desc!, style: mainTextStyle),
+                  Text(
+                    word.desc!,
+                    textAlign: TextAlign.center,
+                    style: mainTextStyle,
+                  ),
 
                   // Desc details
                   if (word.descDetails != null)
-                    Text(word.descDetails!, style: detailsTextStyle),
+                    Text(
+                      word.descDetails!,
+                      textAlign: TextAlign.center,
+                      style: detailsTextStyle,
+                    ),
                 ],
               ),
             ),
