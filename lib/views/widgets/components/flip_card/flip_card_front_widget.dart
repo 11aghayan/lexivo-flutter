@@ -22,7 +22,9 @@ class FlipCardFrontWidget extends StatelessWidget {
     String mainText = directionDescToWord
         ? word.desc!
         : (word.native ?? word.plural!);
-    String? details = directionDescToWord ? word.descDetails : word.nativeDetails;
+    String? details = directionDescToWord
+        ? word.descDetails
+        : word.nativeDetails;
 
     return Container(
       padding: EdgeInsets.all(Sizes.flipCardPadding),
@@ -32,7 +34,7 @@ class FlipCardFrontWidget extends StatelessWidget {
           // Word info row
           WordCardInfoContent(word: word, hideGender: directionDescToWord),
 
-          // Divider 
+          // Divider
           CustomDividerWidget(),
 
           Expanded(

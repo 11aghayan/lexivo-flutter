@@ -133,9 +133,9 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
 
                     child: Slider(
                       value: getSliderValueFromWordCount(wordCount),
-                      divisions: 3,
-                      min: 10.0,
-                      max: 100.0,
+                      divisions: 2,
+                      min: 0.0,
+                      max: 2.0,
                       label: wordCount.toString(),
                       onChanged: setWordCount,
                     ),
@@ -196,24 +196,21 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     words.sort(
       (w1, w2) => w2.practiceCountdown.compareTo(w1.practiceCountdown),
     );
-    
     return words.take(wordCount).toList();
   }
 
   double getSliderValueFromWordCount(int wordCount) {
     return switch (wordCount) {
-      10 => 10,
-      50 => 70,
-      100 => 100,
-      _ => 40,
+      10 => 0,
+      50 => 2,
+      _ => 1,
     };
   }
 
   void setWordCount(double sliderValue) {
     wordCount = switch (sliderValue) {
-      10 => 10,
-      > 50 && < 100 => 50,
-      100 => 100,
+      0 => 10,
+      2 => 50,
       _ => 25,
     };
     _updateState();
