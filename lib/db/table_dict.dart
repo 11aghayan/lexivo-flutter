@@ -17,7 +17,7 @@ class TableDict extends DbQuery {
     final dicts = List.generate(res.length, (index) {
       final row = res[index];
       final dictId = row[pk];
-      return Dictionary(dictId, Language.getLanguage(row[colLanguage]), [], []);
+      return Dictionary(dictId, Language.getLanguage(row[colLanguage]), {}, {});
     });
 
     for (var dict in dicts) {
@@ -44,9 +44,10 @@ class TableDict extends DbQuery {
     await commit();
   }
 
-  Future<void> importDict() async {
-    // TODO: 1. IF dict is in the db just add the words and grammar
-    // TODO: 2. ELSE else add dict -> REPEAT 1
+  Future<void> importDict(Dictionary dict) async {
+    await addDict(dict);
+    await Db.getDb().word.insertWords(dict.id, dict.allWords);
+    await Db.getDb().grammar.insertGrammar(dict.id, dict.allGrammar);
   }
 
   Future<bool> addDictFromCloud(Dictionary dict) async {
@@ -55,7 +56,7 @@ class TableDict extends DbQuery {
   }
 
   Future<void> replaceWithDictFromCloud(Dictionary dict) async {
-    // TODO: 
+    // TODO:
   }
 
   Future<void> updateDict(Dictionary dict) async {

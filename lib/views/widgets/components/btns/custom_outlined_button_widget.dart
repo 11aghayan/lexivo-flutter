@@ -11,6 +11,7 @@ class CustomOutlinedButtonWidget extends StatelessWidget {
     this.borderColor,
     this.borderWidth = 1,
     this.padding = 12,
+    this.foregroundColor,
   });
 
   final VoidCallback onPressed;
@@ -19,24 +20,23 @@ class CustomOutlinedButtonWidget extends StatelessWidget {
   final double borderWidth;
   final Color? borderColor;
   final double padding;
+  final Color? foregroundColor;
 
   @override
   Widget build(BuildContext context) {
     final colors = ThemeColors.getThemeColors(context);
-    
+
     return OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         padding: EdgeInsets.all(padding),
-        foregroundColor: colors.mainText,
+        foregroundColor: foregroundColor ?? colors.mainText,
         side: BorderSide(
-          color: borderColor ?? colors.outlinedBtnBorder
+          color: borderColor ?? colors.outlinedBtnBorder,
+          width: borderWidth,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
-          side: BorderSide(
-            width: borderWidth,
-          ),
         ),
       ),
       child: child,

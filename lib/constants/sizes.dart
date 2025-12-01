@@ -14,7 +14,7 @@ abstract class Sizes {
   static const double dialogInnerPadding = 20.0;
   static const double dialogVerticalSpacing = 20.0;
   static const double dialogHorizontalSpacing = 8.0;
-  static const double fontSizeDialogTitle = 18.0;
+  static const double fontSizeDialogTitle = 16.0;
   static const FontWeight fontWeightDialogTitle = FontWeight.w600;
   static const double snackbarTextSize = 16.0;
   static const double emptyPageFontSize = 18.0;

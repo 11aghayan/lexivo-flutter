@@ -40,20 +40,18 @@ class DbQuery {
     required String table,
     required List<List<InsertValue>> valuesList,
   }) {
-    if (valuesList.isEmpty) {
-      throw Exception("Empty valueList");
-    }
+    if (valuesList.isNotEmpty) {
+      batch = batch ?? _db.batch();
 
-    batch = batch ?? _db.batch();
+      for (var row in valuesList) {
+        Map<String, String?> rowMap = {};
 
-    for (var row in valuesList) {
-      Map<String, String?> rowMap = {};
+        for (var value in row) {
+          rowMap[value.col] = value.data;
+        }
 
-      for (var value in row) {
-        rowMap[value.col] = value.data;
+        batch!.insert(table, rowMap, conflictAlgorithm: ConflictAlgorithm.ignore);
       }
-
-      batch!.insert(table, rowMap);
     }
 
     return this;
@@ -64,6 +62,10 @@ class DbQuery {
     required List<InsertValue> values,
     required QueryWhere where,
   }) {
+    if (values.isEmpty) {
+      throw Exception("values is Empty");
+    }
+
     batch = batch ?? _db.batch();
 
     Map<String, String?> valuesMap = {};

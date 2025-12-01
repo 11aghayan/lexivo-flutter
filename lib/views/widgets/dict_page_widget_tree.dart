@@ -185,11 +185,11 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     try {
       List<dynamic>? data = await importJsonData();
       if (data != null) {
-        List<Word> words = data.map((e) => Word.fromJson(e)).toList();
-        widget.dictionary.addWords(words);
+        final words = data.map((e) => Word.fromJson(e)).toSet();
 
         await Db.getDb().word.insertWords(widget.dictionary.id, words);
 
+        widget.dictionary.addWords(words);
         if (mounted) {
           showOperationResultSnackbar(
             context: context,
@@ -235,9 +235,7 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     try {
       List<dynamic>? data = await importJsonData();
       if (data != null) {
-        List<Grammar> grammarList = data
-            .map((e) => Grammar.fromJson(e))
-            .toList();
+        Set<Grammar> grammarList = data.map((e) => Grammar.fromJson(e)).toSet();
         widget.dictionary.addGrammarList(grammarList);
 
         await Db.getDb().grammar.insertGrammar(

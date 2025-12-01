@@ -34,18 +34,18 @@ class WordsPage extends StatefulWidget {
 
 class _WordsPageState extends State<WordsPage> {
   TextEditingController textEditingController = TextEditingController(text: "");
-  late List<Word> filteredWords = widget.dictionary.allWords;
-  late List<Word> searchedWords = filteredWords;
+  late Set<Word> filteredWords = widget.dictionary.allWords;
+  late Set<Word> searchedWords = filteredWords;
   bool isSearchStrict = false;
-  late List<FilterData> levelFilters = getFilterDataFromEnumValues(
+  late Set<FilterData> levelFilters = getFilterDataFromEnumValues(
     WordLevel.values,
     _onFilterChanged,
   );
-  late List<FilterData> typeFilters = getFilterDataFromEnumValues(
+  late Set<FilterData> typeFilters = getFilterDataFromEnumValues(
     WordType.values,
     _onFilterChanged,
   );
-  late List<FilterData> genderFilters = getFilterDataFromEnumValues(
+  late Set<FilterData> genderFilters = getFilterDataFromEnumValues(
     WordGender.values,
     _onFilterChanged,
   );
@@ -107,7 +107,7 @@ class _WordsPageState extends State<WordsPage> {
             mainAxisSpacing: Sizes.gridViewItemsSpacing,
             childCount: searchedWords.length,
             itemBuilder: (context, index) {
-              Word word = searchedWords[index];
+              Word word = searchedWords.elementAt(index);
               return WordCardWidget(
                 dictionary: widget.dictionary,
                 word: word,
@@ -161,7 +161,7 @@ class _WordsPageState extends State<WordsPage> {
       iterable = iterable.where((w) => selectedGenders.contains(w.gender));
     }
 
-    filteredWords = iterable.toList();
+    filteredWords = iterable.toSet();
   }
 
   bool isFilterSelected(FilterData d) {
@@ -200,7 +200,7 @@ class _WordsPageState extends State<WordsPage> {
       return;
     }
 
-    List<Word> updatedSearchedWords = [];
+    Set<Word> updatedSearchedWords = {};
     for (Word word in filteredWords) {
       if (word.containsString(searchText, isSearchStrict)) {
         updatedSearchedWords.add(word);

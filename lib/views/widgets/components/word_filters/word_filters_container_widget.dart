@@ -17,9 +17,9 @@ class WordFiltersContainerWidget extends StatelessWidget {
   });
 
   final bool static;
-  final List<FilterData> levelFilters;
-  final List<FilterData> typeFilters;
-  final List<FilterData> genderFilters;
+  final Set<FilterData> levelFilters;
+  final Set<FilterData> typeFilters;
+  final Set<FilterData> genderFilters;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class WordFiltersContainerWidget extends StatelessWidget {
                   f.updateState,
                 ),
               )
-              .toList(),
+              .toSet(),
         ),
       ],
     );

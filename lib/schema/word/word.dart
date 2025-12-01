@@ -135,6 +135,14 @@ class Word {
     }
   }
 
+  @override
+  int get hashCode => id.hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return hashCode == other.hashCode;
+  }
+
   // JSON
   factory Word.fromJson(Map<String, dynamic> json) => _$WordFromJson(json);
   Map<String, dynamic> toJson() => _$WordToJson(this);

@@ -5,6 +5,7 @@ import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_outlined_button_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/dialogs/dialog_skeleton_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/text_field/custom_text_field_widget.dart';
 
 /// A confirmation dialog widget used to confirm destructive "delete" actions.
@@ -51,98 +52,71 @@ class DeleteDialogWidget extends StatefulWidget {
 
 class _DeleteDialogWidgetState extends State<DeleteDialogWidget> {
   late final colors = ThemeColors.getThemeColors(context);
+  final strings = KStrings.getStringsForLang(appLangNotifier.value);
   late bool disabled = widget.twoStepDeleteText != null;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Padding(
-        padding: const EdgeInsets.all(Sizes.mainPadding),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+    return DialogSkeletonWidget(
+      child: Column(
+        spacing: Sizes.dialogVerticalSpacing,
+        children: [
+          // Title
+          Text(
+            strings.deleteDialogTitle,
+            style: TextStyle(
+              color: colors.mainText,
+              fontSize: Sizes.fontSizeDialogTitle,
+              fontWeight: Sizes.fontWeightDialogTitle,
+            ),
+          ),
+
+          // Two factor check input
+          if (widget.twoStepDeleteText != null)
+            CustomTextFieldWidget(
+              onChanged: (value) {
+                if (value.trim() == widget.twoStepDeleteText) {
+                  disabled = false;
+                } else {
+                  disabled = true;
+                }
+                if (mounted) {
+                  setState(() {});
+                }
+              },
+              hint: strings.twoStepDelete(widget.twoStepDeleteText!),
+            ),
+
+          // Buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            spacing: Sizes.dialogHorizontalSpacing,
             children: [
-              Container(
-                width: double.maxFinite,
-                constraints: BoxConstraints(maxWidth: Sizes.widgetMaxWidth),
-                padding: EdgeInsets.all(Sizes.dialogInnerPadding),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Sizes.borderRadius_1),
-                  color: colors.canvas,
+              // Button Delete
+              CustomFilledButtonWidget(
+                onPressed: () {
+                  widget.onDelete();
+                  Navigator.pop(context);
+                },
+                disabled: disabled,
+                backgroundColor: colors.deleteBtn,
+                child: Text(
+                  strings.delete,
+                  style: TextStyle(color: colors.contrastPrimary),
                 ),
-                child: ValueListenableBuilder(
-                  valueListenable: appLangNotifier,
-                  builder: (context, appLang, child) {
-                    final strings = KStrings.getStringsForLang(appLang);
-                    return Column(
-                      spacing: Sizes.dialogVerticalSpacing,
-                      children: [
-                        // Title
-                        Text(
-                          strings.deleteDialogTitle,
-                          style: TextStyle(
-                            color: colors.mainText,
-                            fontSize: Sizes.fontSizeDialogTitle,
-                            fontWeight: Sizes.fontWeightDialogTitle,
-                          ),
-                        ),
+              ),
 
-                        // Two factor check input
-                        if (widget.twoStepDeleteText != null)
-                          CustomTextFieldWidget(
-                            onChanged: (value) {
-                              if (value.trim() == widget.twoStepDeleteText) {
-                                disabled = false;
-                              } else {
-                                disabled = true;
-                              }
-                              if (mounted) {
-                                setState(() {});
-                              }
-                            },
-                            hint: strings.twoStepDelete(
-                              widget.twoStepDeleteText!,
-                            ),
-                          ),
-
-                        // Buttons
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          spacing: Sizes.dialogHorizontalSpacing,
-                          children: [
-                            // Button Delete
-                            CustomFilledButtonWidget(
-                              onPressed: () {
-                                widget.onDelete();
-                                Navigator.pop(context);
-                              },
-                              disabled: disabled,
-                              backgroundColor: colors.deleteBtn,
-                              child: Text(
-                                strings.delete,
-                                style: TextStyle(color: colors.contrastPrimary),
-                              ),
-                            ),
-
-                            // Button Cancel
-                            CustomOutlinedButtonWidget(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text(
-                                strings.cancel,
-                                style: TextStyle(color: colors.mainText),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  },
+              // Button Cancel
+              CustomOutlinedButtonWidget(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  strings.cancel,
+                  style: TextStyle(color: colors.mainText),
                 ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

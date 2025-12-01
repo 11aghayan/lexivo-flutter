@@ -21,7 +21,7 @@ class DictionariesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dictionary.dictionariesCount > 0
         ? GridView(
-            padding: const EdgeInsets.all(Sizes.mainPadding),
+            padding: EdgeInsets.all(Sizes.mainPadding),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: Sizes.widgetMaxWidth,
               childAspectRatio: 1.8,
@@ -32,7 +32,7 @@ class DictionariesPage extends StatelessWidget {
             children: List.generate(
               Dictionary.dictionariesCount,
               (index) => DictionaryCardWidget(
-                dictionary: Dictionary.getDictionaryAt(index),
+                dictionary: Dictionary.getDictionaryAt(index)!,
                 updateDictionary: updateDictionary,
                 deleteDictionary: deleteDictionary,
               ),

@@ -11,7 +11,7 @@ class HorizontalScrollingFiltersWidget extends StatelessWidget {
   });
 
   final String header;
-  final List<FilterData> items;
+  final Set<FilterData> items;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class HorizontalScrollingFiltersWidget extends StatelessWidget {
               return SizedBox(width: 4);
             },
             itemBuilder: (context, index) {
-              FilterData item = items[index];
+              FilterData item = items.elementAt(index);
               return CustomFilledButtonWidget(
                 onPressed: item.toggleSelected,
                 backgroundColor: item.selected

@@ -40,7 +40,9 @@ class _GrammarsPageState extends State<GrammarsPage> {
                   mainAxisSpacing: spacing,
                   childCount: widget.dictionary.allGrammarCount,
                   itemBuilder: (context, index) {
-                    Grammar grammar = widget.dictionary.allGrammar[index];
+                    Grammar grammar = widget.dictionary.allGrammar.elementAt(
+                      index,
+                    );
                     return CustomFilledButtonWidget(
                       backgroundColor: colors.canvas,
                       outlined: true,

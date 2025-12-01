@@ -11,6 +11,7 @@ import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_butto
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_outlined_button_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/add_dict_dialog_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/delete_dialog_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/dialogs/dict_upload_dialog_widget.dart';
 
 class DictionaryCardBackFaceWidget extends StatelessWidget {
   const DictionaryCardBackFaceWidget({
@@ -28,7 +29,6 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = ThemeColors.getThemeColors(context);
-    final strings = KStrings.getStringsForLang(appLangNotifier.value);
     final iconColorDark = colors.dictionaryIconBtn;
 
     return Container(
@@ -68,7 +68,7 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
 
                 // Icon UPLOAD
                 CustomOutlinedButtonWidget(
-                  onPressed: () => onUpload(context),
+                  onPressed: () => showUploadDialog(context),
                   child: Icon(
                     Icons.file_upload_outlined,
                     size: iconSize,
@@ -78,7 +78,7 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
 
                 // Icon DOWNLOAD
                 CustomOutlinedButtonWidget(
-                  onPressed: () {},
+                  onPressed: () => showDownloadDialog(context),
                   child: Icon(
                     Icons.cloud_download_outlined,
                     size: iconSize,
@@ -89,7 +89,7 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
                 // Icon DELETE
                 IntrinsicHeight(
                   child: CustomFilledButtonWidget(
-                    onPressed: () => onDelete(context, strings),
+                    onPressed: () => onDelete(context),
                     backgroundColor: colors.deleteBtn,
                     child: Icon(
                       Icons.delete_forever_rounded,
@@ -118,22 +118,23 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
     );
   }
 
-  void onUpload(context) {
-    // TODO: Show a dialog and tell the user that all data on the server will be overriden with the one on the device; if the user agrees continue;
-    // TODO: Open something where user can choose either to export or upload
-    // TODO: Wait for the response;
-    // TODO: If response ok show snackbar success
-    // TODO: Else show snackbar failure
+  void showUploadDialog(context) {
+    showDialog(
+      context: context,
+      builder: (context) => DictUploadDialogWidget(dict: dictionary),
+    );
   }
 
-  void onDownload(context) {
+  void showDownloadDialog(context) {
+    // WARNING DIALOG
     // TODO: Show a dialog and tell the user that all data will be overriden with the one from server; if the user agrees continue;
     // TODO: Fetch data from the server
     // TODO: Update in memory
     // TODO: Update in DB
   }
 
-  void onDelete(context, strings) {
+  void onDelete(context) {
+    final strings = KStrings.getStringsForLang(appLangNotifier.value);
     showDialog(
       context: context,
       builder: (context) {

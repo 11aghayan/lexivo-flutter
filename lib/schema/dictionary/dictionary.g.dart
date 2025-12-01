@@ -11,10 +11,10 @@ Dictionary _$DictionaryFromJson(Map<String, dynamic> json) => Dictionary(
   Language.fromJson(json['language'] as Map<String, dynamic>),
   (json['allWords'] as List<dynamic>)
       .map((e) => Word.fromJson(e as Map<String, dynamic>))
-      .toList(),
+      .toSet(),
   (json['allGrammar'] as List<dynamic>)
       .map((e) => Grammar.fromJson(e as Map<String, dynamic>))
-      .toList(),
+      .toSet(),
 );
 
 Map<String, dynamic> _$DictionaryToJson(Dictionary instance) =>

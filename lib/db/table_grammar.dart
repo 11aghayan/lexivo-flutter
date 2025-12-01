@@ -14,11 +14,11 @@ class TableGrammar extends DbQuery {
 
   TableGrammar(super._db);
 
-  Future<void> insertGrammar(String dictId, List<Grammar> grammarList) async {
+  Future<void> insertGrammar(String dictId, Set<Grammar> grammarList) async {
     List<List<InsertValue>> submenus = [];
 
     var grammars = List.generate(grammarList.length, (index) {
-      final grammar = grammarList[index];
+      final grammar = grammarList.elementAt(index);
       for (var submenu in grammar.submenuList) {
         submenus.add([
           InsertValue(col: TableGrammarSubmenu.pk, data: submenu.id),
@@ -77,7 +77,7 @@ class TableGrammar extends DbQuery {
     ).commit();
   }
 
-  Future<List<Grammar>> getAllGrammarOfDict(String dictId) async {
+  Future<Set<Grammar>> getAllGrammarOfDict(String dictId) async {
     final res = await selectQuery(
       table: name,
       where: QueryWhere(
@@ -86,10 +86,12 @@ class TableGrammar extends DbQuery {
         value: dictId,
       ),
     );
-    final List<Grammar> grammarList = List.generate(res.length, (index) {
-      final row = res[index];
-      return Grammar(row[pk], row[colHeader], []);
-    });
+    final Set<Grammar> grammarList = Set.from(
+      List.generate(res.length, (index) {
+        final row = res[index];
+        return Grammar(row[pk], row[colHeader], []);
+      }),
+    );
 
     for (var grammar in grammarList) {
       final submenuList = await Db.getDb().grammarSubmenu

@@ -46,6 +46,10 @@ class Language {
     _italian = Language("italian", "italiano");
   }
 
+  bool equals(Language lang) {
+    return lang.name == name;
+  }
+
   // JSON
   factory Language.fromJson(Map<String, dynamic> json) =>
       _$LanguageFromJson(json);

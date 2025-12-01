@@ -11,8 +11,8 @@ part 'dictionary.g.dart';
 @JsonSerializable()
 class Dictionary {
   final String id;
-  List<Word> allWords;
-  List<Grammar> allGrammar;
+  Set<Word> allWords;
+  Set<Grammar> allGrammar;
   Language language;
 
   static List<Dictionary> allDictionaries = [];
@@ -21,8 +21,8 @@ class Dictionary {
   Dictionary(this.id, this.language, this.allWords, this.allGrammar);
   Dictionary.create(this.language)
     : id = Uuid().v4(),
-      allWords = [],
-      allGrammar = [];
+      allWords = {},
+      allGrammar = {};
 
   // Dictionary methods
 
@@ -44,7 +44,7 @@ class Dictionary {
 
   // Word methods
 
-  void addWords(List<Word> words) {
+  void addWords(Set<Word> words) {
     for (Word word in words) {
       addWord(word);
     }
@@ -58,7 +58,7 @@ class Dictionary {
 
   Word updateWord(Word word) {
     _trimStringFieldsInWord(word);
-    allWords = allWords.map((w) => w.id == word.id ? word : w).toList();
+    allWords = allWords.map((w) => w.id == word.id ? word : w).toSet();
     return word;
   }
 
@@ -88,7 +88,7 @@ class Dictionary {
   //
 
   // Grammar methods
-  void addGrammarList(List<Grammar> grammarList) {
+  void addGrammarList(Set<Grammar> grammarList) {
     for (Grammar grammar in grammarList) {
       addGrammar(grammar);
     }
@@ -104,7 +104,7 @@ class Dictionary {
     _trimStringFieldsInGrammar(grammar);
     allGrammar = allGrammar
         .map((g) => g.id == grammar.id ? grammar : g)
-        .toList();
+        .toSet();
     return grammar;
   }
 
@@ -133,8 +133,17 @@ class Dictionary {
     return true;
   }
 
-  static Dictionary getDictionaryAt(int index) {
+  static Dictionary? getDictionaryAt(int index) {
+    if (index >= allDictionaries.length) return null;
     return allDictionaries.elementAt(index);
+  }
+
+  static Dictionary? getDictionaryByLang(Language lang) {
+    try {
+      return allDictionaries.firstWhere((d) => d.language.equals(lang));
+    } catch(e) {
+      return null;
+    }
   }
 
   static List<Dictionary> getAllDictionaries() {

@@ -23,11 +23,11 @@ class TableWord extends DbQuery {
 
   TableWord(super._db);
 
-  Future<void> insertWords(String dictId, List<Word> words) async {
+  Future<void> insertWords(String dictId, Set<Word> words) async {
     await insertQuery(
       table: name,
       valuesList: List.generate(words.length, (index) {
-        final word = words[index];
+        final word = words.elementAt(index);
         return _getInsertValuesFromWord(word, dictId);
       }),
     ).commit();
@@ -56,7 +56,7 @@ class TableWord extends DbQuery {
     ).commit();
   }
 
-  Future<List<Word>> getAllWordsOfDict(String dictId) async {
+  Future<Set<Word>> getAllWordsOfDict(String dictId) async {
     final res = await selectQuery(
       table: name,
       where: QueryWhere(
@@ -66,23 +66,25 @@ class TableWord extends DbQuery {
       ),
     );
 
-    return List.generate(res.length, (index) {
-      final row = res[index];
-      return Word(
-        id: row[TableWord.pk],
-        type: WordType.fromString(row[TableWord.colType]),
-        level: WordLevel.fromString(row[TableWord.colLevel]),
-        practiceCountdown: row[TableWord.colPracticeCountdown],
-        gender: WordGender.fromString(row[TableWord.colGender]),
-        native: row[TableWord.colNative],
-        nativeDetails: row[TableWord.colNativeDetails],
-        plural: row[TableWord.colPlural],
-        past1: row[TableWord.colPast1],
-        past2: row[TableWord.colPast2],
-        desc: row[TableWord.colDesc],
-        descDetails: row[TableWord.colDescDetails],
-      );
-    });
+    return Set.from(
+      List.generate(res.length, (index) {
+        final row = res[index];
+        return Word(
+          id: row[TableWord.pk],
+          type: WordType.fromString(row[TableWord.colType]),
+          level: WordLevel.fromString(row[TableWord.colLevel]),
+          practiceCountdown: row[TableWord.colPracticeCountdown],
+          gender: WordGender.fromString(row[TableWord.colGender]),
+          native: row[TableWord.colNative],
+          nativeDetails: row[TableWord.colNativeDetails],
+          plural: row[TableWord.colPlural],
+          past1: row[TableWord.colPast1],
+          past2: row[TableWord.colPast2],
+          desc: row[TableWord.colDesc],
+          descDetails: row[TableWord.colDescDetails],
+        );
+      }),
+    );
   }
 
   List<InsertValue> _getInsertValuesFromWord(Word word, String dictId) {

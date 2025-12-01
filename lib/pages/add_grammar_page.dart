@@ -81,7 +81,7 @@ class _AddGrammarPageState extends State<AddGrammarPage> {
 
   Future<void> addGrammar(Grammar grammar) async {
     final g = widget.dictionary.addGrammar(grammar);
-    await Db.getDb().grammar.insertGrammar(widget.dictionary.id, [g]);
+    await Db.getDb().grammar.insertGrammar(widget.dictionary.id, {g});
   }
 
   Future<void> updateGrammar(Grammar grammar) async {

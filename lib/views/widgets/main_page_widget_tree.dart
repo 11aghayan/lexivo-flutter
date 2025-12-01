@@ -88,7 +88,10 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
               setPageIndex: setPageIndex,
             ),
       floatingActionButton: pageIndex == 0
-          ? MainPageFabWidget(addDictionary: addDictionary)
+          ? MainPageFabWidget(
+              addDictionary: addDictionary,
+              updateState: _updateState,
+            )
           : null,
     );
   }
