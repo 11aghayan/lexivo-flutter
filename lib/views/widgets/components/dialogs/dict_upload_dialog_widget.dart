@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
@@ -110,6 +112,7 @@ class DictUploadDialogWidget extends StatelessWidget {
 
   void export(context) async {
     final strings = KStrings.getStringsForLang(appLangNotifier.value);
+    
     try {
       bool canceled = await exportJsonData(
         data: dict,

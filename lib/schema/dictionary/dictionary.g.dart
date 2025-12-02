@@ -22,7 +22,7 @@ Dictionary _$DictionaryFromJson(Map<String, dynamic> json) => Dictionary(
 Map<String, dynamic> _$DictionaryToJson(Dictionary instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'allWords': instance.allWords,
-      'allGrammar': instance.allGrammar,
+      'allWords': instance.allWords.toList(),
+      'allGrammar': instance.allGrammar.toList(),
       'language': instance.language,
     };
