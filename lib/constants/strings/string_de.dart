@@ -1,6 +1,7 @@
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
+import 'package:lexivo_flutter/util/string_util.dart';
 
 class KStrings_DE extends KStrings {
   @override
@@ -131,7 +132,8 @@ class KStrings_DE extends KStrings {
   @override
   final String grammarImportedSuccessfully = "Grammatik erfolgreich importiert";
   @override
-  final String grammarCouldNotBeImported = "Grammatik konnte nicht importiert werden";
+  final String grammarCouldNotBeImported =
+      "Grammatik konnte nicht importiert werden";
   @override
   final String startPracticeBtnText = "Los";
   @override
@@ -143,11 +145,45 @@ class KStrings_DE extends KStrings {
   @override
   final String exam = "Prüfung";
   @override
-  final String noWordsMatchingTheFilters = "Keine Wörter, die den Filtern entsprechen.";
+  final String noWordsMatchingTheFilters =
+      "Keine Wörter, die den Filtern entsprechen.";
   @override
   final String startAgain = "Nochmal beginnen";
   @override
   final String wordsCount = "Anzahl der Wörter";
+  @override
+  final String dictionaryCouldNotBeImported =
+      "Wörterbuch konnte nicht importiert werden";
+  @override
+  final String dictionaryImportedSuccessfully =
+      "Wörterbuch erfolgreich importiert";
+  @override
+  final String dictionaryCouldNotBeExported =
+      "Wörterbuch konnte nicht exportiert werden";
+  @override
+  final String dictionaryExportedSuccessfully =
+      "Wörterbuch erfolgreich exportiert";
+  @override
+  final String dictionary = "Wörterbuch";
+  @override
+  final String dictionaryUploadWarning =
+      "Die Wörterbuchdaten auf dem Server werden mit den hochgeladenen Daten überschrieben";
+  @override
+  final String dictionaryDownloadWarning =
+      "Die Wörterbuchdaten auf dem Gerät werden mit den heruntergeladenen Daten überschrieben";
+  @override
+  final String dictUploadOptionQuestion =
+      "Möchten Sie das Wörterbuch als JSON-Datei exportieren oder in die Cloud hochladen?";
+  @override
+  final String exportAsJson = "Als JSON exportieren";
+  @override
+  final String uploadToCloud = "In die Cloud hochladen";
+  @override
+  final String somethingWentWrong = "Etwas ist schiefgelaufen.";
+  @override
+  final String textContinue = "Fortfahren";
+  @override
+  final String warning = "Warnung";
 
   @override
   String twoStepDelete(String text) {
@@ -177,5 +213,10 @@ class KStrings_DE extends KStrings {
       WordGender.PLURAL => "plural",
       _ => "kein Geschlecht",
     };
+  }
+
+  @override
+  String duplicateDictImportWarningText(String dictLang) {
+    return "Sie haben bereits das Wörterbuch \"${Strings.toCapitalized(dictLang)}\". Wenn Sie auf \"Fortfahren\" klicken, werden die fehlenden Wörter und Grammatik des importierten Wörterbuchs dem bestehenden Wörterbuch hinzugefügt";
   }
 }

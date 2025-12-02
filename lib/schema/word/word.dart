@@ -3,6 +3,7 @@ import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_level.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lexivo_flutter/util/json_util.dart';
 import 'package:uuid/uuid.dart';
 
 part 'word.g.dart';
@@ -38,8 +39,8 @@ class Word {
     required this.descDetails,
   });
 
-  Word.create()
-    : id = Uuid().v4(),
+  Word.create(String dictId)
+    : id = createJoinedId(Uuid().v4(), dictId),
       type = WordType.NOUN,
       level = WordLevel.A1,
       practiceCountdown = 0,
@@ -144,6 +145,7 @@ class Word {
   }
 
   // JSON
-  factory Word.fromJson(Map<String, dynamic> json) => _$WordFromJson(json);
+  factory Word.fromJson(Map<String, dynamic> json, String dictId) =>
+      _$WordFromJson(json, dictId);
   Map<String, dynamic> toJson() => _$WordToJson(this);
 }

@@ -10,11 +10,8 @@ import 'package:lexivo_flutter/views/widgets/components/dialogs/dialog_skeleton_
 class WarningDialogWidget extends StatefulWidget {
   const WarningDialogWidget({
     super.key,
-    required this.onConfirm,
     required this.title,
   });
-
-  final Function() onConfirm;
   final String title;
 
   @override
@@ -24,8 +21,6 @@ class WarningDialogWidget extends StatefulWidget {
 class _WarningDialogWidgetState extends State<WarningDialogWidget> {
   late final colors = ThemeColors.getThemeColors(context);
   final strings = KStrings.getStringsForLang(appLangNotifier.value);
-  // TODO: Update color
-  final warningIcon = Icon(Icons.warning_rounded, color: Colors.deepOrange);
 
   @override
   Widget build(BuildContext context) {
@@ -36,27 +31,27 @@ class _WarningDialogWidgetState extends State<WarningDialogWidget> {
           // Title
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 8,
+            spacing: 16,
             children: [
-              warningIcon,
+              // Warning Icon
+              Icon(Icons.warning_rounded, color: colors.accent),
 
-              // Title
+              // Text: WARNING
               Text(
-                // TODO: Update text
-                "WARNING",
+                strings.warning,
                 style: TextStyle(
                   color: colors.mainText,
                   fontSize: 22,
                   fontWeight: Sizes.fontWeightDialogTitle,
                 ),
               ),
-
-              warningIcon,
             ],
           ),
 
+          // Warning text
           Text(
             widget.title,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: colors.mainText,
               fontSize: Sizes.fontSizeDialogTitle,
@@ -69,24 +64,21 @@ class _WarningDialogWidgetState extends State<WarningDialogWidget> {
             mainAxisAlignment: MainAxisAlignment.end,
             spacing: Sizes.dialogHorizontalSpacing,
             children: [
-              // Button Confirm
+              // Button Continue
               CustomFilledButtonWidget(
                 onPressed: () {
-                  widget.onConfirm();
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
                 },
-                // TODO: Update Color
-                backgroundColor: Colors.deepOrange,
+                backgroundColor: colors.accent,
                 child: Text(
-                  // TODO: Update text
-                  "CONFIRM",
+                  strings.textContinue,
                   style: TextStyle(color: colors.contrastPrimary),
                 ),
               ),
 
               // Button Cancel
               CustomOutlinedButtonWidget(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pop(context, false),
                 child: Text(
                   strings.cancel,
                   style: TextStyle(color: colors.mainText),

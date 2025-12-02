@@ -72,6 +72,7 @@ class AddWordPage extends StatelessWidget {
             child: AddWordBody(
               word: word,
               saveInDictionary: word == null ? addWord : updateWord,
+              dictId: dictionary.id,
             ),
           ),
         ],

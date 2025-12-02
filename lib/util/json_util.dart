@@ -4,8 +4,6 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 
-
-
 /// Exports the given [data] as a JSON file by opening the platform save-file dialog.
 ///
 /// The [data] value is JSON-encoded (via `jsonEncode`) and UTF-8 encoded to bytes
@@ -29,23 +27,23 @@ Future<bool> exportJsonData({
 
   String? response = await FilePicker.platform.saveFile(
     bytes: dataBytes,
-    fileName: "$filename.json"
+    fileName: "$filename.json",
   );
 
   return response == null;
 }
 
 /// Prompts the user to select a JSON file and imports its contents.
-/// 
+///
 /// Uses FilePicker to allow user selection of a single .json file.
 /// Reads the selected file's contents and decodes it from JSON format.
-/// 
+///
 /// Returns:
 /// - The decoded JSON data as a dynamic object if successful
 /// - null if:
 ///   - User cancels file selection
 ///   - Selected file path is null
-/// 
+///
 /// Throws:
 /// - FormatException if the file contents are not valid JSON
 /// - FileSystemException if there are issues reading the file
@@ -54,7 +52,7 @@ Future<dynamic> importJsonData() async {
   var result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
     allowMultiple: false,
-    allowedExtensions: ["json"]
+    allowedExtensions: ["json"],
   );
   if (result == null) return null;
 
@@ -65,4 +63,36 @@ Future<dynamic> importJsonData() async {
   String stringData = await file.readAsString();
 
   return jsonDecode(stringData);
+}
+
+/// Extracts the self ID from a joined ID string.
+///
+/// Takes a [joinedId] in the format "selfId@otherId" and returns only the
+/// self ID portion (the part before the "@" symbol).
+///
+/// Example:
+/// ```dart
+/// extractSelfIdFromJoinedId("user123@server456"); // Returns "user123"
+/// ```
+///
+/// Parameters:
+///   - [joinedId]: A string containing a self ID and other ID separated by "@"
+///
+/// Returns:
+///   The self ID portion of the joined ID string.
+String extractSelfIdFromJoinedId(String joinedId) {
+  return joinedId.split("@")[0];
+}
+
+
+
+
+/// Creates a joined identifier by concatenating [selfId] and [otherId] with an '@' separator.
+/// 
+/// Example:
+/// ```dart
+/// createJoinedId('user123', 'group456'); // returns 'user123@group456'
+/// ```
+String createJoinedId(String selfId, String otherId) {
+  return "$selfId@$otherId";
 }

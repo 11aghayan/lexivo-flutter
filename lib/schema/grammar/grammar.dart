@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar_submenu.dart';
+import 'package:lexivo_flutter/util/json_util.dart';
 import 'package:uuid/uuid.dart';
 
 part 'grammar.g.dart';
@@ -12,10 +13,12 @@ class Grammar {
 
   Grammar(this.id, this.header, this.submenuList);
 
-  Grammar.create()
-    : id = Uuid().v4(),
-      header = "",
-      submenuList = [GrammarSubmenu.create()];
+  Grammar.create(String dictId)
+    : header = "",
+      id = createJoinedId(Uuid().v4(), dictId),
+      submenuList = [] {
+    submenuList = [GrammarSubmenu.create(id)];
+  }
 
   Grammar.copy(Grammar g)
     : id = g.id,
@@ -28,7 +31,7 @@ class Grammar {
       this.submenuList = submenuList;
 
   void addSubmenu() {
-    submenuList.add(GrammarSubmenu.create());
+    submenuList.add(GrammarSubmenu.create(id));
   }
 
   void deleteSubmenu(GrammarSubmenu submenu) {
@@ -36,7 +39,7 @@ class Grammar {
   }
 
   // JSON
-  factory Grammar.fromJson(Map<String, dynamic> json) =>
-      _$GrammarFromJson(json);
+  factory Grammar.fromJson(Map<String, dynamic> json, String dictId) =>
+      _$GrammarFromJson(json, dictId);
   Map<String, dynamic> toJson() => _$GrammarToJson(this);
 }

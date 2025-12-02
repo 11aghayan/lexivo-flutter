@@ -99,6 +99,7 @@ class _WordsPageState extends State<WordsPage> {
         ),
 
         // Words grid view
+        if (searchedWords.isNotEmpty)
         SliverPadding(
           padding: EdgeInsets.all(Sizes.mainPadding),
           sliver: SliverMasonryGrid.extent(

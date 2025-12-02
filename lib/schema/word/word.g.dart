@@ -6,8 +6,8 @@ part of 'word.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Word _$WordFromJson(Map<String, dynamic> json) => Word(
-  id: json['id'] as String,
+Word _$WordFromJson(Map<String, dynamic> json, String dictId) => Word(
+  id: createJoinedId(json['id'] as String, dictId),
   type: $enumDecode(_$WordTypeEnumMap, json['type']),
   level: $enumDecode(_$WordLevelEnumMap, json['level']),
   practiceCountdown: (json['practiceCountdown'] as num).toInt(),
@@ -22,7 +22,7 @@ Word _$WordFromJson(Map<String, dynamic> json) => Word(
 );
 
 Map<String, dynamic> _$WordToJson(Word instance) => <String, dynamic>{
-  'id': instance.id,
+  'id': extractSelfIdFromJoinedId(instance.id),
   'type': _$WordTypeEnumMap[instance.type]!,
   'level': _$WordLevelEnumMap[instance.level]!,
   'practiceCountdown': instance.practiceCountdown,

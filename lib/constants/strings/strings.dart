@@ -78,7 +78,19 @@ abstract class KStrings {
   abstract final String noWordsMatchingTheFilters;
   abstract final String startAgain;
   abstract final String wordsCount;
-  
+  abstract final String dictionaryCouldNotBeImported;
+  abstract final String dictionaryImportedSuccessfully;
+  abstract final String dictionaryCouldNotBeExported;
+  abstract final String dictionaryExportedSuccessfully;
+  abstract final String dictionary;
+  abstract final String dictionaryUploadWarning;
+  abstract final String dictionaryDownloadWarning;
+  abstract final String uploadToCloud;
+  abstract final String exportAsJson;
+  abstract final String dictUploadOptionQuestion;
+  abstract final String somethingWentWrong;
+  abstract final String textContinue;
+  abstract final String warning;
 
   static KStrings getStringsForLang(AppLang appLang) {
     return switch (appLang) {
@@ -115,4 +127,6 @@ abstract class KStrings {
   String wordGenderToString(WordGender wordGender);
 
   String twoStepDelete(String text);
+
+  String duplicateDictImportWarningText(String dictLang);
 }

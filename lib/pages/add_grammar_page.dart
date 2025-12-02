@@ -23,7 +23,7 @@ class AddGrammarPage extends StatefulWidget {
 
 class _AddGrammarPageState extends State<AddGrammarPage> {
   late final tempGrammar = widget.grammar == null
-      ? Grammar.create()
+      ? Grammar.create(widget.dictionary.id)
       : Grammar.copy(widget.grammar!);
 
   late final strings = KStrings.getStringsForLang(appLangNotifier.value);

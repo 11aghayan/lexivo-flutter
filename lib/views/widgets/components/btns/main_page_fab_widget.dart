@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lexivo_flutter/constants/sizes.dart';
+import 'package:lexivo_flutter/constants/strings/strings.dart';
+import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/db/db.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
-import 'package:lexivo_flutter/util/export_import_json.dart';
+import 'package:lexivo_flutter/util/json_util.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/add_dict_dialog_widget.dart';
@@ -55,6 +57,8 @@ class MainPageFabWidget extends StatelessWidget {
   }
 
   void importDict(context) async {
+    final strings = KStrings.getStringsForLang(appLangNotifier.value);
+
     try {
       final dictMap = await importJsonData();
 
@@ -66,61 +70,60 @@ class MainPageFabWidget extends StatelessWidget {
       if (added) {
         await Db.getDb().dict.importDict(dict);
         updateState();
+        showOperationResultSnackbar(
+          context: context,
+          text: strings.dictionaryImportedSuccessfully,
+          isSuccess: true,
+        );
         return;
       }
-
-      // TODO: Update text
       showDialog(
         context: context,
-        builder: (context) =>
-            // TODO: Update text
-            WarningDialogWidget(
-              onConfirm: () async {
-                onDuplicateDictImportConfirm(context, dict);
-              },
-              title: "HASJFAHJ",
-            ),
-      );
+        builder: (context) => WarningDialogWidget(
+          title: strings.duplicateDictImportWarningText(
+            dict.language.nameOriginal,
+          ),
+        ),
+      ).then((confirmed) async {
+        if (confirmed) {
+          await duplicateDictImportConfirm(context, dict);
+        }
+      });
     } catch (e) {
       print(e);
-      // TODO: Update text
       showOperationResultSnackbar(
         context: context,
-        text: "FAILURE",
+        text: strings.dictionaryCouldNotBeImported,
         isSuccess: false,
       );
     }
   }
 
-  void onDuplicateDictImportConfirm(context, Dictionary dict) async {
+  Future<void> duplicateDictImportConfirm(context, Dictionary dict) async {
+    final strings = KStrings.getStringsForLang(appLangNotifier.value);
+
     final db = Db.getDb();
     try {
       final dictionaryInMemory = Dictionary.getDictionaryByLang(dict.language)!;
       await db.word.insertWords(dictionaryInMemory.id, dict.allWords);
-      await db.grammar.insertGrammar(
-        dictionaryInMemory.id,
-        dict.allGrammar,
-      );
-      final words = await db.word.getAllWordsOfDict(dictionaryInMemory.id);
-      final grammar = await db.grammar.getAllGrammarOfDict(dictionaryInMemory.id);
+      await db.grammar.insertGrammar(dictionaryInMemory.id, dict.allGrammar);
       dictionaryInMemory.addWords(dict.allWords);
       dictionaryInMemory.addGrammarList(dict.allGrammar);
       if (context.mounted) {
-        // TODO: Update text
         showOperationResultSnackbar(
           context: context,
-          text: "SUCCESS",
+          text:
+              "${strings.wordsImportedSuccessfully}\n${strings.grammarImportedSuccessfully}",
           isSuccess: true,
         );
       }
       updateState();
     } catch (e) {
-      print("ERROR");
-      // TODO: Update text
+      print(e);
       if (context.mounted) {
         showOperationResultSnackbar(
           context: context,
-          text: "Something went wrong",
+          text: strings.somethingWentWrong,
           isSuccess: false,
         );
       }

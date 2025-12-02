@@ -18,27 +18,25 @@ class AddWordBody extends StatefulWidget {
     super.key,
     required this.word,
     required this.saveInDictionary,
+    required this.dictId,
   });
 
   final Word? word;
   final Future<void> Function(Word) saveInDictionary;
+  final String dictId;
 
   @override
   State<AddWordBody> createState() => _AddWordBodyState();
 }
 
 class _AddWordBodyState extends State<AddWordBody> {
-  late Word tempWord;
+  late Word tempWord = widget.word != null
+      ? Word.copy(widget.word!)
+      : Word.create(widget.dictId);
   final strings = KStrings.getStringsForLang(appLangNotifier.value);
   bool emptyNativeError = false;
   bool emptyPluralError = false;
   bool emptyDescError = false;
-
-  @override
-  void initState() {
-    tempWord = widget.word != null ? Word.copy(widget.word!) : Word.create();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

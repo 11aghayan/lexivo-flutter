@@ -12,6 +12,7 @@ import 'package:lexivo_flutter/views/widgets/components/btns/custom_outlined_but
 import 'package:lexivo_flutter/views/widgets/components/dialogs/add_dict_dialog_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/delete_dialog_widget.dart';
 import 'package:lexivo_flutter/views/widgets/components/dialogs/dict_upload_dialog_widget.dart';
+import 'package:lexivo_flutter/views/widgets/components/dialogs/warning_dialog_widget.dart';
 
 class DictionaryCardBackFaceWidget extends StatelessWidget {
   const DictionaryCardBackFaceWidget({
@@ -126,8 +127,22 @@ class DictionaryCardBackFaceWidget extends StatelessWidget {
   }
 
   void showDownloadDialog(context) {
-    // WARNING DIALOG
-    // TODO: Show a dialog and tell the user that all data will be overriden with the one from server; if the user agrees continue;
+    showDialog(
+      context: context,
+      builder: (context) => WarningDialogWidget(
+        title: KStrings.getStringsForLang(
+          appLangNotifier.value,
+        ).dictionaryDownloadWarning,
+      ),
+    ).then((confirmed) async {
+      if (confirmed) {
+        await download();
+      }
+    });
+  }
+
+  Future<void> download() async {
+    // TODO: Show a loader
     // TODO: Fetch data from the server
     // TODO: Update in memory
     // TODO: Update in DB

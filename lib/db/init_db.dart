@@ -10,7 +10,7 @@ import 'package:path/path.dart';
 Future<Database> initDb() async {
   var dbPath = await getDatabasesPath();
   String path = join(dbPath, 'local_storage.db');
-  
+
   Database database = await openDatabase(
     path,
     version: 1,

@@ -3,7 +3,7 @@ import 'package:lexivo_flutter/constants/sizes.dart';
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/data/notifiers.dart';
 import 'package:lexivo_flutter/schema/dictionary/dictionary.dart';
-import 'package:lexivo_flutter/util/export_import_json.dart';
+import 'package:lexivo_flutter/util/json_util.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/btns/custom_filled_button_widget.dart';
@@ -27,8 +27,7 @@ class DictUploadDialogWidget extends StatelessWidget {
         children: [
           // Title
           Text(
-            // TODO: Update text
-            "Do you want to export the dictionary as a JSON file or upload to the cloud?",
+            strings.dictUploadOptionQuestion,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: Sizes.fontSizeDialogTitle,
@@ -48,8 +47,7 @@ class DictUploadDialogWidget extends StatelessWidget {
                 child: CustomFilledButtonWidget(
                   onPressed: () => export(context),
                   foregroundColor: colors.contrastPrimary,
-                  // TODO: Update text
-                  child: Text("Export as JSON"),
+                  child: Text(strings.exportAsJson),
                 ),
               ),
 
@@ -59,8 +57,7 @@ class DictUploadDialogWidget extends StatelessWidget {
                   onPressed: () => onUpload(context),
                   borderColor: colors.primary,
                   foregroundColor: colors.primary,
-                  // TODO: Update text
-                  child: Text("Upload to cloud"),
+                  child: Text(strings.uploadToCloud),
                 ),
               ),
             ],
@@ -88,17 +85,20 @@ class DictUploadDialogWidget extends StatelessWidget {
   void onUpload(context) {
     showDialog(
       context: context,
-      builder: (context) =>
-          // TODO: Update text
-          WarningDialogWidget(
-            onConfirm: () => upload(context),
-            title: "UPLOAD WARNING",
-          ),
-    );
+      builder: (context) => WarningDialogWidget(
+        title: KStrings.getStringsForLang(
+          appLangNotifier.value,
+        ).dictionaryUploadWarning,
+      ),
+    ).then((confirmed) async {
+      if (confirmed) {
+        await upload(context);
+      }
+    });
   }
 
-  upload(context) async {
-    // TODO: Show a dialog and tell the user that all data on the server will be overriden with the one on the device; if the user agrees continue;
+  Future<void> upload(context) async {
+    // TODO: Show Loader
     // TODO: Wait for the response;
     // TODO: If response ok show snackbar success
     // TODO: Else show snackbar failure
@@ -110,26 +110,25 @@ class DictUploadDialogWidget extends StatelessWidget {
 
   void export(context) async {
     final strings = KStrings.getStringsForLang(appLangNotifier.value);
-    // TODO: Update text
     try {
       bool canceled = await exportJsonData(
         data: dict,
-        filename: "dict_${dict.language.nameOriginal}",
+        filename:
+            "${strings.dictionary.toLowerCase()}_${dict.language.nameOriginal}_${KStrings.appName.toLowerCase()}",
       );
       if (!canceled) {
-        // TODO: Update text
         showOperationResultSnackbar(
           context: context,
-          text: "SUCCESS",
+          text: strings.dictionaryExportedSuccessfully,
           isSuccess: true,
         );
       }
     } catch (e) {
       print(e);
-      // TODO: Update text
+
       showOperationResultSnackbar(
         context: context,
-        text: "FAILURE",
+        text: strings.dictionaryCouldNotBeExported,
         isSuccess: false,
       );
     } finally {

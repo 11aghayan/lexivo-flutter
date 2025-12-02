@@ -6,16 +6,19 @@ part of 'grammar.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Grammar _$GrammarFromJson(Map<String, dynamic> json) => Grammar(
-  json['id'] as String,
-  json['header'] as String,
-  (json['submenuList'] as List<dynamic>)
-      .map((e) => GrammarSubmenu.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
+Grammar _$GrammarFromJson(Map<String, dynamic> json, String dictId) {
+  String id = createJoinedId(json['id'] as String, dictId);
+  return Grammar(
+    id,
+    json['header'] as String,
+    (json['submenuList'] as List<dynamic>)
+        .map((e) => GrammarSubmenu.fromJson(e as Map<String, dynamic>, id))
+        .toList(),
+  );
+}
 
 Map<String, dynamic> _$GrammarToJson(Grammar instance) => <String, dynamic>{
-  'id': instance.id,
+  'id': extractSelfIdFromJoinedId(instance.id),
   'header': instance.header,
   'submenuList': instance.submenuList,
 };

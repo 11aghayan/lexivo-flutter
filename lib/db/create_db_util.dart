@@ -64,7 +64,7 @@ enum SqlColumnType {
     return switch (this) {
       ID => "VARCHAR(50)",
       INT => "INT",
-      SHORT_TEXT => "VARCHAR(100)",
+      SHORT_TEXT => "VARCHAR(200)",
       _ => "TEXT",
     };
   }

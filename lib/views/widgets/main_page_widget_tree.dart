@@ -79,14 +79,15 @@ class _MainPageWidgetTreeState extends State<MainPageWidgetTree> {
             ),
         ],
       ),
-      bottomNavigationBar: isOrientationLandscape
+      // TODO: Uncomment when profile page is implemented
+      bottomNavigationBar: null, /* isOrientationLandscape
           ? null
           : NavbarWidget(
               pages: pages,
               appLang: widget.appLang,
               selectedPageIndex: pageIndex,
               setPageIndex: setPageIndex,
-            ),
+            ), */
       floatingActionButton: pageIndex == 0
           ? MainPageFabWidget(
               addDictionary: addDictionary,

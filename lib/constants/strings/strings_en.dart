@@ -1,6 +1,7 @@
 import 'package:lexivo_flutter/constants/strings/strings.dart';
 import 'package:lexivo_flutter/schema/enums/word_gender.dart';
 import 'package:lexivo_flutter/schema/enums/word_type.dart';
+import 'package:lexivo_flutter/util/string_util.dart';
 
 class KStrings_EN extends KStrings {
   @override
@@ -142,6 +143,39 @@ class KStrings_EN extends KStrings {
   final String startAgain = "Start again";
   @override
   final String wordsCount = "Words count";
+  @override
+  final String dictionaryCouldNotBeImported =
+      "Dictionary could not be imported";
+  @override
+  final String dictionaryImportedSuccessfully =
+      "Dictionary imported successfully";
+  @override
+  final String dictionaryCouldNotBeExported =
+      "Dictionary could not be exported";
+  @override
+  final String dictionaryExportedSuccessfully =
+      "Dictionary exported successfully";
+  @override
+  final String dictionary = "dictionary";
+  @override
+  final String dictionaryUploadWarning =
+      "The dictionary data on the server will be overwritten with the uploaded data";
+  @override
+  final String dictionaryDownloadWarning =
+      "The dictionary data on the device will be overwritten with the downloaded data";
+  @override
+  final String dictUploadOptionQuestion =
+      "Do you want to export the dictionary as a JSON file or upload to the cloud?";
+  @override
+  final String exportAsJson = "Export as JSON";
+  @override
+  final String uploadToCloud = "Upload to cloud";
+  @override
+  final String somethingWentWrong = "Something went wrong";
+  @override
+  final String textContinue = "Continue";
+  @override
+  final String warning = "Warning";
 
   @override
   String twoStepDelete(String text) {
@@ -164,5 +198,10 @@ class KStrings_EN extends KStrings {
   @override
   String wordGenderToString(WordGender wordGender) {
     return wordGender.name.toString().split("_").join(" ").toLowerCase();
+  }
+
+  @override
+  String duplicateDictImportWarningText(String dictLang) {
+    return "You already have the dictionary \"${Strings.toCapitalized(dictLang)}\". If you press \"Continue\" the missing words and grammar of the imported dictionary will be added to the existing one";
   }
 }

@@ -14,7 +14,7 @@ import 'package:lexivo_flutter/pages/grammars_page.dart';
 import 'package:lexivo_flutter/pages/words_page.dart';
 import 'package:lexivo_flutter/schema/grammar/grammar.dart';
 import 'package:lexivo_flutter/schema/word/word.dart';
-import 'package:lexivo_flutter/util/export_import_json.dart';
+import 'package:lexivo_flutter/util/json_util.dart';
 import 'package:lexivo_flutter/util/snackbar_util.dart';
 import 'package:lexivo_flutter/views/theme/theme_colors.dart';
 import 'package:lexivo_flutter/views/widgets/components/app_bars/app_bar_widget.dart';
@@ -185,7 +185,9 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     try {
       List<dynamic>? data = await importJsonData();
       if (data != null) {
-        final words = data.map((e) => Word.fromJson(e)).toSet();
+        final words = data
+            .map((e) => Word.fromJson(e, widget.dictionary.id))
+            .toSet();
 
         await Db.getDb().word.insertWords(widget.dictionary.id, words);
 
@@ -218,9 +220,9 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     }
 
     bool canceled = await exportJsonData(
-      data: widget.dictionary.allWords,
+      data: widget.dictionary.allWords.toList(),
       filename:
-          "${strings.words.toLowerCase()}_lexivo_${widget.dictionary.language.name}",
+          "${strings.words.toLowerCase()}_${KStrings.appName.toLowerCase()}_${widget.dictionary.language.name}",
     );
     if (!canceled && mounted) {
       showOperationResultSnackbar(
@@ -235,7 +237,9 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     try {
       List<dynamic>? data = await importJsonData();
       if (data != null) {
-        Set<Grammar> grammarList = data.map((e) => Grammar.fromJson(e)).toSet();
+        Set<Grammar> grammarList = data
+            .map((e) => Grammar.fromJson(e, widget.dictionary.id))
+            .toSet();
         widget.dictionary.addGrammarList(grammarList);
 
         await Db.getDb().grammar.insertGrammar(
@@ -271,9 +275,9 @@ class _DictPageWidgetTreeState extends State<DictPageWidgetTree> {
     }
 
     bool canceled = await exportJsonData(
-      data: widget.dictionary.allGrammar,
+      data: widget.dictionary.allGrammar.toList(),
       filename:
-          "${strings.grammar.toLowerCase()}_lexivo_${widget.dictionary.language.name}",
+          "${strings.grammar.toLowerCase()}_${KStrings.appName.toLowerCase()}_${widget.dictionary.language.name}",
     );
     if (!canceled && mounted) {
       showOperationResultSnackbar(
