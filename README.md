@@ -2,11 +2,11 @@
 
 **Personal Language Dictionary & Practice App (Flutter)**
 
-## 🚀 About Lexivo
+## About Lexivo
 
 Lexivo is a mobile app that allows users to create and manage custom language dictionaries. Users can add words or grammar rules, then practice and track their learning using interactive flashcards. The app is designed to make language learning structured, flexible, and adaptive.  
 
-## 🧰 Features
+## Features
 
 - **Custom Dictionaries:** Create dictionaries for any language.  
 - **Add Words & Grammar Rules:** Store translation / description, word type, past forms, level, and gender information.  
@@ -19,7 +19,7 @@ Lexivo is a mobile app that allows users to create and manage custom language di
 - **Test Mode (Coming Soon):** Evaluate knowledge with structured tests.
 
 
-## 📥 Getting Started
+## Getting Started
 
 ### Prerequisites
 
